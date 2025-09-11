@@ -1,0 +1,55 @@
+{
+    "version": 1,
+    "name": "Player_IA",
+    "maps": [
+        {
+            "name": "Battle",
+            "id": "197da2cd-97ca-4bb8-a244-8810c84a2e14",
+            "actions": [
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "317c8652-d7e5-469d-abbd-99c3ba2ef004",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Block",
+                    "type": "Button",
+                    "id": "b69766f7-fc51-4f88-ba13-fe248e9c10a1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "aa471ed1-3996-4eec-b901-af7ae2a1fcc7",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b25b450c-058f-4ea3-8a63-189de3ddc220",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Block",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
