@@ -57,31 +57,35 @@ public class BattleLogic : MonoBehaviour
 
     private void Update()
     {
-        // Reduce cooldown timer if active.
-        if (cooldownTimer > 0)
-        {
-            cooldownTimer -= Time.deltaTime;
-        }
-
-        // If block is held, count and check for max hold time.
-        // If max hold time is reached, auto-release the block.
         if (isBlocking)
         {
             currHoldTimer += Time.deltaTime;
-            if (currHoldTimer >= maxHoldTimer)
-            {
-                EndBlock(true);
-            }
-        }
-        
-        // Simple cooldown update in real time.
-        if (cooldownTimer > 0)
-        {
-            cooldownText.text = $"Cooldown: {cooldownTimer:F1}s";
+            // Energy drains when holding block.
+            currEnergy -= energyDrain * Time.deltaTime;
+            // If energy reaches 0, block ends and locked until energy is fully recharged.
+            if (currEnergy < 0) currEnergy = 0;
+            if (currEnergy == 0) noEnergy = true;
         }
         else
         {
-            cooldownText.text = "Block Ready!";
+            // If out of energy, it regens at half the normal rate.
+            if (noEnergy)
+            {
+                currEnergy += (energyRegen * 0.5f) * Time.deltaTime;
+
+                if (currEnergy >= maxEnergy)
+                {
+                    currEnergy = maxEnergy;
+                    noEnergy = false;
+                    Debug.Log("Energy fully recharged.");
+                }
+            }
+            // Otherwise, it regens at normal rate when let go early.
+            else
+            { 
+                currEnergy += energyRegen * Time.deltaTime;
+                currEnergy = Mathf.Clamp(currEnergy, 0, maxEnergy);
+            }
         }
     }
 
@@ -104,12 +108,10 @@ public class BattleLogic : MonoBehaviour
         if (isBlocking)
         {
             isBlocking = false;
-            //cooldownTimer = blockCooldown;
 
-            if (autoRelease)
-                Debug.Log("Block on cd after max hold time.");
-            
-            else
+            if (autoRelease) 
+                Debug.Log("Block Released early.");
+            else 
                 Debug.Log($"Block on cd after {currHoldTimer:F2} seconds.");
         }
     }

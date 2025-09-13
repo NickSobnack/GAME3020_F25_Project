@@ -168,6 +168,10 @@ MonoBehaviour:
   maxHoldTimer: 2
   cooldownTimer: 0
   blockCooldown: 2
+  maxEnergy: 1
+  currEnergy: 0
+  energyRegen: 1
+  energyDrain: 1
   cooldownText: {fileID: 700774086}
 --- !u!114 &462736164
 MonoBehaviour:
