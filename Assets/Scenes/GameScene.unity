@@ -164,15 +164,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 582535b89bd53c941bacc5afc71af52a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleLogic
-  currHoldTimer: 0
-  maxHoldTimer: 2
-  cooldownTimer: 0
-  blockCooldown: 2
-  maxEnergy: 1
+  maxEnergy: 5
   currEnergy: 0
   energyRegen: 1
   energyDrain: 1
-  cooldownText: {fileID: 700774086}
+  statusText: {fileID: 700774086}
 --- !u!114 &462736164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,7 +432,7 @@ GameObject:
   - component: {fileID: 700774087}
   - component: {fileID: 700774086}
   m_Layer: 5
-  m_Name: CooldownText
+  m_Name: DisplayTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

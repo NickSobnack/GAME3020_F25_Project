@@ -5,33 +5,23 @@ using UnityEngine.InputSystem;
 public class BattleLogic : MonoBehaviour
 {
     // ----------------- Simple Press and Hold Block Mechanic ----------------- //
-    // Hold the block button to block incoming attacks for a set amount of time.  
-    // If held for too long, block will automatically release and go on cooldown. 
-    // If let go early, block goes on cooldown immediately.
+    // Energy system where holding block consumes energy over time.
+    // Letting go of block regens energy at a normal rate. 
+    // When energy hits 0, block auto ends & goes on cd, energy regens slower.
+
 
     private PlayerInput playerInput;
     private InputAction blockAction;
-    private bool isBlocking;
 
-    [Header("Player Attribute")]
-    [SerializeField] private float currHoldTimer;
-    [SerializeField] private float maxHoldTimer = 2f;
-    [SerializeField] private float cooldownTimer;   
-    [SerializeField] private float blockCooldown = 2f;
-
-    // Energy system where holding block consumes energy over time.
-    // Letting go regens energy at a normal rate. 
-    // If energy depletes, block is forced to end, cannot be used and energy regens slowly.
-
-    [Header("Energy System")]
+    [Header("Energy System")] 
     [SerializeField] private float maxEnergy = 10f;
-    [SerializeField] private float currEnergy;
     [SerializeField] private float energyRegen = 1f;
     [SerializeField] private float energyDrain = 1f;
-    private bool noEnergy;
+    private float currEnergy, currHoldTimer;
+    private bool isBlocking, noEnergy;
 
     [Header("UI")]
-    public TextMeshProUGUI cooldownText;  
+    public TextMeshProUGUI statusText;  
     
     private void Awake()
     {
@@ -87,6 +77,12 @@ public class BattleLogic : MonoBehaviour
                 currEnergy = Mathf.Clamp(currEnergy, 0, maxEnergy);
             }
         }
+
+        string statusUpdate = "Ready";
+        if (isBlocking) statusUpdate = "Blocking";
+        else if (noEnergy) statusUpdate = "No Energy";
+
+        statusText.text = $"Energy: {currEnergy:F1}/{maxEnergy:F1} - Status: {statusUpdate}";
     }
 
     private void StartBlock()
@@ -97,10 +93,7 @@ public class BattleLogic : MonoBehaviour
             currHoldTimer = 0f;
             Debug.Log("Blocking.");
         }
-        else if (noEnergy || currEnergy == 0)
-        {
-            Debug.Log("Out of energy.");
-        }
+        else if (noEnergy || currEnergy == 0) Debug.Log("Out of energy.");
     }
 
     private void EndBlock(bool autoRelease)
@@ -109,10 +102,7 @@ public class BattleLogic : MonoBehaviour
         {
             isBlocking = false;
 
-            if (autoRelease) 
-                Debug.Log("Block Released early.");
-            else 
-                Debug.Log($"Block on cd after {currHoldTimer:F2} seconds.");
+            if (autoRelease) Debug.Log("Block Released early.");
         }
     }
 }
