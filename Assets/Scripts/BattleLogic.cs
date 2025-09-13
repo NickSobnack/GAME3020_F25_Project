@@ -11,13 +11,24 @@ public class BattleLogic : MonoBehaviour
 
     private PlayerInput playerInput;
     private InputAction blockAction;
+    private bool isBlocking;
 
     [Header("Player Attribute")]
-    private bool isBlocking;
     [SerializeField] private float currHoldTimer;
     [SerializeField] private float maxHoldTimer = 2f;
     [SerializeField] private float cooldownTimer;   
-    [SerializeField] private float blockCooldown = 2f;   
+    [SerializeField] private float blockCooldown = 2f;
+
+    // Energy system where holding block consumes energy over time.
+    // Letting go regens energy at a normal rate. 
+    // If energy depletes, block is forced to end, cannot be used and energy regens slowly.
+
+    [Header("Energy System")]
+    [SerializeField] private float maxEnergy = 10f;
+    [SerializeField] private float currEnergy;
+    [SerializeField] private float energyRegen = 1f;
+    [SerializeField] private float energyDrain = 1f;
+    private bool noEnergy;
 
     [Header("UI")]
     public TextMeshProUGUI cooldownText;  
@@ -26,6 +37,8 @@ public class BattleLogic : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         blockAction = playerInput.actions["Block"];
+        currEnergy = maxEnergy;
+        noEnergy = false;
     }
 
     private void OnEnable()
@@ -74,11 +87,15 @@ public class BattleLogic : MonoBehaviour
 
     private void StartBlock()
     {
-        if (!isBlocking && cooldownTimer <= 0f)
+        if (!isBlocking && !noEnergy && currEnergy > 0)
         {
             isBlocking = true;
             currHoldTimer = 0f;
-            Debug.Log("Started blocking.");
+            Debug.Log("Blocking.");
+        }
+        else if (noEnergy || currEnergy == 0)
+        {
+            Debug.Log("Out of energy.");
         }
     }
 
@@ -87,16 +104,13 @@ public class BattleLogic : MonoBehaviour
         if (isBlocking)
         {
             isBlocking = false;
-            cooldownTimer = blockCooldown;
+            //cooldownTimer = blockCooldown;
 
             if (autoRelease)
-            {
                 Debug.Log("Block on cd after max hold time.");
-            }
+            
             else
-            {
                 Debug.Log($"Block on cd after {currHoldTimer:F2} seconds.");
-            }
         }
     }
 }
