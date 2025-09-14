@@ -9,7 +9,6 @@ public class BattleLogic : MonoBehaviour
     // Letting go of block regens energy at a normal rate. 
     // When energy hits 0, block auto ends & goes on cd, energy regens slower.
 
-
     private PlayerInput playerInput;
     private InputAction blockAction;
 
