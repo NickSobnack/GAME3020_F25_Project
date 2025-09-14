@@ -20,14 +20,18 @@ public class BattleLogic : MonoBehaviour
     private bool isBlocking, noEnergy;
 
     [Header("UI")]
-    public TextMeshProUGUI statusText;  
-    
+    public TextMeshProUGUI statusText;
+
+    [Header("Animation")]
+    public Animator playerAnimator; 
+
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         blockAction = playerInput.actions["Block"];
         currEnergy = maxEnergy;
         noEnergy = false;
+        playerAnimator.SetBool("isBlocking", false); 
     }
 
     private void OnEnable()
@@ -66,12 +70,11 @@ public class BattleLogic : MonoBehaviour
                 {
                     currEnergy = maxEnergy;
                     noEnergy = false;
-                    Debug.Log("Energy fully recharged.");
                 }
             }
             // Otherwise, it regens at normal rate when let go early.
             else
-            { 
+            {
                 currEnergy += energyRegen * Time.deltaTime;
                 currEnergy = Mathf.Clamp(currEnergy, 0, maxEnergy);
             }
@@ -90,7 +93,7 @@ public class BattleLogic : MonoBehaviour
         {
             isBlocking = true;
             currHoldTimer = 0f;
-            Debug.Log("Blocking.");
+            playerAnimator.SetBool("isBlocking", true);
         }
         else if (noEnergy || currEnergy == 0) Debug.Log("Out of energy.");
     }
@@ -100,8 +103,7 @@ public class BattleLogic : MonoBehaviour
         if (isBlocking)
         {
             isBlocking = false;
-
-            if (autoRelease) Debug.Log("Block Released early.");
+            playerAnimator.SetBool("isBlocking", false);
         }
     }
 }
