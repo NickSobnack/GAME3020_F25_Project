@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class BattleLogic : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class BattleLogic : MonoBehaviour
 
     [Header("UI")]
     public TextMeshProUGUI statusText;
+    public Image energyBar; 
 
     [Header("Animation")]
     public Animator playerAnimator; 
@@ -85,6 +87,7 @@ public class BattleLogic : MonoBehaviour
         else if (noEnergy) statusUpdate = "No Energy";
 
         statusText.text = $"Energy: {currEnergy:F1}/{maxEnergy:F1} - Status: {statusUpdate}";
+        energyBar.fillAmount = currEnergy / maxEnergy;
     }
 
     private void StartBlock()
