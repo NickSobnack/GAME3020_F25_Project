@@ -11,7 +11,7 @@ public class BattleLogic : MonoBehaviour
     // When energy hits 0, block auto ends & goes on cd, energy regens slower.
 
     private PlayerInput playerInput;
-    private InputAction blockAction;
+    private InputAction attackAction, blockAction;
 
     [Header("Energy System")] 
     [SerializeField] private float maxEnergy = 10f;
@@ -21,7 +21,6 @@ public class BattleLogic : MonoBehaviour
     private bool isBlocking, noEnergy;
 
     [Header("UI")]
-    public TextMeshProUGUI statusText;
     public Image energyBar; 
 
     [Header("Animation")]
@@ -31,6 +30,7 @@ public class BattleLogic : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         blockAction = playerInput.actions["Block"];
+        attackAction = playerInput.actions["Attack"];
         currEnergy = maxEnergy;
         noEnergy = false;
         playerAnimator.SetBool("isBlocking", false); 
@@ -38,6 +38,9 @@ public class BattleLogic : MonoBehaviour
 
     private void OnEnable()
     {
+        attackAction.started += ctx => Attack();
+        attackAction.Enable();
+
         blockAction.started += ctx => StartBlock();
         blockAction.canceled += ctx => EndBlock(false);
         blockAction.Enable();
@@ -45,6 +48,9 @@ public class BattleLogic : MonoBehaviour
 
     private void OnDisable()
     {
+        attackAction.started -= ctx => Attack();
+        attackAction.Disable();
+
         blockAction.started -= ctx => StartBlock();
         blockAction.canceled -= ctx => EndBlock(false);
         blockAction.Disable();
@@ -81,17 +87,18 @@ public class BattleLogic : MonoBehaviour
                 currEnergy = Mathf.Clamp(currEnergy, 0, maxEnergy);
             }
         }
-
-        string statusUpdate = "Ready";
-        if (isBlocking) statusUpdate = "Blocking";
-        else if (noEnergy) statusUpdate = "No Energy";
-
-        statusText.text = $"Energy: {currEnergy:F1}/{maxEnergy:F1} - Status: {statusUpdate}";
         energyBar.fillAmount = currEnergy / maxEnergy;
+    }
+
+    private void Attack()
+    {
+        // Attack animation plays when attack key is tapped and while not blocking.
+        if (!isBlocking) playerAnimator.SetTrigger("Attack"); 
     }
 
     private void StartBlock()
     {
+        // Start blocking when block key is held and has energy, and block animation plays.
         if (!isBlocking && !noEnergy && currEnergy > 0)
         {
             isBlocking = true;
@@ -103,6 +110,7 @@ public class BattleLogic : MonoBehaviour
 
     private void EndBlock(bool autoRelease)
     {
+        // End block when block key is released or energy hits 0, and block animation stops.
         if (isBlocking)
         {
             isBlocking = false;
