@@ -16,9 +16,11 @@ public class BattleLogic : MonoBehaviour
     [Header("Energy System")] 
     [SerializeField] private float maxEnergy = 10f;
     [SerializeField] private float energyRegen = 1f;
-    [SerializeField] private float energyDrain = 1f;
-    private float currEnergy, currHoldTimer;
-    private bool isBlocking, noEnergy;
+    [SerializeField] private float blockCost = 1f;
+    [SerializeField] private float currEnergy;
+    private float currHoldTimer;
+    private bool isAttacking, isBlocking, noEnergy;
+    public float attackCostModifier;
 
     [Header("UI")]
     public Image energyBar; 
@@ -31,9 +33,10 @@ public class BattleLogic : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         blockAction = playerInput.actions["Block"];
         attackAction = playerInput.actions["Attack"];
+        playerAnimator.SetBool("isBlocking", false);
         currEnergy = maxEnergy;
         noEnergy = false;
-        playerAnimator.SetBool("isBlocking", false); 
+        attackCostModifier = 3f;
     }
 
     private void OnEnable()
@@ -60,10 +63,10 @@ public class BattleLogic : MonoBehaviour
     {
         if (isBlocking)
         {
+            // Drains energy when holding block, if energy hits 0, block ends and locked until energy is fully recharged.
             currHoldTimer += Time.deltaTime;
-            // Energy drains when holding block.
-            currEnergy -= energyDrain * Time.deltaTime;
-            // If energy reaches 0, block ends and locked until energy is fully recharged.
+            currEnergy -= blockCost * Time.deltaTime;
+            //
             if (currEnergy < 0) currEnergy = 0;
             if (currEnergy == 0) noEnergy = true;
         }
@@ -88,12 +91,26 @@ public class BattleLogic : MonoBehaviour
             }
         }
         energyBar.fillAmount = currEnergy / maxEnergy;
+
+        // ----------------- CHEATS ----------------- //
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            Upgrade();
+        }
+        // ----------------- CHEATS ----------------- //
     }
 
     private void Attack()
     {
-        // Attack animation plays when attack key is tapped and while not blocking.
-        if (!isBlocking) playerAnimator.SetTrigger("Attack"); 
+        float attackCost = maxEnergy / attackCostModifier;
+
+        // Can attack only if not blocking or attacking and has enough energy.
+        if (!isBlocking && currEnergy >= attackCost && !isAttacking)
+        {
+            currEnergy -= attackCost;
+            isAttacking = true;
+            playerAnimator.SetTrigger("Attack");
+        }
     }
 
     private void StartBlock()
@@ -105,7 +122,6 @@ public class BattleLogic : MonoBehaviour
             currHoldTimer = 0f;
             playerAnimator.SetBool("isBlocking", true);
         }
-        else if (noEnergy || currEnergy == 0) Debug.Log("Out of energy.");
     }
 
     private void EndBlock(bool autoRelease)
@@ -116,5 +132,16 @@ public class BattleLogic : MonoBehaviour
             isBlocking = false;
             playerAnimator.SetBool("isBlocking", false);
         }
+    }
+
+    public void Upgrade()
+    {
+        attackCostModifier = 6f;
+    }
+
+    // Animation event triggers after attack animation finishes, to prevent attack spam.
+    public void AttackFinished()
+    {
+        isAttacking = false;
     }
 }

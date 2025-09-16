@@ -204,7 +204,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 462736162}
-  - component: {fileID: 462736163}
   - component: {fileID: 462736164}
   m_Layer: 0
   m_Name: GameManager
@@ -228,24 +227,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &462736163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 462736160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 582535b89bd53c941bacc5afc71af52a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BattleLogic
-  maxEnergy: 5
-  energyRegen: 1
-  energyDrain: 1
-  statusText: {fileID: 700774086}
-  energyBar: {fileID: 1026473756}
-  playerAnimator: {fileID: 1048360771}
 --- !u!114 &462736164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -720,6 +701,7 @@ GameObject:
   - component: {fileID: 1048360772}
   - component: {fileID: 1048360771}
   - component: {fileID: 1048360774}
+  - component: {fileID: 1048360775}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -831,9 +813,45 @@ MonoBehaviour:
   m_GameObject: {fileID: 1048360770}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa6de6d7fa0c9664bb69d3a7b7e6010a, type: 3}
+  m_Script: {fileID: 11500000, guid: 582535b89bd53c941bacc5afc71af52a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerLogic
+  m_EditorClassIdentifier: Assembly-CSharp::BattleLogic
+  maxEnergy: 10
+  energyRegen: 1
+  energyDrain: 1
+  attackCostModifier: 0
+  energyBar: {fileID: 1026473756}
+  playerAnimator: {fileID: 1048360771}
+--- !u!114 &1048360775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048360770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 305ba19b51d4cb64dafbe21c2acad448, type: 3}
+  m_NotificationBehavior: 3
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Battle
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1238899778
 GameObject:
   m_ObjectHideFlags: 0
