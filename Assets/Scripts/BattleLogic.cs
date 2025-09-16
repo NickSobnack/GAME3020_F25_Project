@@ -17,10 +17,10 @@ public class BattleLogic : MonoBehaviour
     [SerializeField] private float maxEnergy = 10f;
     [SerializeField] private float energyRegen = 1f;
     [SerializeField] private float blockCost = 1f;
+    [SerializeField] private float attackCost = 3f;
     [SerializeField] private float currEnergy;
     private float currHoldTimer;
     private bool isAttacking, isBlocking, noEnergy;
-    public float attackCostModifier;
 
     [Header("UI")]
     public Image energyBar; 
@@ -36,7 +36,6 @@ public class BattleLogic : MonoBehaviour
         playerAnimator.SetBool("isBlocking", false);
         currEnergy = maxEnergy;
         noEnergy = false;
-        attackCostModifier = 3f;
     }
 
     private void OnEnable()
@@ -70,7 +69,7 @@ public class BattleLogic : MonoBehaviour
             if (currEnergy < 0) currEnergy = 0;
             if (currEnergy == 0) noEnergy = true;
         }
-        else
+        else if(!isAttacking)
         {
             // If out of energy, it regens at half the normal rate.
             if (noEnergy)
@@ -91,19 +90,10 @@ public class BattleLogic : MonoBehaviour
             }
         }
         energyBar.fillAmount = currEnergy / maxEnergy;
-
-        // ----------------- CHEATS ----------------- //
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            Upgrade();
-        }
-        // ----------------- CHEATS ----------------- //
     }
 
     private void Attack()
     {
-        float attackCost = maxEnergy / attackCostModifier;
-
         // Can attack only if not blocking or attacking and has enough energy.
         if (!isBlocking && currEnergy >= attackCost && !isAttacking)
         {
@@ -132,11 +122,6 @@ public class BattleLogic : MonoBehaviour
             isBlocking = false;
             playerAnimator.SetBool("isBlocking", false);
         }
-    }
-
-    public void Upgrade()
-    {
-        attackCostModifier = 6f;
     }
 
     // Animation event triggers after attack animation finishes, to prevent attack spam.

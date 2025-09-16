@@ -1,37 +1,31 @@
 fileFormatVersion: 2
-guid: 4de33d66b0884f048ad5ff7477e14de0
+guid: e15549d986a22eb4681bfc59fa5a3677
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3464697531994304634
-    second: Warrior_Attack1_0
+      213: 7384290322352760091
+    second: Warrior_Idle_0
   - first:
-      213: 8738852634765236386
-    second: Warrior_Attack1_1
+      213: 5558041129755138300
+    second: Warrior_Idle_1
   - first:
-      213: 1435813858662126931
-    second: Warrior_Attack1_2
+      213: 5494728702781700201
+    second: Warrior_Idle_2
   - first:
-      213: 2647078634671427691
-    second: Warrior_Attack1_3
+      213: 855971943943930739
+    second: Warrior_Idle_3
   - first:
-      213: 7513856361725465591
-    second: Warrior_Attack1_4
+      213: 8590257050535953886
+    second: Warrior_Idle_4
   - first:
-      213: -8056235884627991497
-    second: Warrior_Attack1_5
+      213: -1175184007495930954
+    second: Warrior_Idle_5
   - first:
-      213: 3074494340152884240
-    second: Warrior_Attack1_6
+      213: -4675935811743254547
+    second: Warrior_Idle_6
   - first:
-      213: 3224341164437929707
-    second: Warrior_Attack1_7
-  - first:
-      213: -205774181883186201
-    second: Warrior_Attack1_8
-  - first:
-      213: -8164135769183853208
-    second: Warrior_Attack1_9
+      213: 1839488653993705794
+    second: Warrior_Idle_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -102,7 +96,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -140,7 +134,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Warrior_Attack1_0
+      name: Warrior_Idle_0
       rect:
         serializedVersion: 2
         x: 0
@@ -155,14 +149,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 68f8e4f83fbeaefc0800000000000000
-      internalID: -3464697531994304634
+      spriteID: b15e03eace44a7660800000000000000
+      internalID: 7384290322352760091
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Attack1_1
+      name: Warrior_Idle_1
       rect:
         serializedVersion: 2
         x: 192
@@ -177,14 +171,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2a81bafbb24a64970800000000000000
-      internalID: 8738852634765236386
+      spriteID: cf8d012b5f0222d40800000000000000
+      internalID: 5558041129755138300
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Attack1_2
+      name: Warrior_Idle_2
       rect:
         serializedVersion: 2
         x: 384
@@ -199,14 +193,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3559321e8190de310800000000000000
-      internalID: 1435813858662126931
+      spriteID: 968327294a2314c40800000000000000
+      internalID: 5494728702781700201
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Attack1_3
+      name: Warrior_Idle_3
       rect:
         serializedVersion: 2
         x: 576
@@ -221,8 +215,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b60dd105eff4cb420800000000000000
-      internalID: 2647078634671427691
+      spriteID: 3738a78a2f501eb00800000000000000
+      internalID: 855971943943930739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_Idle_4
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed58d7a3649b63770800000000000000
+      internalID: 8590257050535953886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_Idle_5
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bb2c7f1f58e0bfe0800000000000000
+      internalID: -1175184007495930954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_Idle_6
+      rect:
+        serializedVersion: 2
+        x: 1152
+        y: 0
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de7f384472dbb1fb0800000000000000
+      internalID: -4675935811743254547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Warrior_Idle_7
+      rect:
+        serializedVersion: 2
+        x: 1344
+        y: 0
+        width: 192
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24108ad4f2d278910800000000000000
+      internalID: 1839488653993705794
       vertices: []
       indices: 
       edges: []
@@ -241,12 +323,16 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":192.0,"y":192.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":64.0,"y":64.0},"gridSpriteSize":{"x":192.0,"y":192.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Warrior_Attack1_0: -3464697531994304634
-      Warrior_Attack1_1: 8738852634765236386
-      Warrior_Attack1_2: 1435813858662126931
-      Warrior_Attack1_3: 2647078634671427691
+      Warrior_Idle_0: 7384290322352760091
+      Warrior_Idle_1: 5558041129755138300
+      Warrior_Idle_2: 5494728702781700201
+      Warrior_Idle_3: 855971943943930739
+      Warrior_Idle_4: 8590257050535953886
+      Warrior_Idle_5: -1175184007495930954
+      Warrior_Idle_6: -4675935811743254547
+      Warrior_Idle_7: 1839488653993705794
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,25 +1,19 @@
 fileFormatVersion: 2
-guid: 07c4b6db938619f49ac66b70040d2fb9
+guid: 675ec15a98a2f0c4697d8bbb8ad11865
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3014082438352978858
-    second: Warrior_Guard_0
+      213: 8882666270506729424
+    second: Archer_Run_0
   - first:
-      213: -8379219403140719787
-    second: Warrior_Guard_1
+      213: 8418572898541717210
+    second: Archer_Run_1
   - first:
-      213: 9082096816701911304
-    second: Warrior_Guard_2
+      213: 4917221495796577052
+    second: Archer_Run_2
   - first:
-      213: -3415142777385630793
-    second: Warrior_Guard_3
-  - first:
-      213: -5672506429785410100
-    second: Warrior_Guard_4
-  - first:
-      213: 2401901321164802203
-    second: Warrior_Guard_5
+      213: 1313344751431586703
+    second: Archer_Run_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -90,7 +84,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -128,7 +122,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Warrior_Guard_0
+      name: Archer_Run_0
       rect:
         serializedVersion: 2
         x: 0
@@ -143,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 65c3a3addf3db26d0800000000000000
-      internalID: -3014082438352978858
+      spriteID: 0dfb5ef19e1954b70800000000000000
+      internalID: 8882666270506729424
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Guard_1
+      name: Archer_Run_1
       rect:
         serializedVersion: 2
         x: 192
@@ -165,14 +159,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 55b9cbc095807bb80800000000000000
-      internalID: -8379219403140719787
+      spriteID: ad64f4d9277c4d470800000000000000
+      internalID: 8418572898541717210
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Guard_2
+      name: Archer_Run_2
       rect:
         serializedVersion: 2
         x: 384
@@ -187,14 +181,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 801393f8fe61a0e70800000000000000
-      internalID: 9082096816701911304
+      spriteID: c13bedad5ea7d3440800000000000000
+      internalID: 4917221495796577052
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Guard_3
+      name: Archer_Run_3
       rect:
         serializedVersion: 2
         x: 576
@@ -209,52 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7b340b8fcb9fa90d0800000000000000
-      internalID: -3415142777385630793
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Warrior_Guard_4
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 0
-        width: 192
-        height: 192
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cc57582d4753741b0800000000000000
-      internalID: -5672506429785410100
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Warrior_Guard_5
-      rect:
-        serializedVersion: 2
-        x: 960
-        y: 0
-        width: 192
-        height: 192
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b98c1999684455120800000000000000
-      internalID: 2401901321164802203
+      spriteID: f8314b0d710f93210800000000000000
+      internalID: 1313344751431586703
       vertices: []
       indices: 
       edges: []
@@ -263,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 6675afa94d2095a43842957eefecfc25
     internalID: 0
     vertices: []
     indices: 
@@ -275,12 +225,10 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":192.0,"y":192.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Warrior_Guard_0: -3014082438352978858
-      Warrior_Guard_1: -8379219403140719787
-      Warrior_Guard_2: 9082096816701911304
-      Warrior_Guard_3: -3415142777385630793
-      Warrior_Guard_4: -5672506429785410100
-      Warrior_Guard_5: 2401901321164802203
+      Archer_Run_0: 8882666270506729424
+      Archer_Run_1: 8418572898541717210
+      Archer_Run_2: 4917221495796577052
+      Archer_Run_3: 1313344751431586703
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
