@@ -39,6 +39,9 @@ public class ArcherLogic : MonoBehaviour
         GameObject arrow = Instantiate(arrowPrefab, firePoint.position, Quaternion.identity);
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
         rb.linearVelocity = Vector2.left * arrowSpeed;
+
+
+
         Destroy(arrow, 3f); 
     }
 
