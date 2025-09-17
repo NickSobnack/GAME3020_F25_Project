@@ -804,7 +804,7 @@ MonoBehaviour:
   blockCost: 1
   attackCost: 2
   currEnergy: 0
-  energyBar: {fileID: 84547016}
+  energyBar: {fileID: 1026473756}
   playerAnimator: {fileID: 1048360771}
 --- !u!114 &1048360775
 MonoBehaviour:

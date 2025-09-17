@@ -66,8 +66,13 @@ public class BattleLogic : MonoBehaviour
             currHoldTimer += Time.deltaTime;
             currEnergy -= blockCost * Time.deltaTime;
             //
-            if (currEnergy < 0) currEnergy = 0;
-            if (currEnergy == 0) noEnergy = true;
+            if (currEnergy < 0) 
+                currEnergy = 0;
+            if (currEnergy == 0)
+            { 
+                noEnergy = true; 
+                EndBlock(true);
+            }
         }
         else if(!isAttacking)
         {

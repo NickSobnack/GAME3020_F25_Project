@@ -31,18 +31,9 @@ public class ArcherLogic : MonoBehaviour
     // Animation event that gets called to fire the arrow towards the player.
     public void FireArrow()
     {
-        if (arrowPrefab == null || firePoint == null)
-        {
-            return;
-        }
-
         GameObject arrow = Instantiate(arrowPrefab, firePoint.position, Quaternion.identity);
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
         rb.linearVelocity = Vector2.left * arrowSpeed;
-
-
-
         Destroy(arrow, 3f); 
     }
-
 }
