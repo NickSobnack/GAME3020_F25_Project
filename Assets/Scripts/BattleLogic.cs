@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class BattleLogic : MonoBehaviour
 {
-    // ----------------- Simple Press and Hold Block Mechanic ----------------- //
-    // Energy system where holding block consumes energy over time.
-    // Letting go of block regens energy at a normal rate. 
-    // When energy hits 0, block auto ends & goes on cd, energy regens slower.
+    // -------------------- Simple Attack & Block Mechanic -------------------- //
+    // Energy system where attacking or holding block consumes NRG.
+    // Attacking costs a fixed amount while holding block drains NRG over time.
+    // When NRG hits 0, it regens slower, prevents actions, else regens faster.
 
     private PlayerInput playerInput;
     private InputAction attackAction, blockAction;
@@ -19,6 +19,7 @@ public class BattleLogic : MonoBehaviour
     [SerializeField] private float blockCost = 1f;
     [SerializeField] private float attackCost = 3f;
     [SerializeField] private float currEnergy;
+
     private float currHoldTimer;
     private bool isAttacking, isBlocking, noEnergy;
 
