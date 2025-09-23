@@ -3,9 +3,10 @@ using UnityEngine;
 public class PlayerLogic : MonoBehaviour
 {
     private Animator playerAnimator;
+
+    [Header("VFX Properties")]
     public Transform vfxPoint;
-    public GameObject niceVFX;
-    public GameObject missedVFX;
+    public GameObject niceVFX, missedVFX;
 
     private void Awake()
     {
@@ -24,10 +25,8 @@ public class PlayerLogic : MonoBehaviour
             }
             else
             {
-                Debug.Log("Player hit!");
                 Instantiate(missedVFX, vfxPoint.position, Quaternion.identity);
             }
-
             Destroy(collision.gameObject); 
         }
     }

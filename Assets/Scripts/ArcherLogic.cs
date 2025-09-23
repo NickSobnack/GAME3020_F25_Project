@@ -9,22 +9,25 @@ public class ArcherLogic : MonoBehaviour
     private float timer = 0f;
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private Transform firePoint, player;
-    [SerializeField] private float shootTimer = 2f;
+    [SerializeField] private float shootTimer;
     [SerializeField] private float arrowSpeed = 10f; 
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        shootTimer = Random.Range(2f, 4f);
     }
 
     void Update()
     {
-        // Trigger an arrow shot at player every shootTimer seconds.
+        // Trigger an arrow shot at player at a random time interval between 2-4.
         timer += Time.deltaTime;
         if (timer >= shootTimer)
         {
             animator.SetTrigger("Shoot");
             timer = 0f;
+            shootTimer = Random.Range(2f, 4f);
+            Debug.Log(shootTimer);
         }
     }
 
