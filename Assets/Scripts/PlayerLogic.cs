@@ -9,14 +9,18 @@ public class PlayerLogic : MonoBehaviour
 
     [Header("Player Properties")]
     public float maxHealth = 10;
+    public float damage = 2;
     private float health;
+    private bool playerDead = false;
 
     [Header("UI")]
     public Image healthBar;
+    public GameObject fadePanel;
 
     [Header("VFX Properties")]
-    public Transform vfxPoint;
-    public GameObject niceVFX;
+    public Transform blockVfxPoint;
+    public Transform gameOverVfxPoint;
+    public GameObject niceVfx, gameOverVfx;
 
     private void Awake()
     {
@@ -26,13 +30,11 @@ public class PlayerLogic : MonoBehaviour
 
     private void Update()
     {
-        health = Mathf.Clamp(health, 0, maxHealth);
         healthBar.fillAmount = health / maxHealth;
 
-        if (health <= 0)
+        if (health <= 0 && !playerDead)
         {
             OnPlayerDeath();
-            Time.timeScale = 0f; 
         }
     }
 
@@ -44,12 +46,13 @@ public class PlayerLogic : MonoBehaviour
         {
             if (playerAnimator.GetBool("isBlocking"))
             {
-                Instantiate(niceVFX, vfxPoint.position, Quaternion.identity);
+                Instantiate(niceVfx, blockVfxPoint.position, Quaternion.identity);
             }
             else
             {
                 //Instantiate(missedVFX, vfxPoint.position, Quaternion.identity);
-                health -= 2;
+                health -= damage;
+                health = Mathf.Clamp(health, 0, maxHealth);
             }
             Destroy(collision.gameObject); 
         }
@@ -57,6 +60,8 @@ public class PlayerLogic : MonoBehaviour
 
     void OnPlayerDeath()
     {
-        Debug.Log("GAME OVER");
+        playerDead = true;
+        fadePanel.SetActive(true);
+        Instantiate(gameOverVfx, gameOverVfxPoint.position, Quaternion.identity);
     }
 }
