@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class PlayerLogic : MonoBehaviour
 {
+    // TODO: Add sfx and visual effects for getting hit. 
+
     private Animator playerAnimator;
 
     [Header("VFX Properties")]
     public Transform vfxPoint;
-    public GameObject niceVFX, missedVFX;
+    public GameObject niceVFX;
 
     private void Awake()
     {
@@ -25,7 +27,7 @@ public class PlayerLogic : MonoBehaviour
             }
             else
             {
-                Instantiate(missedVFX, vfxPoint.position, Quaternion.identity);
+                //Instantiate(missedVFX, vfxPoint.position, Quaternion.identity);
             }
             Destroy(collision.gameObject); 
         }
