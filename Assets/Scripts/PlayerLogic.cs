@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class PlayerLogic : MonoBehaviour
 {
     // TODO: Add sfx and visual effects for getting hit. 
+    // TODO: Attack animations.
 
     private Animator playerAnimator;
 
@@ -22,12 +23,14 @@ public class PlayerLogic : MonoBehaviour
     public Transform gameOverVfxPoint;
     public GameObject niceVfx, gameOverVfx;
 
+    // Set initial values for player hp.
     private void Awake()
     {
         playerAnimator = GetComponent<Animator>();
         health = maxHealth;
     }
 
+    // Update keeps track of player health and updates health bar UI.
     private void Update()
     {
         healthBar.fillAmount = health / maxHealth;
@@ -58,6 +61,7 @@ public class PlayerLogic : MonoBehaviour
         }
     }
 
+    // Function that gets called when player hp reaches 0 and triggers game over sequence.
     void OnPlayerDeath()
     {
         playerDead = true;

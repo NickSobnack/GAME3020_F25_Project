@@ -10,6 +10,8 @@ public class BattleLogic : MonoBehaviour
     // Attacking costs a fixed amount while holding block drains NRG over time.
     // When NRG hits 0, it regens slower, prevents actions, else regens faster.
 
+    // TO DO: Add visual for enemy health and pace timing between retreat animation and win message.
+
     private PlayerInput playerInput;
     private InputAction attackAction, blockAction;
 
@@ -112,8 +114,9 @@ public class BattleLogic : MonoBehaviour
             currEnergy -= attackCost;
             isAttacking = true;
             playerAnimator.SetTrigger("Attack");
-            archer.TakeDamage(dmg);
 
+            // Damage archer when attack animation plays and plays Perfect vfx if archer dies.
+            archer.TakeDamage(dmg);
             if (archer.health <= 0)
             {
                 Instantiate(perfectVfx, gameStatusVfxPoint.position, Quaternion.identity);

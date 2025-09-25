@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ArcherLogic : MonoBehaviour
 {
+    // TO DO: Add visual for enemy taking damage.
+
     [Header("Animation")]
     Animator animator;
 
@@ -14,6 +16,7 @@ public class ArcherLogic : MonoBehaviour
     [SerializeField] private float maxHealth = 9f; 
     [SerializeField] public float health; 
 
+    // Set initial values for shoot timer in between shots and hp.
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -43,6 +46,7 @@ public class ArcherLogic : MonoBehaviour
         Destroy(arrow, 3f); 
     }
 
+    // Function that gets called when archer takes damage from player attack,
     public void TakeDamage(float damage)
     {
         health -= damage;
@@ -52,6 +56,7 @@ public class ArcherLogic : MonoBehaviour
         }
     }
 
+    // Function that gets called when archer hp reaches 0, plays run animation and destroys archer object.
     public void OnDeath()
     {
         animator.SetTrigger("Death");

@@ -8,6 +8,7 @@ public class VisualEffects : MonoBehaviour
         Destroy(gameObject);
     }
 
+    // Animation event to pause the game when win/lose stage occurs.
     public void GameStateEffect()
     {
         Time.timeScale = 0f;
