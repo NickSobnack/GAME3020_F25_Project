@@ -14,7 +14,7 @@ public class ArcherLogic : MonoBehaviour
     [SerializeField] private float shootTimer;
     [SerializeField] private float arrowSpeed = 10f; 
     [SerializeField] private float maxHealth = 9f; 
-    [SerializeField] public float health; 
+    public float health; 
 
     // Set initial values for shoot timer in between shots and hp.
     private void Awake()

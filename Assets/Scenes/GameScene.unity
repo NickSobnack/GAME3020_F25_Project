@@ -970,7 +970,7 @@ MonoBehaviour:
   gameStatusVfxPoint: {fileID: 1670859119}
   perfectVfx: {fileID: 3237155395738874188, guid: 9dbc22ba36e625146ae4645a419b161a, type: 3}
   archer: {fileID: 1974804468}
-  dmg: 10
+  dmg: 3
 --- !u!114 &1048360775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1604,8 +1604,8 @@ MonoBehaviour:
   player: {fileID: 1048360773}
   shootTimer: 3
   arrowSpeed: 10
-  maxHealth: 10
-  health: 10
+  maxHealth: 9
+  health: 9
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
