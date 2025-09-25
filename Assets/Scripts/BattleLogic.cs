@@ -27,7 +27,10 @@ public class BattleLogic : MonoBehaviour
     public Image energyBar; 
 
     [Header("Animation")]
-    public Animator playerAnimator; 
+    public Animator playerAnimator;
+
+    [SerializeField] private ArcherLogic archer;
+    [SerializeField] public float dmg;
 
     private void Awake()
     {
@@ -106,6 +109,7 @@ public class BattleLogic : MonoBehaviour
             currEnergy -= attackCost;
             isAttacking = true;
             playerAnimator.SetTrigger("Attack");
+            archer.TakeDamage(dmg);
         }
     }
 

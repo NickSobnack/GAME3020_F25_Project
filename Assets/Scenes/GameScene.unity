@@ -621,7 +621,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -2, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -752,7 +752,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -631.99994, y: 333}
+  m_AnchoredPosition: {x: -787, y: 436}
   m_SizeDelta: {x: -181.43994, y: -10.830017}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1026473754
@@ -941,7 +941,7 @@ Transform:
   m_GameObject: {fileID: 1048360770}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalPosition: {x: -4, y: -1, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -967,6 +967,8 @@ MonoBehaviour:
   currEnergy: 0
   energyBar: {fileID: 1026473756}
   playerAnimator: {fileID: 1048360771}
+  archer: {fileID: 1974804468}
+  dmg: 10
 --- !u!114 &1048360775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1047,7 +1049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLogic
   maxHealth: 10
-  damage: 10
+  damage: 1
   healthBar: {fileID: 1227971696}
   fadePanel: {fileID: 538986476}
   blockVfxPoint: {fileID: 140289606}
@@ -1554,7 +1556,7 @@ Transform:
   m_GameObject: {fileID: 1974804464}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalPosition: {x: 4, y: -1, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1600,6 +1602,8 @@ MonoBehaviour:
   player: {fileID: 1048360773}
   shootTimer: 3
   arrowSpeed: 10
+  maxHealth: 10
+  health: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

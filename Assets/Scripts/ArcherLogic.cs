@@ -5,17 +5,20 @@ public class ArcherLogic : MonoBehaviour
     [Header("Animation")]
     Animator animator;
 
-    [Header("Arrow Properties")]
+    [Header("Archer Properties")]
     private float timer = 0f;
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private Transform firePoint, player;
     [SerializeField] private float shootTimer;
     [SerializeField] private float arrowSpeed = 10f; 
+    [SerializeField] private float maxHealth = 10f; 
+    [SerializeField] private float health; 
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         shootTimer = Random.Range(2f, 4f);
+        health = maxHealth;
     }
 
     void Update()
@@ -38,5 +41,20 @@ public class ArcherLogic : MonoBehaviour
         Rigidbody2D rb = arrow.GetComponent<Rigidbody2D>();
         rb.linearVelocity = Vector2.left * arrowSpeed;
         Destroy(arrow, 3f); 
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            OnDeath();
+        }
+    }
+
+    public void OnDeath()
+    {
+        animator.SetTrigger("Death");
+        Destroy(gameObject, 1f);
     }
 }
