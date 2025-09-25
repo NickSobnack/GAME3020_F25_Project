@@ -11,8 +11,8 @@ public class ArcherLogic : MonoBehaviour
     [SerializeField] private Transform firePoint, player;
     [SerializeField] private float shootTimer;
     [SerializeField] private float arrowSpeed = 10f; 
-    [SerializeField] private float maxHealth = 10f; 
-    [SerializeField] private float health; 
+    [SerializeField] private float maxHealth = 9f; 
+    [SerializeField] public float health; 
 
     private void Awake()
     {

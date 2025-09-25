@@ -8,7 +8,7 @@ public class VisualEffects : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void GameOverEffect()
+    public void GameStateEffect()
     {
         Time.timeScale = 0f;
     }

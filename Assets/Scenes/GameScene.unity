@@ -967,6 +967,8 @@ MonoBehaviour:
   currEnergy: 0
   energyBar: {fileID: 1026473756}
   playerAnimator: {fileID: 1048360771}
+  gameStatusVfxPoint: {fileID: 1670859119}
+  perfectVfx: {fileID: 3237155395738874188, guid: 9dbc22ba36e625146ae4645a419b161a, type: 3}
   archer: {fileID: 1974804468}
   dmg: 10
 --- !u!114 &1048360775
@@ -1335,7 +1337,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1670859119}
   m_Layer: 5
-  m_Name: GameOverVFXSpawnPoint
+  m_Name: GameStatusVFXSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1603,7 +1605,7 @@ MonoBehaviour:
   shootTimer: 3
   arrowSpeed: 10
   maxHealth: 10
-  health: 0
+  health: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

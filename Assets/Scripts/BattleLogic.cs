@@ -28,7 +28,10 @@ public class BattleLogic : MonoBehaviour
 
     [Header("Animation")]
     public Animator playerAnimator;
+    public Transform gameStatusVfxPoint;
+    public GameObject perfectVfx;
 
+    [Header("Enemy")]
     [SerializeField] private ArcherLogic archer;
     [SerializeField] public float dmg;
 
@@ -110,6 +113,11 @@ public class BattleLogic : MonoBehaviour
             isAttacking = true;
             playerAnimator.SetTrigger("Attack");
             archer.TakeDamage(dmg);
+
+            if (archer.health <= 0)
+            {
+                Instantiate(perfectVfx, gameStatusVfxPoint.position, Quaternion.identity);
+            }
         }
     }
 
