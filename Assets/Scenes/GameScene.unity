@@ -1051,7 +1051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLogic
   maxHealth: 10
-  damage: 1
+  damage: 2
   healthBar: {fileID: 1227971696}
   fadePanel: {fileID: 538986476}
   blockVfxPoint: {fileID: 140289606}
