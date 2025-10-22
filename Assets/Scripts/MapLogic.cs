@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MapLogic : MonoBehaviour
 {
@@ -17,8 +16,18 @@ public class MapLogic : MonoBehaviour
     void Start()
     {
         playerAnimator = player.GetComponent<Animator>();
-        player.transform.position = currentNode.transform.position;
-        playerAnimator.SetBool("isBlocking", false); // UPDATE THIS TO REMOVE AUTO BLOCK AT START
+
+
+        if (GameManager.Instance.GetCurrentNode() != null)
+        {
+            currentNode = GameManager.Instance.GetCurrentNode();
+            player.transform.position = currentNode.transform.position;
+        }
+        else
+        {
+            player.transform.position = currentNode.transform.position;
+        }
+
     }
 
     void Update()
@@ -39,6 +48,8 @@ public class MapLogic : MonoBehaviour
                 if (currentNode.hasEnemies)
                 {
                     Debug.Log("Enemies here!");
+                    GameManager.Instance.SetCurrentNode(currentNode); 
+                    GameManager.Instance.ChangeScene(2); 
                 }
                 else
                 {

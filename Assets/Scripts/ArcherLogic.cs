@@ -33,7 +33,6 @@ public class ArcherLogic : MonoBehaviour
             animator.SetTrigger("Shoot");
             timer = 0f;
             shootTimer = Random.Range(2f, 4f);
-            Debug.Log(shootTimer);
         }
     }
 

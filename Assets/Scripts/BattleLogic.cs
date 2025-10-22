@@ -1,7 +1,9 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BattleLogic : MonoBehaviour
 {
@@ -42,7 +44,6 @@ public class BattleLogic : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         blockAction = playerInput.actions["Block"];
         attackAction = playerInput.actions["Attack"];
-        playerAnimator.SetBool("isBlocking", false);
         currEnergy = maxEnergy;
         noEnergy = false;
     }
@@ -120,6 +121,7 @@ public class BattleLogic : MonoBehaviour
             if (archer.health <= 0)
             {
                 Instantiate(perfectVfx, gameStatusVfxPoint.position, Quaternion.identity);
+                GameManager.Instance.DelayLoadScene(1, 5f);
             }
         }
     }
