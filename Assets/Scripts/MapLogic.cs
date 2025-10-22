@@ -17,16 +17,15 @@ public class MapLogic : MonoBehaviour
     {
         playerAnimator = player.GetComponent<Animator>();
 
+        // Saves the current node name the player is on.
+        // This ensures the player goes back to their proper position on the map after a battle.
+        string nodeName = GameManager.Instance.GetCurrentNodeName();
+        Node foundNode = GameObject.Find(nodeName)?.GetComponent<Node>();
 
-        if (GameManager.Instance.GetCurrentNode() != null)
-        {
-            currentNode = GameManager.Instance.GetCurrentNode();
-            player.transform.position = currentNode.transform.position;
-        }
-        else
-        {
-            player.transform.position = currentNode.transform.position;
-        }
+        if (foundNode != null)
+            currentNode = foundNode;
+
+        player.transform.position = currentNode.transform.position;
 
     }
 
@@ -48,6 +47,7 @@ public class MapLogic : MonoBehaviour
                 if (currentNode.hasEnemies)
                 {
                     Debug.Log("Enemies here!");
+                    // Finds the node game object by name and sets it as the current node.
                     GameManager.Instance.SetCurrentNode(currentNode); 
                     GameManager.Instance.ChangeScene(2); 
                 }

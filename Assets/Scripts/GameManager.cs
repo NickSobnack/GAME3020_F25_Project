@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public GameObject tutorialPanel;
-    public Node currentNode;
+    public string currentNodeName;
 
     private void Awake()
     {
@@ -21,35 +21,31 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    // Sets and gets the current node by its name.
     public void SetCurrentNode(Node node)
     {
-        currentNode = node;
+        currentNodeName = node.name;
     }
 
-    public Node GetCurrentNode()
+    public string GetCurrentNodeName()
     {
-        return currentNode;
+        return currentNodeName;
     }
 
-    // Tutorial panel controls
-    public void OpenTutorial()
-    {
-        if (tutorialPanel != null)
-            tutorialPanel.SetActive(true);
-    }
-
-    public void CloseTutorial()
+    // Single method to toggle tutorial panel.
+    public void ToggleTutorial(bool isVisible)
     {
         if (tutorialPanel != null)
-            tutorialPanel.SetActive(false);
+            tutorialPanel.SetActive(isVisible);
     }
 
-    // Scene loading by index
+    // Load scene by index.
     public void ChangeScene(int sceneIndex)
     {
         SceneManager.LoadScene(sceneIndex);
     }
 
+    // Delay coroutine inbetween loading scenes.
     public void DelayLoadScene(int sceneIndex, float delay)
     {
         StartCoroutine(DelayScene(sceneIndex, delay));
@@ -60,8 +56,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(sceneIndex);
     }
-
-    //Quits the game application.
+    
+    // Quits the game/application.
     public void QuitGame()
     {
         Application.Quit();

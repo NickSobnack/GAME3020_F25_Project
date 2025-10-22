@@ -27,7 +27,6 @@ public class Node : MonoBehaviour
                 Gizmos.DrawLine(transform.position, next.transform.position);
             }
         }
-
         Handles.Label(transform.position + Vector3.up * 0.3f, name);
     }
 
@@ -36,4 +35,5 @@ public class Node : MonoBehaviour
         var mover = GameObject.FindFirstObjectByType<MapLogic>();
         mover.MoveTo(this);
     }
+
 }
