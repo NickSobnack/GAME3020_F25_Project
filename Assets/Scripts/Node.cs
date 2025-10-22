@@ -5,8 +5,14 @@ using UnityEngine;
 public class Node : MonoBehaviour
 {
     public List<Node> nextNodes = new List<Node>();
+    public GameObject backSplash;
     public bool hasEnemies;
     public bool isVisited;
+
+    void Start()
+    {
+        GameObject splash = Instantiate(backSplash, transform.position, Quaternion.identity, transform);
+    }
 
     private void OnDrawGizmos()
     {
@@ -24,4 +30,11 @@ public class Node : MonoBehaviour
 
         Handles.Label(transform.position + Vector3.up * 0.3f, name);
     }
+
+    private void OnMouseDown()
+    {
+        var mover = GameObject.FindFirstObjectByType<MapLogic>();
+        mover.MoveTo(this);
+    }
+
 }
