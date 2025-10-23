@@ -35,5 +35,4 @@ public class Node : MonoBehaviour
         var mover = GameObject.FindFirstObjectByType<MapLogic>();
         mover.MoveTo(this);
     }
-
 }
