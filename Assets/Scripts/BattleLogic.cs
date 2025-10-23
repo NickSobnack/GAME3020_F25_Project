@@ -1,9 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BattleLogic : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class BattleLogic : MonoBehaviour
     // TO DO: Add visual for enemy health and pace timing between retreat animation and win message.
 
     private PlayerInput playerInput;
-    private InputAction attackAction, blockAction;
+    private InputAction attackAction, blockAction, targetAction;
 
     [Header("Energy System")] 
     [SerializeField] private float maxEnergy = 10f;
@@ -36,6 +37,10 @@ public class BattleLogic : MonoBehaviour
     public GameObject perfectVfx;
 
     [Header("Enemy")]
+    [SerializeField] private List<EnemyBase> enemies = new(); 
+    private EnemyBase selectedTarget;
+    private int selectedIndex = 0;
+
     [SerializeField] private ArcherLogic archer;
     [SerializeField] public float dmg;
 
@@ -43,7 +48,8 @@ public class BattleLogic : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         blockAction = playerInput.actions["Block"];
-        attackAction = playerInput.actions["Attack"];
+        attackAction = playerInput.actions["Attack"]; 
+        targetAction = playerInput.actions["Target"];
         currEnergy = maxEnergy;
         noEnergy = false;
     }
@@ -56,6 +62,9 @@ public class BattleLogic : MonoBehaviour
         blockAction.started += ctx => StartBlock();
         blockAction.canceled += ctx => EndBlock(false);
         blockAction.Enable();
+
+        targetAction.started += ctx => SelectTarget();
+        targetAction.Enable();
     }
 
     private void OnDisable()
@@ -66,6 +75,16 @@ public class BattleLogic : MonoBehaviour
         blockAction.started -= ctx => StartBlock();
         blockAction.canceled -= ctx => EndBlock(false);
         blockAction.Disable();
+
+        targetAction.started -= ctx => SelectTarget();
+        targetAction.Disable();
+    }
+
+    // Populate enemy list at the start of the scene.
+    void Start()
+    {
+        enemies.AddRange(Object.FindObjectsByType<EnemyBase>(FindObjectsSortMode.None));
+        selectedIndex = 0;
     }
 
     private void Update()
@@ -107,28 +126,25 @@ public class BattleLogic : MonoBehaviour
         energyBar.fillAmount = currEnergy / maxEnergy;
     }
 
+    // Attack the selected target if not blocking, has enough energy, and not already attacking.
+    // If all enemies are defeated, trigger win message and load next scene.
     private void Attack()
     {
-        // Can attack only if not blocking or attacking and has enough energy.
-        if (!isBlocking && currEnergy >= attackCost && !isAttacking)
+        if (!isBlocking && currEnergy >= attackCost && !isAttacking && selectedTarget != null)
         {
             currEnergy -= attackCost;
             isAttacking = true;
             playerAnimator.SetTrigger("Attack");
 
-            // Damage archer when attack animation plays and plays Perfect vfx if archer dies.
-            archer.TakeDamage(dmg);
-            if (archer.health <= 0)
-            {
-                Instantiate(perfectVfx, gameStatusVfxPoint.position, Quaternion.identity);
-                GameManager.Instance.DelayLoadScene(1, 5f);
-            }
+            selectedTarget.TakeDamage(dmg);
+
+            CheckAllEnemiesDefeated(); 
         }
     }
 
+    // Block function so that when block key is held and player has energy, the block animation plays.
     private void StartBlock()
     {
-        // Start blocking when block key is held and has energy, and block animation plays.
         if (!isBlocking && !noEnergy && currEnergy > 0)
         {
             isBlocking = true;
@@ -137,9 +153,9 @@ public class BattleLogic : MonoBehaviour
         }
     }
 
+    // End block when block key is released or energy hits 0, and block animation stops.
     private void EndBlock(bool autoRelease)
     {
-        // End block when block key is released or energy hits 0, and block animation stops.
         if (isBlocking)
         {
             isBlocking = false;
@@ -151,5 +167,28 @@ public class BattleLogic : MonoBehaviour
     public void AttackFinished()
     {
         isAttacking = false;
+    }
+
+    // Cycles through available enemies as target when tab is pressed.
+    private void SelectTarget()
+    {
+        if (enemies.Count == 0) return;
+
+        selectedIndex = (selectedIndex + 1) % enemies.Count;
+        selectedTarget = enemies[selectedIndex];
+
+        Debug.Log($"Cycled to target: {selectedTarget.name}");
+    }
+
+    // Check if all enemies are defeated, then play perfect vfx and load next scene after delay.
+    private void CheckAllEnemiesDefeated()
+    {
+        foreach (var enemy in enemies)
+        {
+            if (enemy.health > 0)
+                return;
+        }
+        Instantiate(perfectVfx, gameStatusVfxPoint.position, Quaternion.identity);
+        GameManager.Instance.DelayLoadScene(1, 3f);
     }
 }

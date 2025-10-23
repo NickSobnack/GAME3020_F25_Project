@@ -43,9 +43,9 @@ public class PlayerLogic : MonoBehaviour
 
     // Detect collisions with other game objects and reacts accordingly.
     // If colliding with an enemy tag, check if blocking animation is on/off and displays vfx.
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (other.CompareTag("Bullet"))
         {
             if (playerAnimator.GetBool("isBlocking"))
             {
@@ -53,13 +53,13 @@ public class PlayerLogic : MonoBehaviour
             }
             else
             {
-                //Instantiate(missedVFX, vfxPoint.position, Quaternion.identity);
                 health -= damage;
                 health = Mathf.Clamp(health, 0, maxHealth);
             }
-            Destroy(collision.gameObject); 
+            Destroy(other.gameObject);
         }
     }
+
 
     // Function that gets called when player hp reaches 0 and triggers game over sequence.
     void OnPlayerDeath()
