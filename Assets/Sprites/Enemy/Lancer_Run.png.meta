@@ -87,7 +87,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 2
@@ -131,11 +131,11 @@ TextureImporter:
       name: Lancer_Run_0
       rect:
         serializedVersion: 2
-        x: 115
-        y: 122
-        width: 66
-        height: 144
-      alignment: 0
+        x: 0
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -153,11 +153,11 @@ TextureImporter:
       name: Lancer_Run_1
       rect:
         serializedVersion: 2
-        x: 420
-        y: 121
-        width: 82
-        height: 170
-      alignment: 0
+        x: 320
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -172,36 +172,14 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lancer_Run_2
-      rect:
-        serializedVersion: 2
-        x: 738
-        y: 243
-        width: 32
-        height: 47
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 17121fc62edaa56c0800000000000000
-      internalID: -4153816518293905039
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Lancer_Run_3
       rect:
         serializedVersion: 2
-        x: 766
-        y: 117
-        width: 55
-        height: 143
-      alignment: 0
+        x: 960
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -219,11 +197,11 @@ TextureImporter:
       name: Lancer_Run_4
       rect:
         serializedVersion: 2
-        x: 1073
-        y: 122
-        width: 67
-        height: 140
-      alignment: 0
+        x: 1280
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -241,11 +219,11 @@ TextureImporter:
       name: Lancer_Run_5
       rect:
         serializedVersion: 2
-        x: 1359
-        y: 122
-        width: 101
-        height: 138
-      alignment: 0
+        x: 1600
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -260,14 +238,14 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lancer_Run_6
+      name: Lancer_Run_2
       rect:
         serializedVersion: 2
-        x: 1682
-        y: 118
-        width: 99
-        height: 138
-      alignment: 0
+        x: 640
+        y: 0
+        width: 320
+        height: 320
+      alignment: 9
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -275,8 +253,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2c453ba2a070dc24488b9a62c0906168
-      internalID: -817325816
+      spriteID: c722993f5db2ea5459bbb71fb7bde8c7
+      internalID: -4153816518293905039
       vertices: []
       indices: 
       edges: []
@@ -295,7 +273,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":1.0},"gridSpriteSize":{"x":192.0,"y":192.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":1.0},"gridSpriteSize":{"x":320.0,"y":320.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Lancer_Run_0: -8580444238127179786
       Lancer_Run_1: 828278362111410375
@@ -303,7 +281,6 @@ TextureImporter:
       Lancer_Run_3: 1456675321045083290
       Lancer_Run_4: -3942745417268178275
       Lancer_Run_5: -1776823346852784203
-      Lancer_Run_6: -817325816
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

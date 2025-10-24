@@ -81,7 +81,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 2
@@ -149,8 +149,8 @@ TextureImporter:
         serializedVersion: 2
         x: 464
         y: 122
-        width: 176
-        height: 73
+        width: 164
+        height: 75
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,7 +171,7 @@ TextureImporter:
         serializedVersion: 2
         x: 761
         y: 122
-        width: 181
+        width: 165
         height: 75
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -179,10 +179,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a97e7c52a2c9c03c0800000000000000
-      internalID: -4391963831756658790
+      spriteID: 15430b42bbfbd1642ba7f8a324a3609d
+      internalID: 448183022
       vertices: []
       indices: 
       edges: []
@@ -201,12 +201,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":1.0},"gridSpriteSize":{"x":192.0,"y":192.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":1.0},"gridSpriteSize":{"x":192.0,"y":320.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Lancer_Right_Attack_0: 6331980819534964110
       Lancer_Right_Attack_1: 7232042838751349278
       Lancer_Right_Attack_2: -4157329051755591257
-      Lancer_Right_Attack_3: -4391963831756658790
+      Lancer_Right_Attack_3: 448183022
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
