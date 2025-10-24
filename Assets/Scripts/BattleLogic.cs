@@ -172,22 +172,21 @@ public class BattleLogic : MonoBehaviour
     // Cycles through available enemies as target when tab is pressed.
     private void SelectTarget()
     {
-        if (enemies.Count == 0) return;
+        if (selectedTarget != null)
+            selectedTarget.SetSelected(false);
+
+        enemies.RemoveAll(e => e == null || e.health <= 0);
+
+        if (enemies.Count == 0)
+        {
+            selectedTarget = null;
+            return;
+        }
 
         selectedIndex = (selectedIndex + 1) % enemies.Count;
         selectedTarget = enemies[selectedIndex];
 
-        Debug.Log($"Cycled to target: {selectedTarget.name}");
-
-        // Create pointer if it doesn't exist
-        if (targetPointerInstance == null)
-        {
-            targetPointerInstance = Instantiate(targetPointerPrefab);
-        }
-
-        // Attach pointer to selected target
-        targetPointerInstance.transform.SetParent(selectedTarget.transform);
-        targetPointerInstance.transform.localPosition = Vector3.up * 1.5f; // Adjust height above enemy
+        selectedTarget.SetSelected(true);
     }
 
 
