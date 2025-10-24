@@ -1,25 +1,25 @@
 fileFormatVersion: 2
-guid: 9400196882aabf446b6e33d56bec19b8
+guid: ceab51605eb2f744ca0d10e0f3b755ba
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5801438236280502111
-    second: Lancer_Right_Defence_0
+      213: -8580444238127179786
+    second: Lancer_Run_0
   - first:
-      213: -6545990606954233485
-    second: Lancer_Right_Defence_1
+      213: 828278362111410375
+    second: Lancer_Run_1
   - first:
-      213: -5580180248570626300
-    second: Lancer_Right_Defence_2
+      213: -4153816518293905039
+    second: Lancer_Run_2
   - first:
-      213: -7960767608736850561
-    second: Lancer_Right_Defence_3
+      213: 1456675321045083290
+    second: Lancer_Run_3
   - first:
-      213: -1814465234445016347
-    second: Lancer_Right_Defence_4
+      213: -3942745417268178275
+    second: Lancer_Run_4
   - first:
-      213: -5558503021728595732
-    second: Lancer_Right_Defence_5
+      213: -1776823346852784203
+    second: Lancer_Run_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +52,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -66,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -90,7 +90,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -128,133 +128,155 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Lancer_Right_Defence_0
+      name: Lancer_Run_0
       rect:
         serializedVersion: 2
-        x: 122
-        y: 121
-        width: 154
-        height: 77
+        x: 115
+        y: 122
+        width: 66
+        height: 144
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f573edba659d28050800000000000000
-      internalID: 5801438236280502111
+      spriteID: 6f7d1633d632ce880800000000000000
+      internalID: -8580444238127179786
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lancer_Right_Defence_1
+      name: Lancer_Run_1
       rect:
         serializedVersion: 2
-        x: 442
+        x: 420
         y: 121
-        width: 154
-        height: 76
+        width: 82
+        height: 170
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3710371a938f725a0800000000000000
-      internalID: -6545990606954233485
+      spriteID: 7c00bcc28c2ae7b00800000000000000
+      internalID: 828278362111410375
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lancer_Right_Defence_2
+      name: Lancer_Run_2
       rect:
         serializedVersion: 2
-        x: 761
-        y: 121
-        width: 155
-        height: 75
+        x: 738
+        y: 243
+        width: 32
+        height: 47
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 40ffb4501a73f82b0800000000000000
-      internalID: -5580180248570626300
+      spriteID: 17121fc62edaa56c0800000000000000
+      internalID: -4153816518293905039
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lancer_Right_Defence_3
+      name: Lancer_Run_3
       rect:
         serializedVersion: 2
-        x: 1082
-        y: 121
-        width: 152
-        height: 76
+        x: 766
+        y: 117
+        width: 55
+        height: 143
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f7dddcda90ca58190800000000000000
-      internalID: -7960767608736850561
+      spriteID: a9468f79c76273410800000000000000
+      internalID: 1456675321045083290
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lancer_Right_Defence_4
+      name: Lancer_Run_4
       rect:
         serializedVersion: 2
-        x: 1401
-        y: 121
-        width: 155
-        height: 77
+        x: 1073
+        y: 122
+        width: 67
+        height: 140
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5e2eb939b79b1d6e0800000000000000
-      internalID: -1814465234445016347
+      spriteID: d925eebbeed8849c0800000000000000
+      internalID: -3942745417268178275
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lancer_Right_Defence_5
+      name: Lancer_Run_5
       rect:
         serializedVersion: 2
-        x: 1722
-        y: 121
-        width: 154
-        height: 77
+        x: 1359
+        y: 122
+        width: 101
+        height: 138
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ce08ee2b3fa3cd2b0800000000000000
-      internalID: -5558503021728595732
+      spriteID: 5b7183e74947757e0800000000000000
+      internalID: -1776823346852784203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lancer_Run_6
+      rect:
+        serializedVersion: 2
+        x: 1682
+        y: 118
+        width: 99
+        height: 138
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c453ba2a070dc24488b9a62c0906168
+      internalID: -817325816
       vertices: []
       indices: 
       edges: []
@@ -263,7 +285,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d0937cad93978834d9406ce0587b2757
     internalID: 0
     vertices: []
     indices: 
@@ -271,14 +293,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":1.0},"gridSpriteSize":{"x":192.0,"y":192.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Lancer_Right_Defence_0: 5801438236280502111
-      Lancer_Right_Defence_1: -6545990606954233485
-      Lancer_Right_Defence_2: -5580180248570626300
-      Lancer_Right_Defence_3: -7960767608736850561
-      Lancer_Right_Defence_4: -1814465234445016347
-      Lancer_Right_Defence_5: -5558503021728595732
+      Lancer_Run_0: -8580444238127179786
+      Lancer_Run_1: 828278362111410375
+      Lancer_Run_2: -4153816518293905039
+      Lancer_Run_3: 1456675321045083290
+      Lancer_Run_4: -3942745417268178275
+      Lancer_Run_5: -1776823346852784203
+      Lancer_Run_6: -817325816
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

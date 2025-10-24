@@ -40,8 +40,8 @@ public class BattleLogic : MonoBehaviour
     [SerializeField] private List<EnemyBase> enemies = new(); 
     private EnemyBase selectedTarget;
     private int selectedIndex = 0;
-
-    [SerializeField] private ArcherLogic archer;
+    [SerializeField] private GameObject targetPointerPrefab;
+    private GameObject targetPointerInstance;
     [SerializeField] public float dmg;
 
     private void Awake()
@@ -178,7 +178,18 @@ public class BattleLogic : MonoBehaviour
         selectedTarget = enemies[selectedIndex];
 
         Debug.Log($"Cycled to target: {selectedTarget.name}");
+
+        // Create pointer if it doesn't exist
+        if (targetPointerInstance == null)
+        {
+            targetPointerInstance = Instantiate(targetPointerPrefab);
+        }
+
+        // Attach pointer to selected target
+        targetPointerInstance.transform.SetParent(selectedTarget.transform);
+        targetPointerInstance.transform.localPosition = Vector3.up * 1.5f; // Adjust height above enemy
     }
+
 
     // Check if all enemies are defeated, then play perfect vfx and load next scene after delay.
     private void CheckAllEnemiesDefeated()
