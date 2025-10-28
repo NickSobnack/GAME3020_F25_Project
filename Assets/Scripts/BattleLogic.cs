@@ -35,14 +35,20 @@ public class BattleLogic : MonoBehaviour
     public Animator playerAnimator;
     public Transform gameStatusVfxPoint;
     public GameObject perfectVfx;
+    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float distanceToEnemy = 1.5f;
+    [SerializeField] private float returnDelay = 0.5f;
+    private Vector3 originalPos;
+    private Vector3 attackPos;
 
     [Header("Enemy")]
     [SerializeField] private List<EnemyBase> enemies = new(); 
+    [SerializeField] private GameObject targetPointerPrefab;
+    [SerializeField] public float dmg;
+    private GameObject targetPointerInstance;
     private EnemyBase selectedTarget;
     private int selectedIndex = 0;
-    [SerializeField] private GameObject targetPointerPrefab;
-    private GameObject targetPointerInstance;
-    [SerializeField] public float dmg;
+
 
     private void Awake()
     {
@@ -134,11 +140,8 @@ public class BattleLogic : MonoBehaviour
         {
             currEnergy -= attackCost;
             isAttacking = true;
-            playerAnimator.SetTrigger("Attack");
-
-            selectedTarget.TakeDamage(dmg);
-
-            CheckAllEnemiesDefeated(); 
+            originalPos = transform.position;
+            StartCoroutine(AttackSequence(selectedTarget));
         }
     }
 
@@ -190,6 +193,42 @@ public class BattleLogic : MonoBehaviour
     }
 
 
+    // Coroutine to handle moving to enemy using lerp, play attack animation and deal damage then return to og position.
+    private IEnumerator AttackSequence(EnemyBase target)
+    {
+        Vector3 direction = (target.transform.position - transform.position).normalized;
+        Vector3 attackPos = target.transform.position - direction * distanceToEnemy;
+
+        yield return MoveToPosition(attackPos);
+
+        playerAnimator.SetTrigger("Attack");
+        yield return new WaitForSeconds(0.5f);
+
+        target.TakeDamage(dmg);
+        CheckAllEnemiesDefeated();
+
+        yield return new WaitForSeconds(returnDelay);
+        yield return MoveToPosition(originalPos);
+
+        isAttacking = false;
+    }
+
+    // Lerp movement to selected target position. Works by gradually updating position until close enough.
+    private IEnumerator MoveToPosition(Vector3 targetPos)
+    {
+        Vector3 startPos = transform.position;
+        float progress = 0f;
+
+        while (Vector3.Distance(transform.position, targetPos) > 0.01f)
+        {
+            progress += Time.deltaTime * moveSpeed;
+            transform.position = Vector3.Lerp(startPos, targetPos, Mathf.Clamp01(progress));
+            yield return null;
+        }
+
+        transform.position = targetPos; // Snap to final position
+    }
+
     // Check if all enemies are defeated, then play perfect vfx and load next scene after delay.
     private void CheckAllEnemiesDefeated()
     {
@@ -201,4 +240,6 @@ public class BattleLogic : MonoBehaviour
         Instantiate(perfectVfx, gameStatusVfxPoint.position, Quaternion.identity);
         GameManager.Instance.DelayLoadScene(1, 3f);
     }
+
+
 }
