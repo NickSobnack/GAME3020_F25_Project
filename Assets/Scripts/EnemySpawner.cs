@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
     [Header("Spawn Settings")]
     [SerializeField] private Transform[] spawnPoints; 
     [SerializeField] private GameObject[] enemyPrefabs; 
-    [SerializeField] private string[] enemyNames = { "Razor", "Thorn", "Vex", "Blight", "Nyx", "Fang", "Shade", "Grim" };
+    [SerializeField] private string[] enemyNames = { "Clara", "Gloria", "Teadon", "Selena", "Auguste", "Simona", "Lightning", "Camelot", "Parsifal" };
 
     [SerializeField] private int maxEnemiesToSpawn = 3;
 

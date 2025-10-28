@@ -8,7 +8,7 @@ public class LancerLogic : EnemyBase
     protected override void Awake()
     {
         base.Awake();
-        thrustTimer = Random.Range(2f, 4f);
+        thrustTimer = Random.Range(3f, 6f);
     }
 
     private void Update()

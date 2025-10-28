@@ -21,7 +21,7 @@ public class ArcherLogic : EnemyBase
         {
             animator.SetTrigger("Shoot");
             timer = 0f;
-            shootTimer = Random.Range(2f, 4f);
+            shootTimer = Random.Range(3f, 6f);
         }
     }
 

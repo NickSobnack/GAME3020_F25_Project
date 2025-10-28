@@ -182,6 +182,10 @@ PrefabInstance:
       value: TargetPointer
       objectReference: {fileID: 0}
     - target: {fileID: 507636839208067143, guid: 5bc0c311b2d91c443a2af74e2d83a8cc, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 507636839208067143, guid: 5bc0c311b2d91c443a2af74e2d83a8cc, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

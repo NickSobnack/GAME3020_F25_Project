@@ -1064,6 +1064,9 @@ MonoBehaviour:
   playerAnimator: {fileID: 1048360771}
   gameStatusVfxPoint: {fileID: 1670859119}
   perfectVfx: {fileID: 3237155395738874188, guid: 9dbc22ba36e625146ae4645a419b161a, type: 3}
+  moveSpeed: 3
+  distanceToEnemy: 1.5
+  returnDelay: 0.5
   enemies: []
   targetPointerPrefab: {fileID: 507636839208067143, guid: 5bc0c311b2d91c443a2af74e2d83a8cc, type: 3}
   dmg: 3
