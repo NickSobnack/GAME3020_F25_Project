@@ -1,19 +1,64 @@
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEditor;
 using UnityEngine;
+public enum NodeType
+{
+    SafeZone,
+    Enemy,
+    Boss
+}
+
 
 public class Node : MonoBehaviour
 {
     public List<Node> nextNodes = new List<Node>();
-    public GameObject backSplash;
+
+    [Header("Visual Component")]
+    public NodeType nodeType;
+    public Vector3 heightOffset = new Vector3(0, 1f, 0);
+    public GameObject housePrefab, towerPrefab, castlePrefab;
     public bool hasEnemies;
     public bool isVisited;
 
+    // Setup the node visual depending on its type = safe, enemy or boss encounter.
+    // Automatically assign nodes with enemies for scene transition based on NodeTyp,
     void Start()
     {
-        GameObject splash = Instantiate(backSplash, transform.position, Quaternion.identity, transform);
+        if (nodeType == NodeType.Enemy || nodeType == NodeType.Boss)
+        {
+            hasEnemies = true;
+        }
+
+        GameObject selectedPrefab = null;
+        switch (nodeType)
+        {
+            case NodeType.SafeZone:
+                selectedPrefab = housePrefab;
+                break;
+            case NodeType.Enemy:
+                selectedPrefab = towerPrefab;
+                break;
+            case NodeType.Boss:
+                selectedPrefab = castlePrefab;
+                break;
+        }
+
+        if (selectedPrefab != null)
+        {
+            GameObject buildingInstance = Instantiate(selectedPrefab, transform.position, Quaternion.identity, transform);
+            buildingInstance.transform.localPosition += heightOffset;
+        }
     }
 
+    // On mouse click, move the player to the selected node via MapLogic.
+    private void OnMouseDown()
+    {
+        var mover = GameObject.FindFirstObjectByType<MapLogic>();
+        mover.MoveTo(this);
+    }
+
+    // Debug gizmo to visualize node and paths.
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -27,12 +72,8 @@ public class Node : MonoBehaviour
                 Gizmos.DrawLine(transform.position, next.transform.position);
             }
         }
+
         Handles.Label(transform.position + Vector3.up * 0.3f, name);
     }
 
-    private void OnMouseDown()
-    {
-        var mover = GameObject.FindFirstObjectByType<MapLogic>();
-        mover.MoveTo(this);
-    }
 }

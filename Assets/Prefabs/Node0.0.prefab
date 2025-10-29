@@ -48,7 +48,11 @@ MonoBehaviour:
   nextNodes:
   - {fileID: 0}
   - {fileID: 0}
-  backSplash: {fileID: 1414418220400875445, guid: 5cb4185a32df68a45901d5476f9287ee, type: 3}
+  nodeType: 0
+  heightOffset: {x: 0, y: 0.5, z: 0}
+  housePrefab: {fileID: 9128234991237689498, guid: 4963e081b95755745ae5c67fa9c3e50c, type: 3}
+  towerPrefab: {fileID: 9128234991237689498, guid: ef95d17927189e6489f476eba1d63564, type: 3}
+  castlePrefab: {fileID: 9128234991237689498, guid: ff17286fba215de4dae93ad9d65f7804, type: 3}
   hasEnemies: 0
   isVisited: 0
 --- !u!58 &734337430983008585
