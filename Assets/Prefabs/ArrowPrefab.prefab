@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArrowLogic
   speed: -10
+  damage: 2
 --- !u!50 &6860402074659568162
 Rigidbody2D:
   serializedVersion: 5

@@ -65,13 +65,33 @@ public class PlayerLogic : MonoBehaviour
             }
             else
             {
-                health -= damage;
-                health = Mathf.Clamp(health, 0, maxHealth);
+                float damageAmount = 0f;
+
+                ArrowLogic arrow = other.GetComponent<ArrowLogic>();
+                if (arrow != null)
+                {
+                    damageAmount = arrow.damage;
+                    Debug.Log("Arrow hit for damage: " + damageAmount);
+                }
+
+                LanceLogic lance = other.GetComponent<LanceLogic>();
+                if (lance != null)
+                {
+                    damageAmount = lance.damage;
+                    Debug.Log("Lance hit for damage: " + damageAmount);
+                }
+
+                TakeDamage(damageAmount);
             }
             Destroy(other.gameObject);
         }
     }
 
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+        health = Mathf.Clamp(health, 0, maxHealth);
+    }
 
     // Function that gets called when player hp reaches 0 and triggers game over sequence.
     void OnPlayerDeath()

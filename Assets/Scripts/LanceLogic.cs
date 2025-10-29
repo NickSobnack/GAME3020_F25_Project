@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ArrowLogic : MonoBehaviour
+public class LanceLogic : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
     public float damage = 2f;

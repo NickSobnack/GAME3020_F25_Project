@@ -39,7 +39,6 @@ public class ArcherLogic : EnemyBase
     {
         isStunned = true;
         animator.SetTrigger("Hit");
-        Debug.Log($"{enemyName} is stunned!");
     }
 
     protected override void PlayDeathAnimation()
@@ -50,6 +49,5 @@ public class ArcherLogic : EnemyBase
     public void EndStun()
     {
         isStunned = false;
-        Debug.Log($"{enemyName} is no longer stunned!");
     }
 }

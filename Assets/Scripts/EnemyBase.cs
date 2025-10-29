@@ -5,7 +5,7 @@ public abstract class EnemyBase : MonoBehaviour
     // Enemy base class for shared functionality among enemies like health, damage handling, and death.
     [Header("Enemy Stats")]
     public float maxHealth = 9f;
-    public float health; 
+    public float health;
     public GameObject targetPointer;
    
     [HideInInspector] public string enemyName;
