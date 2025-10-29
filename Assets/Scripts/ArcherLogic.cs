@@ -7,6 +7,7 @@ public class ArcherLogic : EnemyBase
     [SerializeField] private Transform firePoint;
     private float shootTimer;
     private float timer;
+    private bool isStunned = false;
 
     protected override void Awake()
     {
@@ -16,6 +17,8 @@ public class ArcherLogic : EnemyBase
 
     private void Update()
     {
+        if (isStunned) return;
+
         timer += Time.deltaTime;
         if (timer >= shootTimer)
         {
@@ -34,11 +37,19 @@ public class ArcherLogic : EnemyBase
 
     protected override void PlayHurtAnimation()
     {
+        isStunned = true;
         animator.SetTrigger("Hit");
+        Debug.Log($"{enemyName} is stunned!");
     }
 
     protected override void PlayDeathAnimation()
     {
         animator.SetTrigger("Death");
+    }
+
+    public void EndStun()
+    {
+        isStunned = false;
+        Debug.Log($"{enemyName} is no longer stunned!");
     }
 }

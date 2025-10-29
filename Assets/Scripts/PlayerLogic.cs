@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.Collections.AllocatorManager;
 
 public class PlayerLogic : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PlayerLogic : MonoBehaviour
     public float damage = 2;
     private float health;
     private bool playerDead = false;
+    public float perfectBlockWindow = 0.2f;
+    private BattleLogic battleLogic;
 
     [Header("UI")]
     public Image healthBar;
@@ -21,12 +24,13 @@ public class PlayerLogic : MonoBehaviour
     [Header("VFX Properties")]
     public Transform blockVfxPoint;
     public Transform gameOverVfxPoint;
-    public GameObject niceVfx, gameOverVfx;
+    public GameObject goodVfx, niceVfx, gameOverVfx;
 
     // Set initial values for player hp.
     private void Awake()
     {
         playerAnimator = GetComponent<Animator>();
+        battleLogic = GetComponent<BattleLogic>();
         health = maxHealth;
     }
 
@@ -49,7 +53,15 @@ public class PlayerLogic : MonoBehaviour
         {
             if (playerAnimator.GetBool("isBlocking"))
             {
-                Instantiate(niceVfx, blockVfxPoint.position, Quaternion.identity);
+                float timeSinceBlock = Time.time - battleLogic.currBlockTime;
+                if (timeSinceBlock <= perfectBlockWindow)
+                {
+                    Instantiate(niceVfx, blockVfxPoint.position, Quaternion.identity);
+                }
+                else
+                {
+                    Instantiate(goodVfx, blockVfxPoint.position, Quaternion.identity);
+                }
             }
             else
             {

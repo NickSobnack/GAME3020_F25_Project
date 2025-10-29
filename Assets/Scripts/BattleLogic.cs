@@ -35,6 +35,9 @@ public class BattleLogic : MonoBehaviour
     public Animator playerAnimator;
     public Transform gameStatusVfxPoint;
     public GameObject perfectVfx;
+    public float currBlockTime { get; private set; }
+
+    [Header("Movement")]
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float distanceToEnemy = 1.5f;
     [SerializeField] private float returnDelay = 0.5f;
@@ -152,6 +155,7 @@ public class BattleLogic : MonoBehaviour
         {
             isBlocking = true;
             currHoldTimer = 0f;
+            currBlockTime = Time.time;
             playerAnimator.SetBool("isBlocking", true);
         }
     }

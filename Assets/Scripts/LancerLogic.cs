@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class LancerLogic : EnemyBase
 {
+    [Header("Lancer Attack")]
     private float thrustTimer;
     private float timer;
 
