@@ -1868,6 +1868,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2033676505}
   - component: {fileID: 2033676506}
+  - component: {fileID: 2033676507}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -1904,6 +1905,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   tutorialPanel: {fileID: 282018566}
   currentNodeName: 
+  playerHealth: 10
+  playerMaxHealth: 10
+  playerGold: 0
+--- !u!114 &2033676507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033676504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c5069f0e455a204f96c61363f3c5a10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
 --- !u!1 &2034813996
 GameObject:
   m_ObjectHideFlags: 0

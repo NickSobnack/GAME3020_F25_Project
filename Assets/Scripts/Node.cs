@@ -1,14 +1,13 @@
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEditor;
 using UnityEngine;
+
 public enum NodeType
 {
     SafeZone,
     Enemy,
     Boss
 }
-
 
 public class Node : MonoBehaviour
 {
@@ -72,8 +71,5 @@ public class Node : MonoBehaviour
                 Gizmos.DrawLine(transform.position, next.transform.position);
             }
         }
-
-        Handles.Label(transform.position + Vector3.up * 0.3f, name);
     }
-
 }

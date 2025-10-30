@@ -68,10 +68,9 @@ public class AudioManager : MonoBehaviour
     {
         sound.clip = soundClips[(int)soundId];
         sound.Play();
-        Debug.Log("Playing sound: " + soundId.ToString());
     }
 
-    public void PlayMusic(MusicName musicId)
+    public void PlayMusic(MusicName musicId, bool loopMusic)
     {
         if (currentMusic == musicId && music.isPlaying)
         {
@@ -80,8 +79,7 @@ public class AudioManager : MonoBehaviour
 
         currentMusic = musicId;
         music.clip = musicClips[(int)musicId];
-        music.loop = true;
+        music.loop = loopMusic;
         music.Play();
-        Debug.Log("Playing music: " + musicId.ToString());
     }
 }

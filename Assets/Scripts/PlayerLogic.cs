@@ -66,6 +66,7 @@ public class PlayerLogic : MonoBehaviour
                 {
                     Instantiate(goodVfx, blockVfxPoint.position, Quaternion.identity);
                 }
+
                 AudioManager.Instance.PlaySound(SoundName.bash);
             }
             else

@@ -246,7 +246,7 @@ public class BattleLogic : MonoBehaviour
                 return;
         }
         Instantiate(perfectVfx, gameStatusVfxPoint.position, Quaternion.identity);
-        AudioManager.Instance.PlayMusic(MusicName.victory);
-        GameManager.Instance.DelayLoadScene(1, 5f);
+        AudioManager.Instance.PlayMusic(MusicName.victory, false);
+        GameManager.Instance.DelayLoadScene(1, 3f);
     }
 }
