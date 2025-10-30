@@ -32,6 +32,7 @@ public class ArcherLogic : EnemyBase
     public void FireArrow()
     {
         GameObject arrow = Instantiate(arrowPrefab, firePoint.position, firePoint.rotation);
+        AudioManager.Instance.PlaySound(SoundName.bow);
         Destroy(arrow, 3f);
     }
 

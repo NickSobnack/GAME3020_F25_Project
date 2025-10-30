@@ -26,9 +26,11 @@ public class MapLogic : MonoBehaviour
             currentNode = foundNode;
 
         player.transform.position = currentNode.transform.position;
-
     }
 
+    // Moves across the map to the selected node.
+    // Once on a node, find its name and sets it as the current node.
+    // If the node is an enemy node, swap to battle scene else NEED TO IMPLEMENT SHOP/HEAL node.
     void Update()
     {
         if (isMoving)
@@ -47,7 +49,6 @@ public class MapLogic : MonoBehaviour
                 if (currentNode.hasEnemies)
                 {
                     Debug.Log("Enemies here!");
-                    // Finds the node game object by name and sets it as the current node.
                     GameManager.Instance.SetCurrentNode(currentNode); 
                     GameManager.Instance.ChangeScene(2); 
                 }

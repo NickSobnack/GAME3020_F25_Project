@@ -14,6 +14,7 @@ public class Pointer : MonoBehaviour
         startPos = transform.position;
     }
 
+    // Bobs the pointer up and down to indicate current player target.
     void Update()
     {
         float bob = Mathf.Sin(Time.time * pulse * Mathf.PI * 2f) * heightOffset;

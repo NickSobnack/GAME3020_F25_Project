@@ -13,6 +13,7 @@ public class PlayerLogic : MonoBehaviour
     public float maxHealth, health;
     private bool playerDead = false;
     public float perfectBlockWindow = 0.2f;
+    public float energyRestore = 2f;
     private BattleLogic battleLogic;
 
     [Header("UI")]
@@ -48,7 +49,7 @@ public class PlayerLogic : MonoBehaviour
     // Detect collisions with other game objects and reacts accordingly.
     // If colliding with a bullet (arrow or lance) tag, check if blocking animation is on/off and displays vfx.
     // If not blocking, take appropriate damage from the arrow or lance.
-    // If blocking, check if within perfect block window and display appropriate vfx.
+    // If blocking, check if within perfect block window, restore energy and display appropriate vfx.
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Bullet"))
@@ -58,12 +59,14 @@ public class PlayerLogic : MonoBehaviour
                 float timeSinceBlock = Time.time - battleLogic.currBlockTime;
                 if (timeSinceBlock <= perfectBlockWindow)
                 {
-                    Instantiate(niceVfx, blockVfxPoint.position, Quaternion.identity);
+                    Instantiate(niceVfx, blockVfxPoint.position, Quaternion.identity); 
+                    battleLogic.RestoreEnergy(energyRestore);
                 }
                 else
                 {
                     Instantiate(goodVfx, blockVfxPoint.position, Quaternion.identity);
                 }
+                AudioManager.Instance.PlaySound(SoundName.bash);
             }
             else
             {
@@ -83,6 +86,7 @@ public class PlayerLogic : MonoBehaviour
 
                 TakeDamage(damageAmount);
             }
+
             Destroy(other.gameObject);
         }
     }

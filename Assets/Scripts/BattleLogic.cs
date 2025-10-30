@@ -13,8 +13,6 @@ public class BattleLogic : MonoBehaviour
     // Attacking costs a fixed amount while holding block drains NRG over time.
     // When NRG hits 0, it regens slower, prevents actions, else regens faster.
 
-    // TO DO: Add visual for enemy health and pace timing between retreat animation and win message.
-
     private PlayerInput playerInput;
     private InputAction attackAction, blockAction, targetAction;
 
@@ -174,6 +172,13 @@ public class BattleLogic : MonoBehaviour
     {
         isAttacking = false;
     }
+    public void RestoreEnergy(float amount)
+    {
+        currEnergy += amount;
+        currEnergy = Mathf.Clamp(currEnergy, 0, maxEnergy);
+        energyBar.fillAmount = currEnergy / maxEnergy;
+    }
+
 
     // Cycles through available enemies as target when tab is pressed.
     private void SelectTarget()
@@ -195,7 +200,6 @@ public class BattleLogic : MonoBehaviour
         selectedTarget.SetSelected(true);
     }
 
-
     // Coroutine to handle moving to enemy using lerp, play attack animation and deal damage then return to og position.
     private IEnumerator AttackSequence(EnemyBase target)
     {
@@ -205,6 +209,7 @@ public class BattleLogic : MonoBehaviour
         yield return MoveToPosition(attackPos);
 
         playerAnimator.SetTrigger("Attack");
+        AudioManager.Instance.PlaySound(SoundName.sword);
         yield return new WaitForSeconds(0.5f);
 
         target.TakeDamage(playerDmg);
@@ -229,7 +234,7 @@ public class BattleLogic : MonoBehaviour
             yield return null;
         }
 
-        transform.position = targetPos; // Snap to final position
+        transform.position = targetPos;
     }
 
     // Check if all enemies are defeated, then play perfect vfx and load next scene after delay.
@@ -241,8 +246,7 @@ public class BattleLogic : MonoBehaviour
                 return;
         }
         Instantiate(perfectVfx, gameStatusVfxPoint.position, Quaternion.identity);
-        GameManager.Instance.DelayLoadScene(1, 3f);
+        AudioManager.Instance.PlayMusic(MusicName.victory);
+        GameManager.Instance.DelayLoadScene(1, 5f);
     }
-
-
 }

@@ -25,10 +25,11 @@ public class LancerLogic : EnemyBase
         }
     }
 
-    // Fire an arrow projectile.
+    // Fire a lance projectile.
     public void LanceAttack()
     {
         GameObject lance = Instantiate(lancePrefab, firePoint.position, firePoint.rotation);
+        AudioManager.Instance.PlaySound(SoundName.spear);
         Destroy(lance, 0.5f);
     }
 
