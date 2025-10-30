@@ -29,7 +29,7 @@ public class LancerLogic : EnemyBase
     public void LanceAttack()
     {
         GameObject lance = Instantiate(lancePrefab, firePoint.position, firePoint.rotation);
-        Destroy(lance, 3f);
+        Destroy(lance, 0.5f);
     }
 
 
