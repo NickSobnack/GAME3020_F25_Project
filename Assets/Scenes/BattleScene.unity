@@ -3235,7 +3235,7 @@ MonoBehaviour:
   returnDelay: 0.5
   enemies: []
   targetPointerPrefab: {fileID: 507636839208067143, guid: 5bc0c311b2d91c443a2af74e2d83a8cc, type: 3}
-  playerDmg: 0
+  playerDmg: 9
 --- !u!114 &1048360775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3316,7 +3316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLogic
   maxHealth: 10
-  damage: 2
+  health: 0
   perfectBlockWindow: 0.2
   healthBar: {fileID: 1227971696}
   fadePanel: {fileID: 538986476}

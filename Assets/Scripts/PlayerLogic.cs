@@ -10,9 +10,7 @@ public class PlayerLogic : MonoBehaviour
     private Animator playerAnimator;
 
     [Header("Player Properties")]
-    public float maxHealth = 10;
-    public float damage = 2;
-    private float health;
+    public float maxHealth, health;
     private bool playerDead = false;
     public float perfectBlockWindow = 0.2f;
     private BattleLogic battleLogic;
@@ -31,13 +29,15 @@ public class PlayerLogic : MonoBehaviour
     {
         playerAnimator = GetComponent<Animator>();
         battleLogic = GetComponent<BattleLogic>();
-        health = maxHealth;
+        health = GameManager.Instance.playerHealth;
     }
 
     // Update keeps track of player health and updates health bar UI.
     private void Update()
     {
         healthBar.fillAmount = health / maxHealth;
+
+        GameManager.Instance.playerHealth = health;
 
         if (health <= 0 && !playerDead)
         {
@@ -46,7 +46,9 @@ public class PlayerLogic : MonoBehaviour
     }
 
     // Detect collisions with other game objects and reacts accordingly.
-    // If colliding with an enemy tag, check if blocking animation is on/off and displays vfx.
+    // If colliding with a bullet (arrow or lance) tag, check if blocking animation is on/off and displays vfx.
+    // If not blocking, take appropriate damage from the arrow or lance.
+    // If blocking, check if within perfect block window and display appropriate vfx.
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Bullet"))
@@ -71,14 +73,12 @@ public class PlayerLogic : MonoBehaviour
                 if (arrow != null)
                 {
                     damageAmount = arrow.damage;
-                    Debug.Log("Arrow hit for damage: " + damageAmount);
                 }
 
                 LanceLogic lance = other.GetComponent<LanceLogic>();
                 if (lance != null)
                 {
                     damageAmount = lance.damage;
-                    Debug.Log("Lance hit for damage: " + damageAmount);
                 }
 
                 TakeDamage(damageAmount);

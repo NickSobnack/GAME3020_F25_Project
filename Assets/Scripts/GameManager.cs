@@ -9,6 +9,11 @@ public class GameManager : MonoBehaviour
     public GameObject tutorialPanel;
     public string currentNodeName;
 
+    [Header("Player Stats")]
+    public float playerHealth = 10f;
+    public float playerMaxHealth = 10f;
+    public int playerGold = 0;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -56,7 +61,17 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(sceneIndex);
     }
-    
+
+    public void GetGold(int amount)
+    {
+        playerGold += amount;
+    }
+
+    public void SpendGold(int amount)
+    {
+        playerGold = Mathf.Max(0, playerGold - amount);
+    }
+
     // Quits the game/application.
     public void QuitGame()
     {

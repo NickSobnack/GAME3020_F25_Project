@@ -47,7 +47,7 @@ public class BattleLogic : MonoBehaviour
     [Header("Enemy")]
     [SerializeField] private List<EnemyBase> enemies = new(); 
     [SerializeField] private GameObject targetPointerPrefab;
-    [SerializeField] public float playerDmg;
+    [SerializeField] public float playerDmg = 9f;
     private GameObject targetPointerInstance;
     private EnemyBase selectedTarget;
     private int selectedIndex = 0;
