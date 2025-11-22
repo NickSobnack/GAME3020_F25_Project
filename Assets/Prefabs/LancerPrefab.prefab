@@ -199,14 +199,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LancerLogic
   maxHealth: 9
   health: 0
-  damage: 3
   targetPointer: {fileID: 7744246945131839862}
   enemyName: 
   lancePrefab: {fileID: 2740083130357888707, guid: ff43ce6f8cb28264bb1d795cea49a96a, type: 3}
   firePoint: {fileID: 7033918622291064120}
-  moveSpeed: 3
-  distanceToPlayer: 1.5
-  returnDelay: 0.5
 --- !u!1001 &7814425490996519217
 PrefabInstance:
   m_ObjectHideFlags: 0

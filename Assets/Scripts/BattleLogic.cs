@@ -13,9 +13,6 @@ public class BattleLogic : MonoBehaviour
     // Attacking costs a fixed amount while holding block drains NRG over time.
     // When NRG hits 0, it regens slower, prevents actions, else regens faster.
 
-    private PlayerInput playerInput;
-    private InputAction attackAction, blockAction, targetAction;
-
     [Header("Energy System")] 
     [SerializeField] private float maxEnergy = 10f;
     [SerializeField] private float energyRegen = 1f;
@@ -40,6 +37,7 @@ public class BattleLogic : MonoBehaviour
     [SerializeField] private float distanceToEnemy = 1.5f;
     [SerializeField] private float returnDelay = 0.5f;
     private Vector3 originalPos;
+    private Vector3 attackPos;
 
     [Header("Enemy")]
     [SerializeField] private List<EnemyBase> enemies = new(); 
@@ -74,7 +72,7 @@ public class BattleLogic : MonoBehaviour
                 currEnergy = 0;
             if (currEnergy == 0)
             { 
-                noEnergy = true;
+                noEnergy = true; 
                 StopBlocking();
             }
         }
@@ -105,7 +103,7 @@ public class BattleLogic : MonoBehaviour
     // If all enemies are defeated, trigger win message and load next scene.
     public void Attack(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.performed)
         {
             if (!isBlocking && currEnergy >= attackCost && !isAttacking && selectedTarget != null)
             {
@@ -120,38 +118,27 @@ public class BattleLogic : MonoBehaviour
     // Block function so that when block key is held and player has energy, the block animation plays.
     public void StartBlock(InputAction.CallbackContext context)
     {
-        if (context.started)
-        {
-            if (!isBlocking && !noEnergy && currEnergy > 0)
-            {
-                isBlocking = true;
-                currHoldTimer = 0f;
-                currBlockTime = Time.time;
-                playerAnimator.SetBool("isBlocking", true);
-            }
-        }
+        if (context.started) 
+        { 
+            if (!isBlocking && !noEnergy && currEnergy > 0) 
+            { 
+                isBlocking = true; 
+                currHoldTimer = 0f; currBlockTime = Time.time;
+                playerAnimator.SetBool("isBlocking", true); 
+            } 
+        } 
     }
+    
     // End block when block key is released and block animation stops.
-    public void EndBlock(InputAction.CallbackContext context)
+    public void EndBlock(InputAction.CallbackContext context) 
     {
         if (context.canceled) 
         {
-            Debug.Log("Block released");
             if (isBlocking)
             {
                 isBlocking = false;
                 playerAnimator.SetBool("isBlocking", false);
             }
-        }
-    }
-
-    // Stops block when energy hits 0.
-    private void StopBlocking()
-    {
-        if (isBlocking)
-        {
-            isBlocking = false;
-            playerAnimator.SetBool("isBlocking", false);
         }
     }
 
@@ -177,6 +164,17 @@ public class BattleLogic : MonoBehaviour
             selectedTarget.SetSelected(true);
         }
     }
+      
+
+    // Stops block when energy hits 0.
+    private void StopBlocking()
+    { 
+        if (isBlocking) 
+        {
+            isBlocking = false; 
+            playerAnimator.SetBool("isBlocking", false);
+        } 
+    }
 
     // Animation event triggers after attack animation finishes, to prevent attack spam.
     public void AttackFinished()
@@ -198,8 +196,6 @@ public class BattleLogic : MonoBehaviour
         Vector3 attackPos = target.transform.position - direction * distanceToEnemy;
 
         yield return MoveToPosition(attackPos);
-        Debug.Log("Attacking " + target.enemyName);
-        Debug.Log(attackPos);
 
         playerAnimator.SetTrigger("Attack");
         AudioManager.Instance.PlaySound(SoundName.sword);
