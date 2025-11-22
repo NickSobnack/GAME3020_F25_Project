@@ -40,7 +40,6 @@ public class BattleLogic : MonoBehaviour
     [SerializeField] private float distanceToEnemy = 1.5f;
     [SerializeField] private float returnDelay = 0.5f;
     private Vector3 originalPos;
-    private Vector3 attackPos;
 
     [Header("Enemy")]
     [SerializeField] private List<EnemyBase> enemies = new(); 
@@ -52,38 +51,8 @@ public class BattleLogic : MonoBehaviour
 
     private void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
-        blockAction = playerInput.actions["Block"];
-        attackAction = playerInput.actions["Attack"]; 
-        targetAction = playerInput.actions["Target"];
         currEnergy = maxEnergy;
         noEnergy = false;
-    }
-
-    private void OnEnable()
-    {
-        attackAction.started += ctx => Attack();
-        attackAction.Enable();
-
-        blockAction.started += ctx => StartBlock();
-        blockAction.canceled += ctx => EndBlock(false);
-        blockAction.Enable();
-
-        targetAction.started += ctx => SelectTarget();
-        targetAction.Enable();
-    }
-
-    private void OnDisable()
-    {
-        attackAction.started -= ctx => Attack();
-        attackAction.Disable();
-
-        blockAction.started -= ctx => StartBlock();
-        blockAction.canceled -= ctx => EndBlock(false);
-        blockAction.Disable();
-
-        targetAction.started -= ctx => SelectTarget();
-        targetAction.Disable();
     }
 
     // Populate enemy list at the start of the scene.
@@ -105,8 +74,8 @@ public class BattleLogic : MonoBehaviour
                 currEnergy = 0;
             if (currEnergy == 0)
             { 
-                noEnergy = true; 
-                EndBlock(true);
+                noEnergy = true;
+                StopBlocking();
             }
         }
         else if(!isAttacking)
@@ -134,31 +103,50 @@ public class BattleLogic : MonoBehaviour
 
     // Attack the selected target if not blocking, has enough energy, and not already attacking.
     // If all enemies are defeated, trigger win message and load next scene.
-    private void Attack()
+    public void Attack(InputAction.CallbackContext context)
     {
-        if (!isBlocking && currEnergy >= attackCost && !isAttacking && selectedTarget != null)
+        if (context.started)
         {
-            currEnergy -= attackCost;
-            isAttacking = true;
-            originalPos = transform.position;
-            StartCoroutine(AttackSequence(selectedTarget));
+            if (!isBlocking && currEnergy >= attackCost && !isAttacking && selectedTarget != null)
+            {
+                currEnergy -= attackCost;
+                isAttacking = true;
+                originalPos = transform.position;
+                StartCoroutine(AttackSequence(selectedTarget));
+            }
         }
     }
 
     // Block function so that when block key is held and player has energy, the block animation plays.
-    private void StartBlock()
+    public void StartBlock(InputAction.CallbackContext context)
     {
-        if (!isBlocking && !noEnergy && currEnergy > 0)
+        if (context.started)
         {
-            isBlocking = true;
-            currHoldTimer = 0f;
-            currBlockTime = Time.time;
-            playerAnimator.SetBool("isBlocking", true);
+            if (!isBlocking && !noEnergy && currEnergy > 0)
+            {
+                isBlocking = true;
+                currHoldTimer = 0f;
+                currBlockTime = Time.time;
+                playerAnimator.SetBool("isBlocking", true);
+            }
+        }
+    }
+    // End block when block key is released and block animation stops.
+    public void EndBlock(InputAction.CallbackContext context)
+    {
+        if (context.canceled) 
+        {
+            Debug.Log("Block released");
+            if (isBlocking)
+            {
+                isBlocking = false;
+                playerAnimator.SetBool("isBlocking", false);
+            }
         }
     }
 
-    // End block when block key is released or energy hits 0, and block animation stops.
-    private void EndBlock(bool autoRelease)
+    // Stops block when energy hits 0.
+    private void StopBlocking()
     {
         if (isBlocking)
         {
@@ -167,37 +155,40 @@ public class BattleLogic : MonoBehaviour
         }
     }
 
+    // Cycles through available enemies as target when tab is pressed.
+    public void SelectTarget(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (selectedTarget != null)
+                selectedTarget.SetSelected(false);
+
+            enemies.RemoveAll(e => e == null || e.health <= 0);
+
+            if (enemies.Count == 0)
+            {
+                selectedTarget = null;
+                return;
+            }
+
+            selectedIndex = (selectedIndex + 1) % enemies.Count;
+            selectedTarget = enemies[selectedIndex];
+
+            selectedTarget.SetSelected(true);
+        }
+    }
+
     // Animation event triggers after attack animation finishes, to prevent attack spam.
     public void AttackFinished()
     {
         isAttacking = false;
     }
+
     public void RestoreEnergy(float amount)
     {
         currEnergy += amount;
         currEnergy = Mathf.Clamp(currEnergy, 0, maxEnergy);
         energyBar.fillAmount = currEnergy / maxEnergy;
-    }
-
-
-    // Cycles through available enemies as target when tab is pressed.
-    private void SelectTarget()
-    {
-        if (selectedTarget != null)
-            selectedTarget.SetSelected(false);
-
-        enemies.RemoveAll(e => e == null || e.health <= 0);
-
-        if (enemies.Count == 0)
-        {
-            selectedTarget = null;
-            return;
-        }
-
-        selectedIndex = (selectedIndex + 1) % enemies.Count;
-        selectedTarget = enemies[selectedIndex];
-
-        selectedTarget.SetSelected(true);
     }
 
     // Coroutine to handle moving to enemy using lerp, play attack animation and deal damage then return to og position.
@@ -207,6 +198,8 @@ public class BattleLogic : MonoBehaviour
         Vector3 attackPos = target.transform.position - direction * distanceToEnemy;
 
         yield return MoveToPosition(attackPos);
+        Debug.Log("Attacking " + target.enemyName);
+        Debug.Log(attackPos);
 
         playerAnimator.SetTrigger("Attack");
         AudioManager.Instance.PlaySound(SoundName.sword);

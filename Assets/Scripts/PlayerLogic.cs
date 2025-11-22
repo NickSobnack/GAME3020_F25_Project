@@ -41,25 +41,44 @@ public class PlayerLogic : MonoBehaviour
         GameManager.Instance.playerHealth = health;
 
         if (health <= 0 && !playerDead)
-        {
             OnPlayerDeath();
-        }
     }
 
     // Detect collisions with other game objects and reacts accordingly.
     // If colliding with a bullet (arrow or lance) tag, check if blocking animation is on/off and displays vfx.
     // If not blocking, take appropriate damage from the arrow or lance.
     // If blocking, check if within perfect block window, restore energy and display appropriate vfx.
+
     private void OnTriggerEnter2D(Collider2D other)
     {
+        float damageAmount = 0f;
+
         if (other.CompareTag("Bullet"))
+        {
+            ArrowLogic arrow = other.GetComponent<ArrowLogic>();
+            if (arrow != null) damageAmount = arrow.damage;
+
+            //LanceLogic lance = other.GetComponent<LanceLogic>();
+            //if (lance != null) damageAmount = lance.damage;
+
+            // Destroy projectile after hit
+            Destroy(other.gameObject);
+        }
+
+        else if (other.CompareTag("Enemy"))
+        {
+            EnemyBase enemy = other.GetComponent<EnemyBase>();
+            if (enemy != null) damageAmount = enemy.damage;
+        }
+
+        if (damageAmount > 0f)
         {
             if (playerAnimator.GetBool("isBlocking"))
             {
                 float timeSinceBlock = Time.time - battleLogic.currBlockTime;
                 if (timeSinceBlock <= perfectBlockWindow)
                 {
-                    Instantiate(niceVfx, blockVfxPoint.position, Quaternion.identity); 
+                    Instantiate(niceVfx, blockVfxPoint.position, Quaternion.identity);
                     battleLogic.RestoreEnergy(energyRestore);
                 }
                 else
@@ -71,28 +90,12 @@ public class PlayerLogic : MonoBehaviour
             }
             else
             {
-                float damageAmount = 0f;
-
-                ArrowLogic arrow = other.GetComponent<ArrowLogic>();
-                if (arrow != null)
-                {
-                    damageAmount = arrow.damage;
-                }
-
-                LanceLogic lance = other.GetComponent<LanceLogic>();
-                if (lance != null)
-                {
-                    damageAmount = lance.damage;
-                }
-
                 TakeDamage(damageAmount);
             }
-
-            Destroy(other.gameObject);
         }
     }
 
-    public void TakeDamage(float amount)
+public void TakeDamage(float amount)
     {
         health -= amount;
         health = Mathf.Clamp(health, 0, maxHealth);

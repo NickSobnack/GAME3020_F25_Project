@@ -194,7 +194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
       propertyPath: hasEnemies
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
       propertyPath: nextNodes.Array.size
@@ -383,6 +383,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9128234991237689498, guid: 4963e081b95755745ae5c67fa9c3e50c, type: 3}
     - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
+      propertyPath: nodeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
+      propertyPath: hasEnemies
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
       propertyPath: nextNodes.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -473,11 +481,11 @@ PrefabInstance:
       objectReference: {fileID: 9128234991237689498, guid: 4963e081b95755745ae5c67fa9c3e50c, type: 3}
     - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
       propertyPath: nodeType
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
       propertyPath: hasEnemies
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
       propertyPath: buildingSprite
@@ -574,7 +582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
       propertyPath: hasEnemies
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
       propertyPath: nextNodes.Array.size
@@ -802,6 +810,14 @@ PrefabInstance:
       propertyPath: building
       value: 
       objectReference: {fileID: 9128234991237689498, guid: 4963e081b95755745ae5c67fa9c3e50c, type: 3}
+    - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
+      propertyPath: nodeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
+      propertyPath: hasEnemies
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
       propertyPath: nextNodes.Array.size
       value: 1
@@ -3394,6 +3410,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9128234991237689498, guid: 4963e081b95755745ae5c67fa9c3e50c, type: 3}
     - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
+      propertyPath: nodeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
       propertyPath: hasEnemies
       value: 0
       objectReference: {fileID: 0}
@@ -3520,7 +3540,7 @@ MonoBehaviour:
   currentNode: {fileID: 257347575}
   moveSpeed: 3
   player: {fileID: 4142845943284417340}
-  healPrefab: {fileID: 0}
+  healPrefab: {fileID: 690919605193338713, guid: 778d0939b06b80145a5da0a7f733fc36, type: 3}
 --- !u!1 &1874759287
 GameObject:
   m_ObjectHideFlags: 0
