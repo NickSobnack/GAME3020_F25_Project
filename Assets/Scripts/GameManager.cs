@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneIndex);
     }
 
-    // Delay coroutine inbetween loading scenes.
+    // Delay coroutine in between loading scenes.
     public void DelayLoadScene(int sceneIndex, float delay)
     {
         StartCoroutine(DelayScene(sceneIndex, delay));

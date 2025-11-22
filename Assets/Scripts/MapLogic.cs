@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MapLogic : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class MapLogic : MonoBehaviour
     [Header("Player Settings")]
     public GameObject player;
     private Animator playerAnimator;
+    [SerializeField] private GameObject healPrefab;
 
     private bool isMoving = false;
     private Vector3 targetPosition;
@@ -46,15 +48,16 @@ public class MapLogic : MonoBehaviour
 
                 currentNode.isVisited = true;
 
-                if (currentNode.hasEnemies)
+                if (currentNode.hasEnemies == true)
                 {
-                    Debug.Log("Enemies here!");
                     GameManager.Instance.SetCurrentNode(currentNode); 
                     GameManager.Instance.ChangeScene(2); 
                 }
-                else
+                else if (currentNode.hasEnemies == false)
                 {
-                    Debug.Log("This is a safe spot.");
+                    AudioManager.Instance.PlaySound(SoundName.cure);
+                    GameObject healEffect = Instantiate(healPrefab, targetPosition + new Vector3 (0, -.1f, 0), Quaternion.identity);
+                    Destroy(healEffect, 1f);
                 }
             }
         }

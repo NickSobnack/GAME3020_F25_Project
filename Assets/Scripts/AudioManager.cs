@@ -14,6 +14,7 @@ public enum SoundName
     bow,
     spear,
     sword,
+    cure,
     COUNT
 }
 
@@ -62,6 +63,7 @@ public class AudioManager : MonoBehaviour
         soundClips[(int)SoundName.bow] = Resources.Load<AudioClip>("Audio/SFX/bow");
         soundClips[(int)SoundName.spear] = Resources.Load<AudioClip>("Audio/SFX/spear");
         soundClips[(int)SoundName.sword] = Resources.Load<AudioClip>("Audio/SFX/sound");
+        soundClips[(int)SoundName.cure] = Resources.Load<AudioClip>("Audio/SFX/cure");
     }
 
     public void PlaySound(SoundName soundId)

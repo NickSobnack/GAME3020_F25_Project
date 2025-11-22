@@ -3520,6 +3520,7 @@ MonoBehaviour:
   currentNode: {fileID: 257347575}
   moveSpeed: 3
   player: {fileID: 4142845943284417340}
+  healPrefab: {fileID: 0}
 --- !u!1 &1874759287
 GameObject:
   m_ObjectHideFlags: 0
@@ -6616,7 +6617,7 @@ GameObject:
   - component: {fileID: 2959852163882930881}
   m_Layer: 0
   m_Name: PlayerAvatar
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

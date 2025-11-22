@@ -4,9 +4,7 @@ using UnityEngine;
 
 public enum NodeType
 {
-    SafeZone,
-    Enemy,
-    Boss
+    SafeZone, Enemy, Boss
 }
 
 public class Node : MonoBehaviour
@@ -17,8 +15,7 @@ public class Node : MonoBehaviour
     public NodeType nodeType;
     public Vector3 heightOffset = new Vector3(0, 1f, 0);
     public GameObject housePrefab, towerPrefab, castlePrefab;
-    public bool hasEnemies;
-    public bool isVisited;
+    public bool hasEnemies, isVisited;
 
     // Setup the node visual depending on its type = safe, enemy or boss encounter.
     // Automatically assign nodes with enemies for scene transition based on NodeTyp,
@@ -28,8 +25,12 @@ public class Node : MonoBehaviour
         {
             hasEnemies = true;
         }
+        else if (nodeType == NodeType.SafeZone)
+        {
+            hasEnemies = false;
+        }
 
-        GameObject selectedPrefab = null;
+            GameObject selectedPrefab = null;
         switch (nodeType)
         {
             case NodeType.SafeZone:
