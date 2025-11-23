@@ -6,6 +6,7 @@ public abstract class EnemyBase : MonoBehaviour
     [Header("Enemy Stats")]
     public float maxHealth = 9f;
     public float health;
+    public float damage = 3f;
     public GameObject targetPointer;
    
     [HideInInspector] public string enemyName;

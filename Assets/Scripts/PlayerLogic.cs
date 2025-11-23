@@ -51,14 +51,35 @@ public class PlayerLogic : MonoBehaviour
     // If blocking, check if within perfect block window, restore energy and display appropriate vfx.
     private void OnTriggerEnter2D(Collider2D other)
     {
+        float damageAmount = 0f;
+        Debug.Log("Player hit by: " + other.gameObject.name);
+
         if (other.CompareTag("Bullet"))
+        {
+            ArrowLogic arrow = other.GetComponent<ArrowLogic>();
+            if (arrow != null) damageAmount = arrow.damage;
+
+            //LanceLogic lance = other.GetComponent<LanceLogic>();
+            //if (lance != null) damageAmount = lance.damage;
+
+            // Destroy projectile after hit
+            Destroy(other.gameObject);
+        }
+
+        else if (other.CompareTag("Enemy"))
+        {
+            EnemyBase enemy = other.GetComponent<EnemyBase>();
+            if (enemy != null) damageAmount = enemy.damage;
+        }
+
+        if (damageAmount > 0f)
         {
             if (playerAnimator.GetBool("isBlocking"))
             {
                 float timeSinceBlock = Time.time - battleLogic.currBlockTime;
                 if (timeSinceBlock <= perfectBlockWindow)
                 {
-                    Instantiate(niceVfx, blockVfxPoint.position, Quaternion.identity); 
+                    Instantiate(niceVfx, blockVfxPoint.position, Quaternion.identity);
                     battleLogic.RestoreEnergy(energyRestore);
                 }
                 else
@@ -70,24 +91,8 @@ public class PlayerLogic : MonoBehaviour
             }
             else
             {
-                float damageAmount = 0f;
-
-                ArrowLogic arrow = other.GetComponent<ArrowLogic>();
-                if (arrow != null)
-                {
-                    damageAmount = arrow.damage;
-                }
-
-                LanceLogic lance = other.GetComponent<LanceLogic>();
-                if (lance != null)
-                {
-                    damageAmount = lance.damage;
-                }
-
                 TakeDamage(damageAmount);
             }
-
-            Destroy(other.gameObject);
         }
     }
 

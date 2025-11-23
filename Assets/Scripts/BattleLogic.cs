@@ -135,7 +135,6 @@ public class BattleLogic : MonoBehaviour
     {
         if (context.canceled)
         {
-            Debug.Log("Block released");
             StopBlocking();
         }
     }

@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 5864194074836943446}
   - component: {fileID: 646597181102182499}
   - component: {fileID: 6240615565067936808}
+  - component: {fileID: -692697670690335012}
   m_Layer: 0
   m_Name: LancerPrefab
   m_TagString: Enemy
@@ -178,13 +179,13 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1.5}
-  m_Direction: 0
+  m_Offset: {x: 0.19888227, y: 0.5730497}
+  m_Size: {x: 1.3314588, y: 2.6461027}
+  m_Direction: 1
 --- !u!114 &6240615565067936808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,10 +200,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LancerLogic
   maxHealth: 9
   health: 0
+  damage: 3
   targetPointer: {fileID: 7744246945131839862}
   enemyName: 
   lancePrefab: {fileID: 2740083130357888707, guid: ff43ce6f8cb28264bb1d795cea49a96a, type: 3}
   firePoint: {fileID: 7033918622291064120}
+  moveSpeed: 3
+  distanceToPlayer: 2.5
+  returnDelay: 0.5
+--- !u!50 &-692697670690335012
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4380710952050736012}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &7814425490996519217
 PrefabInstance:
   m_ObjectHideFlags: 0

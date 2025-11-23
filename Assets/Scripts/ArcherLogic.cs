@@ -26,7 +26,7 @@ public class ArcherLogic : EnemyBase
             timer = 0f;
             shootTimer = Random.Range(3f, 6f);
         }
-    }
+    }   
 
     // Fire an arrow projectile.
     public void FireArrow()
