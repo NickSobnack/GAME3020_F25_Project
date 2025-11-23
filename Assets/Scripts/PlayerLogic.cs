@@ -21,8 +21,7 @@ public class PlayerLogic : MonoBehaviour
     public GameObject fadePanel;
 
     [Header("VFX Properties")]
-    public Transform blockVfxPoint;
-    public Transform gameOverVfxPoint;
+    public Transform blockVfxPoint, gameOverVfxPoint;
     public GameObject goodVfx, niceVfx, gameOverVfx;
 
     // Set initial values for player hp.

@@ -13,6 +13,9 @@ public class BattleLogic : MonoBehaviour
     // Attacking costs a fixed amount while holding block drains NRG over time.
     // When NRG hits 0, it regens slower, prevents actions, else regens faster.
 
+    private PlayerInput playerInput;
+    private InputAction attackAction, blockAction, targetAction;
+
     [Header("Energy System")] 
     [SerializeField] private float maxEnergy = 10f;
     [SerializeField] private float energyRegen = 1f;
@@ -49,8 +52,38 @@ public class BattleLogic : MonoBehaviour
 
     private void Awake()
     {
+        playerInput = GetComponent<PlayerInput>();
+        blockAction = playerInput.actions["Block"];
+        attackAction = playerInput.actions["Attack"]; 
+        targetAction = playerInput.actions["Target"];
         currEnergy = maxEnergy;
         noEnergy = false;
+    }
+
+    private void OnEnable()
+    {
+        attackAction.started += ctx => Attack();
+        attackAction.Enable();
+
+        blockAction.started += ctx => StartBlock();
+        blockAction.canceled += ctx => EndBlock(false);
+        blockAction.Enable();
+
+        targetAction.started += ctx => SelectTarget();
+        targetAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        attackAction.started -= ctx => Attack();
+        attackAction.Disable();
+
+        blockAction.started -= ctx => StartBlock();
+        blockAction.canceled -= ctx => EndBlock(false);
+        blockAction.Disable();
+
+        targetAction.started -= ctx => SelectTarget();
+        targetAction.Disable();
     }
 
     // Populate enemy list at the start of the scene.
@@ -73,7 +106,7 @@ public class BattleLogic : MonoBehaviour
             if (currEnergy == 0)
             { 
                 noEnergy = true; 
-                StopBlocking();
+                EndBlock(true);
             }
         }
         else if(!isAttacking)
@@ -101,79 +134,37 @@ public class BattleLogic : MonoBehaviour
 
     // Attack the selected target if not blocking, has enough energy, and not already attacking.
     // If all enemies are defeated, trigger win message and load next scene.
-    public void Attack(InputAction.CallbackContext context)
+    private void Attack()
     {
-        if (context.performed)
+        if (!isBlocking && currEnergy >= attackCost && !isAttacking && selectedTarget != null)
         {
-            if (!isBlocking && currEnergy >= attackCost && !isAttacking && selectedTarget != null)
-            {
-                currEnergy -= attackCost;
-                isAttacking = true;
-                originalPos = transform.position;
-                StartCoroutine(AttackSequence(selectedTarget));
-            }
+            currEnergy -= attackCost;
+            isAttacking = true;
+            originalPos = transform.position;
+            StartCoroutine(AttackSequence(selectedTarget));
         }
     }
 
     // Block function so that when block key is held and player has energy, the block animation plays.
-    public void StartBlock(InputAction.CallbackContext context)
+    private void StartBlock()
     {
-        if (context.started) 
-        { 
-            if (!isBlocking && !noEnergy && currEnergy > 0) 
-            { 
-                isBlocking = true; 
-                currHoldTimer = 0f; currBlockTime = Time.time;
-                playerAnimator.SetBool("isBlocking", true); 
-            } 
-        } 
-    }
-    
-    // End block when block key is released and block animation stops.
-    public void EndBlock(InputAction.CallbackContext context) 
-    {
-        if (context.canceled) 
+        if (!isBlocking && !noEnergy && currEnergy > 0)
         {
-            if (isBlocking)
-            {
-                isBlocking = false;
-                playerAnimator.SetBool("isBlocking", false);
-            }
+            isBlocking = true;
+            currHoldTimer = 0f;
+            currBlockTime = Time.time;
+            playerAnimator.SetBool("isBlocking", true);
         }
     }
 
-    // Cycles through available enemies as target when tab is pressed.
-    public void SelectTarget(InputAction.CallbackContext context)
+    // End block when block key is released or energy hits 0, and block animation stops.
+    private void EndBlock(bool autoRelease)
     {
-        if (context.started)
+        if (isBlocking)
         {
-            if (selectedTarget != null)
-                selectedTarget.SetSelected(false);
-
-            enemies.RemoveAll(e => e == null || e.health <= 0);
-
-            if (enemies.Count == 0)
-            {
-                selectedTarget = null;
-                return;
-            }
-
-            selectedIndex = (selectedIndex + 1) % enemies.Count;
-            selectedTarget = enemies[selectedIndex];
-
-            selectedTarget.SetSelected(true);
-        }
-    }
-      
-
-    // Stops block when energy hits 0.
-    private void StopBlocking()
-    { 
-        if (isBlocking) 
-        {
-            isBlocking = false; 
+            isBlocking = false;
             playerAnimator.SetBool("isBlocking", false);
-        } 
+        }
     }
 
     // Animation event triggers after attack animation finishes, to prevent attack spam.
@@ -181,12 +172,32 @@ public class BattleLogic : MonoBehaviour
     {
         isAttacking = false;
     }
-
     public void RestoreEnergy(float amount)
     {
         currEnergy += amount;
         currEnergy = Mathf.Clamp(currEnergy, 0, maxEnergy);
         energyBar.fillAmount = currEnergy / maxEnergy;
+    }
+
+
+    // Cycles through available enemies as target when tab is pressed.
+    private void SelectTarget()
+    {
+        if (selectedTarget != null)
+            selectedTarget.SetSelected(false);
+
+        enemies.RemoveAll(e => e == null || e.health <= 0);
+
+        if (enemies.Count == 0)
+        {
+            selectedTarget = null;
+            return;
+        }
+
+        selectedIndex = (selectedIndex + 1) % enemies.Count;
+        selectedTarget = enemies[selectedIndex];
+
+        selectedTarget.SetSelected(true);
     }
 
     // Coroutine to handle moving to enemy using lerp, play attack animation and deal damage then return to og position.

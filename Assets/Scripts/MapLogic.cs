@@ -1,16 +1,15 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class MapLogic : MonoBehaviour
 {
     [Header("Movement Settings")]
     public Node currentNode;
     public float moveSpeed = 3f;
+    [SerializeField] private GameObject healPrefab;
 
     [Header("Player Settings")]
     public GameObject player;
     private Animator playerAnimator;
-    [SerializeField] private GameObject healPrefab;
 
     private bool isMoving = false;
     private Vector3 targetPosition;
@@ -56,7 +55,7 @@ public class MapLogic : MonoBehaviour
                 else if (currentNode.hasEnemies == false)
                 {
                     AudioManager.Instance.PlaySound(SoundName.cure);
-                    GameObject healEffect = Instantiate(healPrefab, targetPosition + new Vector3 (0, -.1f, 0), Quaternion.identity);
+                    GameObject healEffect = Instantiate(healPrefab, targetPosition + new Vector3(0, -.1f, 0), Quaternion.identity);
                     Destroy(healEffect, 1f);
                 }
             }

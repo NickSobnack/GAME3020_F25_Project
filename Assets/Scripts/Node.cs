@@ -4,7 +4,9 @@ using UnityEngine;
 
 public enum NodeType
 {
-    SafeZone, Enemy, Boss
+    SafeZone,
+    Enemy,
+    Boss
 }
 
 public class Node : MonoBehaviour
@@ -30,7 +32,7 @@ public class Node : MonoBehaviour
             hasEnemies = false;
         }
 
-            GameObject selectedPrefab = null;
+        GameObject selectedPrefab = null;
         switch (nodeType)
         {
             case NodeType.SafeZone:

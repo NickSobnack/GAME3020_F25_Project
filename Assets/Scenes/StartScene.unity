@@ -1905,8 +1905,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   tutorialPanel: {fileID: 282018566}
   currentNodeName: 
-  playerHealth: 10
-  playerMaxHealth: 10
+  playerHealth: 100
+  playerMaxHealth: 100
   playerGold: 0
 --- !u!114 &2033676507
 MonoBehaviour:
