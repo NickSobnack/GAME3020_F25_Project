@@ -13,9 +13,6 @@ public class BattleLogic : MonoBehaviour
     // Attacking costs a fixed amount while holding block drains NRG over time.
     // When NRG hits 0, it regens slower, prevents actions, else regens faster.
 
-    private PlayerInput playerInput;
-    private InputAction attackAction, blockAction, targetAction;
-
     [Header("Energy System")] 
     [SerializeField] private float maxEnergy = 10f;
     [SerializeField] private float energyRegen = 1f;
@@ -52,39 +49,10 @@ public class BattleLogic : MonoBehaviour
 
     private void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
-        blockAction = playerInput.actions["Block"];
-        attackAction = playerInput.actions["Attack"]; 
-        targetAction = playerInput.actions["Target"];
         currEnergy = maxEnergy;
         noEnergy = false;
     }
 
-    private void OnEnable()
-    {
-        attackAction.started += ctx => Attack();
-        attackAction.Enable();
-
-        blockAction.started += ctx => StartBlock();
-        blockAction.canceled += ctx => EndBlock(false);
-        blockAction.Enable();
-
-        targetAction.started += ctx => SelectTarget();
-        targetAction.Enable();
-    }
-
-    private void OnDisable()
-    {
-        attackAction.started -= ctx => Attack();
-        attackAction.Disable();
-
-        blockAction.started -= ctx => StartBlock();
-        blockAction.canceled -= ctx => EndBlock(false);
-        blockAction.Disable();
-
-        targetAction.started -= ctx => SelectTarget();
-        targetAction.Disable();
-    }
 
     // Populate enemy list at the start of the scene.
     void Start()
@@ -134,26 +102,50 @@ public class BattleLogic : MonoBehaviour
 
     // Attack the selected target if not blocking, has enough energy, and not already attacking.
     // If all enemies are defeated, trigger win message and load next scene.
-    private void Attack()
+    public void Attack(InputAction.CallbackContext context)
     {
-        if (!isBlocking && currEnergy >= attackCost && !isAttacking && selectedTarget != null)
+        if (context.started)
         {
-            currEnergy -= attackCost;
-            isAttacking = true;
-            originalPos = transform.position;
-            StartCoroutine(AttackSequence(selectedTarget));
+            if (!isBlocking && currEnergy >= attackCost && !isAttacking && selectedTarget != null)
+            {
+                currEnergy -= attackCost;
+                isAttacking = true;
+                originalPos = transform.position;
+                StartCoroutine(AttackSequence(selectedTarget));
+            }
         }
     }
 
     // Block function so that when block key is held and player has energy, the block animation plays.
-    private void StartBlock()
+    public void StartBlock(InputAction.CallbackContext context)
     {
-        if (!isBlocking && !noEnergy && currEnergy > 0)
+        if (context.started)
         {
-            isBlocking = true;
-            currHoldTimer = 0f;
-            currBlockTime = Time.time;
-            playerAnimator.SetBool("isBlocking", true);
+            if (!isBlocking && !noEnergy && currEnergy > 0)
+            {
+                isBlocking = true;
+                currHoldTimer = 0f;
+                currBlockTime = Time.time;
+                playerAnimator.SetBool("isBlocking", true);
+            }
+        }
+    }
+
+    public void EndBlock(InputAction.CallbackContext context)
+    {
+        if (context.canceled)
+        {
+            Debug.Log("Block released");
+            StopBlocking();
+        }
+    }
+
+    private void StopBlocking()
+    {
+        if (isBlocking)
+        {
+            isBlocking = false;
+            playerAnimator.SetBool("isBlocking", false);
         }
     }
 
@@ -172,6 +164,7 @@ public class BattleLogic : MonoBehaviour
     {
         isAttacking = false;
     }
+
     public void RestoreEnergy(float amount)
     {
         currEnergy += amount;
@@ -181,23 +174,28 @@ public class BattleLogic : MonoBehaviour
 
 
     // Cycles through available enemies as target when tab is pressed.
-    private void SelectTarget()
+    public void SelectTarget(InputAction.CallbackContext context)
     {
-        if (selectedTarget != null)
-            selectedTarget.SetSelected(false);
-
-        enemies.RemoveAll(e => e == null || e.health <= 0);
-
-        if (enemies.Count == 0)
+        if (context.started)
         {
-            selectedTarget = null;
-            return;
+            {
+                if (selectedTarget != null)
+                    selectedTarget.SetSelected(false);
+
+                enemies.RemoveAll(e => e == null || e.health <= 0);
+
+                if (enemies.Count == 0)
+                {
+                    selectedTarget = null;
+                    return;
+                }
+
+                selectedIndex = (selectedIndex + 1) % enemies.Count;
+                selectedTarget = enemies[selectedIndex];
+
+                selectedTarget.SetSelected(true);
+            }
         }
-
-        selectedIndex = (selectedIndex + 1) % enemies.Count;
-        selectedTarget = enemies[selectedIndex];
-
-        selectedTarget.SetSelected(true);
     }
 
     // Coroutine to handle moving to enemy using lerp, play attack animation and deal damage then return to og position.
