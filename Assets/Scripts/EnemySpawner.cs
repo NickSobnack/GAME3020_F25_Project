@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
     [Header("Spawn Settings")]
     [SerializeField] private Transform[] spawnPoints; 
     [SerializeField] private GameObject[] enemyPrefabs; 
-    [SerializeField] private string[] enemyNames = { "Clara", "Gloria", "Teadon", "Selena", "Auguste", "Simona", "Camelot", "Parsifal" };
+    [SerializeField] private string[] enemyNames = { "Clara", "Gloria", "Teadon", "Selena", "Auguste", "Simona", "Camelot", "Parsifal"};
 
     [SerializeField] private int maxEnemiesToSpawn = 3;
 
@@ -19,7 +19,6 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemies()
     {
         int enemiesToSpawn = Mathf.Min(maxEnemiesToSpawn, spawnPoints.Length);
-
         for (int i = 0; i < enemiesToSpawn; i++)
         {
             GameObject enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];

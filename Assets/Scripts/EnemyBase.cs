@@ -22,13 +22,9 @@ public abstract class EnemyBase : MonoBehaviour
     {
         health -= damage;
         if (health <= 0)
-        {
             OnDeath();
-        }
         else
-        {
             PlayHurtAnimation();
-        }
     }
 
     protected abstract void PlayHurtAnimation();

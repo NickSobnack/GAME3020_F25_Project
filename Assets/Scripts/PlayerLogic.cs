@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using static Unity.Collections.AllocatorManager;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class PlayerLogic : MonoBehaviour
 {
@@ -10,15 +11,28 @@ public class PlayerLogic : MonoBehaviour
     private Animator playerAnimator;
 
     [Header("Player Properties")]
-    public float maxHealth, health;
-    private bool playerDead = false;
+    public float maxHealth = 20f;
+    public float maxEnergy = 10f;
+    public float health, energy;
     public float perfectBlockWindow = 0.2f;
     public float energyRestore = 2f;
     private BattleLogic battleLogic;
+    private bool playerDead = false;
+
+    public float MaxHealth => maxHealth;
+    public float CurrHealth => health;
+
+    public float MaxEnergy => maxEnergy;
+    public float CurrEnergy => energy;
+
 
     [Header("UI")]
-    public Image healthBar;
+    public Slider healthSlider;
+    public Slider energySlider;
+    public float barUpdateSpeed = 5f;
     public GameObject fadePanel;
+    private float displayedHealth;
+    private float displayedEnergy;
 
     [Header("VFX Properties")]
     public Transform blockVfxPoint, gameOverVfxPoint;
@@ -30,12 +44,25 @@ public class PlayerLogic : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
         battleLogic = GetComponent<BattleLogic>();
         health = GameManager.Instance.playerHealth;
+        energy = maxEnergy;
+
+        healthSlider.maxValue = maxHealth;
+        healthSlider.value = health;
+        displayedHealth = health;
+
+        energySlider.maxValue = maxEnergy;
+        energySlider.value = energy;
+        displayedEnergy = energy;
     }
 
     // Update keeps track of player health and updates health bar UI.
     private void Update()
     {
-        healthBar.fillAmount = health / maxHealth;
+        displayedHealth = Mathf.Lerp(displayedHealth, health, Time.deltaTime * barUpdateSpeed);
+        healthSlider.value = displayedHealth;
+
+        displayedEnergy = Mathf.Lerp(displayedEnergy, energy, Time.deltaTime * barUpdateSpeed);
+        energySlider.value = displayedEnergy;
 
         GameManager.Instance.playerHealth = health;
 
@@ -52,15 +79,11 @@ public class PlayerLogic : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         float damageAmount = 0f;
-        Debug.Log("Player hit by: " + other.gameObject.name);
 
         if (other.CompareTag("Bullet"))
         {
             ArrowLogic arrow = other.GetComponent<ArrowLogic>();
             if (arrow != null) damageAmount = arrow.damage;
-
-            //LanceLogic lance = other.GetComponent<LanceLogic>();
-            //if (lance != null) damageAmount = lance.damage;
 
             // Destroy projectile after hit
             Destroy(other.gameObject);
@@ -80,7 +103,7 @@ public class PlayerLogic : MonoBehaviour
                 if (timeSinceBlock <= perfectBlockWindow)
                 {
                     Instantiate(niceVfx, blockVfxPoint.position, Quaternion.identity);
-                    battleLogic.RestoreEnergy(energyRestore);
+                    RestoreEnergy(energyRestore);
                 }
                 else
                 {
@@ -100,6 +123,18 @@ public class PlayerLogic : MonoBehaviour
     {
         health -= amount;
         health = Mathf.Clamp(health, 0, maxHealth);
+    }
+
+    public void HealHealth(float amount)
+    {
+        health += amount;
+        health = Mathf.Clamp(health, 0, maxHealth);
+    }
+
+    public void RestoreEnergy(float amount)
+    {
+        energy += amount;
+        energy = Mathf.Clamp(energy, 0, maxEnergy);
     }
 
     // Function that gets called when player hp reaches 0 and triggers game over sequence.

@@ -13,18 +13,16 @@ public class BattleLogic : MonoBehaviour
     // Attacking costs a fixed amount while holding block drains NRG over time.
     // When NRG hits 0, it regens slower, prevents actions, else regens faster.
 
-    [Header("Energy System")] 
-    [SerializeField] private float maxEnergy = 10f;
+    [Header("Energy System")]
+
+    private PlayerLogic playerLogic;
+
     [SerializeField] private float energyRegen = 1f;
     [SerializeField] private float blockCost = 1f;
     [SerializeField] private float attackCost = 3f;
-    [SerializeField] private float currEnergy;
 
     private float currHoldTimer;
     private bool isAttacking, isBlocking, noEnergy;
-
-    [Header("UI")]
-    public Image energyBar; 
 
     [Header("Animation")]
     public Animator playerAnimator;
@@ -37,22 +35,19 @@ public class BattleLogic : MonoBehaviour
     [SerializeField] private float distanceToEnemy = 1.5f;
     [SerializeField] private float returnDelay = 0.5f;
     private Vector3 originalPos;
-    private Vector3 attackPos;
 
     [Header("Enemy")]
     [SerializeField] private List<EnemyBase> enemies = new(); 
     [SerializeField] private GameObject targetPointerPrefab;
     [SerializeField] public float playerDmg = 9f;
-    private GameObject targetPointerInstance;
     private EnemyBase selectedTarget;
     private int selectedIndex = 0;
 
     private void Awake()
     {
-        currEnergy = maxEnergy;
         noEnergy = false;
+        playerLogic = GetComponent<PlayerLogic>();
     }
-
 
     // Populate enemy list at the start of the scene.
     void Start()
@@ -63,41 +58,41 @@ public class BattleLogic : MonoBehaviour
 
     private void Update()
     {
+        float currEnergy = playerLogic.energy;
+        float maxEnergy = playerLogic.maxEnergy;
+
         if (isBlocking)
         {
-            // Drains energy when holding block, if energy hits 0, block ends and locked until energy is fully recharged.
             currHoldTimer += Time.deltaTime;
             currEnergy -= blockCost * Time.deltaTime;
-            //
-            if (currEnergy < 0) 
-                currEnergy = 0;
+            currEnergy = Mathf.Clamp(currEnergy, 0, maxEnergy);
+
             if (currEnergy == 0)
-            { 
-                noEnergy = true; 
-                EndBlock(true);
+            {
+                noEnergy = true;
+                StopBlocking();
             }
         }
-        else if(!isAttacking)
+        else if (!isAttacking)
         {
-            // If out of energy, it regens at half the normal rate.
             if (noEnergy)
             {
                 currEnergy += (energyRegen * 0.5f) * Time.deltaTime;
-
                 if (currEnergy >= maxEnergy)
                 {
                     currEnergy = maxEnergy;
                     noEnergy = false;
                 }
             }
-            // Otherwise, it regens at normal rate when let go early.
             else
             {
                 currEnergy += energyRegen * Time.deltaTime;
                 currEnergy = Mathf.Clamp(currEnergy, 0, maxEnergy);
             }
         }
-        energyBar.fillAmount = currEnergy / maxEnergy;
+
+        // push back into PlayerLogic
+        playerLogic.energy = currEnergy;
     }
 
     // Attack the selected target if not blocking, has enough energy, and not already attacking.
@@ -106,9 +101,9 @@ public class BattleLogic : MonoBehaviour
     {
         if (context.started)
         {
-            if (!isBlocking && currEnergy >= attackCost && !isAttacking && selectedTarget != null)
+            if (!isBlocking && playerLogic.energy >= attackCost && !isAttacking && selectedTarget != null)
             {
-                currEnergy -= attackCost;
+                playerLogic.energy -= attackCost;
                 isAttacking = true;
                 originalPos = transform.position;
                 StartCoroutine(AttackSequence(selectedTarget));
@@ -121,7 +116,7 @@ public class BattleLogic : MonoBehaviour
     {
         if (context.started)
         {
-            if (!isBlocking && !noEnergy && currEnergy > 0)
+            if (!isBlocking && !noEnergy && playerLogic.energy > 0)
             {
                 isBlocking = true;
                 currHoldTimer = 0f;
@@ -134,22 +129,10 @@ public class BattleLogic : MonoBehaviour
     public void EndBlock(InputAction.CallbackContext context)
     {
         if (context.canceled)
-        {
             StopBlocking();
-        }
     }
 
     private void StopBlocking()
-    {
-        if (isBlocking)
-        {
-            isBlocking = false;
-            playerAnimator.SetBool("isBlocking", false);
-        }
-    }
-
-    // End block when block key is released or energy hits 0, and block animation stops.
-    private void EndBlock(bool autoRelease)
     {
         if (isBlocking)
         {
@@ -164,36 +147,24 @@ public class BattleLogic : MonoBehaviour
         isAttacking = false;
     }
 
-    public void RestoreEnergy(float amount)
-    {
-        currEnergy += amount;
-        currEnergy = Mathf.Clamp(currEnergy, 0, maxEnergy);
-        energyBar.fillAmount = currEnergy / maxEnergy;
-    }
-
-
     // Cycles through available enemies as target when tab is pressed.
     public void SelectTarget(InputAction.CallbackContext context)
     {
         if (context.started)
         {
+            if (selectedTarget != null)
+                selectedTarget.SetSelected(false);
+            
+            enemies.RemoveAll(e => e == null || e.health <= 0);
+            if (enemies.Count == 0)
             {
-                if (selectedTarget != null)
-                    selectedTarget.SetSelected(false);
-
-                enemies.RemoveAll(e => e == null || e.health <= 0);
-
-                if (enemies.Count == 0)
-                {
-                    selectedTarget = null;
-                    return;
-                }
-
-                selectedIndex = (selectedIndex + 1) % enemies.Count;
-                selectedTarget = enemies[selectedIndex];
-
-                selectedTarget.SetSelected(true);
+                selectedTarget = null;
+                return;
             }
+            
+            selectedIndex = (selectedIndex + 1) % enemies.Count;
+            selectedTarget = enemies[selectedIndex];            
+            selectedTarget.SetSelected(true);           
         }
     }
 
@@ -223,7 +194,6 @@ public class BattleLogic : MonoBehaviour
     {
         Vector3 startPos = transform.position;
         float progress = 0f;
-
         while (Vector3.Distance(transform.position, targetPos) > 0.01f)
         {
             progress += Time.deltaTime * moveSpeed;

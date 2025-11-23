@@ -37,7 +37,7 @@ public class LancerLogic : EnemyBase
         }
     }
 
-    // Lancer charge attack towards player, thrusts lance, then returns to original position.
+    // Lancer charges towards player, thrusts lance, then returns to original position.
     private IEnumerator ChargeAttack()
     {
         isAttacking = true;

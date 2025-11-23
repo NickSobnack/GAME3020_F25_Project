@@ -44,7 +44,6 @@ public class MapLogic : MonoBehaviour
                 player.transform.position = targetPosition;
                 isMoving = false;
                 playerAnimator.SetBool("isWalking", false);
-
                 currentNode.isVisited = true;
 
                 if (currentNode.hasEnemies == true)
@@ -57,6 +56,10 @@ public class MapLogic : MonoBehaviour
                     AudioManager.Instance.PlaySound(SoundName.cure);
                     GameObject healEffect = Instantiate(healPrefab, targetPosition + new Vector3(0, -.1f, 0), Quaternion.identity);
                     Destroy(healEffect, 1f);
+                    
+                    PlayerLogic playerLogic = player.GetComponent<PlayerLogic>();
+                    if (playerLogic != null)
+                            playerLogic.HealHealth(3f); 
                 }
             }
         }

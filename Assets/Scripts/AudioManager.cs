@@ -59,11 +59,11 @@ public class AudioManager : MonoBehaviour
         musicClips[(int)MusicName.battle] = Resources.Load<AudioClip>("Audio/BGM/battle");
         musicClips[(int)MusicName.victory] = Resources.Load<AudioClip>("Audio/BGM/victory");
 
-        soundClips[(int)SoundName.bash] = Resources.Load<AudioClip>("Audio/SFX/bash");
-        soundClips[(int)SoundName.bow] = Resources.Load<AudioClip>("Audio/SFX/bow");
-        soundClips[(int)SoundName.spear] = Resources.Load<AudioClip>("Audio/SFX/spear");
-        soundClips[(int)SoundName.sword] = Resources.Load<AudioClip>("Audio/SFX/sound");
-        soundClips[(int)SoundName.cure] = Resources.Load<AudioClip>("Audio/SFX/cure");
+        soundClips[(int)SoundName.bash] = Resources.Load<AudioClip>("Audio/SFX/Bash");
+        soundClips[(int)SoundName.bow] = Resources.Load<AudioClip>("Audio/SFX/Bow");
+        soundClips[(int)SoundName.cure] = Resources.Load<AudioClip>("Audio/SFX/Cure");
+        soundClips[(int)SoundName.spear] = Resources.Load<AudioClip>("Audio/SFX/Spear");
+        soundClips[(int)SoundName.sword] = Resources.Load<AudioClip>("Audio/SFX/Sound");
     }
 
     public void PlaySound(SoundName soundId)
