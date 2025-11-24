@@ -37,7 +37,7 @@ public class BattleLogic : MonoBehaviour
     private Vector3 originalPos;
 
     [Header("Enemy")]
-    [SerializeField] private List<EnemyBase> enemies = new(); 
+    [SerializeField] private List<EnemyBase> enemies = new(2); 
     [SerializeField] private GameObject targetPointerPrefab;
     [SerializeField] public float playerDmg = 9f;
     private EnemyBase selectedTarget;
@@ -52,7 +52,6 @@ public class BattleLogic : MonoBehaviour
     // Populate enemy list at the start of the scene.
     void Start()
     {
-        enemies.AddRange(Object.FindObjectsByType<EnemyBase>(FindObjectsSortMode.None));
         selectedIndex = 0;
     }
 
@@ -111,6 +110,19 @@ public class BattleLogic : MonoBehaviour
         }
     }
 
+    public void Deflect(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (!isBlocking && playerLogic.energy >= attackCost && !isAttacking && selectedTarget != null)
+            {
+                playerLogic.energy -= attackCost;
+                isAttacking = true;
+                playerAnimator.SetTrigger("Deflect");
+            }
+        }
+    }
+
     // Block function so that when block key is held and player has energy, the block animation plays.
     public void StartBlock(InputAction.CallbackContext context)
     {
@@ -141,31 +153,33 @@ public class BattleLogic : MonoBehaviour
         }
     }
 
-    // Animation event triggers after attack animation finishes, to prevent attack spam.
-    public void AttackFinished()
-    {
-        isAttacking = false;
-    }
-
     // Cycles through available enemies as target when tab is pressed.
     public void SelectTarget(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.performed)
         {
             if (selectedTarget != null)
                 selectedTarget.SetSelected(false);
-            
+
             enemies.RemoveAll(e => e == null || e.health <= 0);
+
             if (enemies.Count == 0)
             {
                 selectedTarget = null;
                 return;
             }
-            
+
             selectedIndex = (selectedIndex + 1) % enemies.Count;
-            selectedTarget = enemies[selectedIndex];            
-            selectedTarget.SetSelected(true);           
+            selectedTarget = enemies[selectedIndex];
+
+            selectedTarget.SetSelected(true);
         }
+    }
+
+    // Animation event triggers after attack animation finishes, to prevent attack spam.
+    public void AttackFinished()
+    {
+        isAttacking = false;
     }
 
     // Coroutine to handle moving to enemy using lerp, play attack animation and deal damage then return to og position.
@@ -189,6 +203,18 @@ public class BattleLogic : MonoBehaviour
         isAttacking = false;
     }
 
+    private IEnumerator DeflectSequence(EnemyBase target)
+    {
+        playerAnimator.SetTrigger("Deflect");
+
+        yield return new WaitForSeconds(0.5f);
+
+        yield return new WaitForSeconds(returnDelay);
+
+        isAttacking = false;
+    }
+
+
     // Lerp movement to selected target position. Works by gradually updating position until close enough.
     private IEnumerator MoveToPosition(Vector3 targetPos)
     {
@@ -202,6 +228,11 @@ public class BattleLogic : MonoBehaviour
         }
 
         transform.position = targetPos;
+    }
+
+    public void RegisterEnemy(EnemyBase enemy)
+    {
+        enemies.Add(enemy);
     }
 
     // Check if all enemies are defeated, then play perfect vfx and load next scene after delay.

@@ -25,6 +25,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Deflect",
+                    "type": "Button",
+                    "id": "82ad57d2-f2e7-4cad-869c-000ebf159724",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Target",
                     "type": "Button",
                     "id": "0288f449-4201-42e9-8c85-e5b48cf0f589",
@@ -65,6 +74,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Target",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c160672a-c8bd-4fee-8269-a65489872baa",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Deflect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

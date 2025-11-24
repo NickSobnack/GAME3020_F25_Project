@@ -20,7 +20,7 @@ public class LancerLogic : EnemyBase
     protected override void Awake()
     {
         base.Awake();
-        thrustTimer = Random.Range(2f, 4f);
+        thrustTimer = Random.Range(3f, 6f);
         base.damage = 4f;
         player = GameObject.FindWithTag("Player").transform;
         originalPos = transform.position;
@@ -32,7 +32,7 @@ public class LancerLogic : EnemyBase
         if (timer >= thrustTimer)
         {
             timer = 0f;
-            thrustTimer = Random.Range(2f, 4f);
+            thrustTimer = Random.Range(3f, 6f);
             StartCoroutine(ChargeAttack());
         }
     }

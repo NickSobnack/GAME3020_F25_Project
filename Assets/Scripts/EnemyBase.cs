@@ -16,6 +16,10 @@ public abstract class EnemyBase : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         health = maxHealth;
+
+        BattleLogic battleLogic = FindObjectOfType<BattleLogic>();
+        if (battleLogic != null)
+            battleLogic.RegisterEnemy(this);
     }
 
     public virtual void TakeDamage(float damage)
@@ -35,7 +39,7 @@ public abstract class EnemyBase : MonoBehaviour
         PlayDeathAnimation();
         Destroy(gameObject, 1f);
     }
-    
+
     public void SetSelected(bool isSelected)
     {
         if (targetPointer != null)
