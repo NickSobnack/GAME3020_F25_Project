@@ -9,15 +9,19 @@ public abstract class EnemyBase : MonoBehaviour
     public float damage = 3f;
     public GameObject targetPointer;
    
-    [HideInInspector] public string enemyName;
+    [HideInInspector] 
+    public string enemyName;
     protected Animator animator;
+    protected BattleLogic battleLogic;
+
+    public bool inAction { get; protected set; }
 
     protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
         health = maxHealth;
 
-        BattleLogic battleLogic = FindObjectOfType<BattleLogic>();
+        battleLogic = FindObjectOfType<BattleLogic>();
         if (battleLogic != null)
             battleLogic.RegisterEnemy(this);
     }
@@ -45,4 +49,13 @@ public abstract class EnemyBase : MonoBehaviour
         if (targetPointer != null)
             targetPointer.SetActive(isSelected);
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Projectile"))
+        {
+            Debug.Log("Hit by projectile:" + other.gameObject);
+        }
+    }
+
 }

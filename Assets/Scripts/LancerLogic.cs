@@ -31,33 +31,32 @@ public class LancerLogic : EnemyBase
         timer += Time.deltaTime;
         if (timer >= thrustTimer)
         {
+            if (!battleLogic.inAction)
+                StartCoroutine(ChargeAttack());
+
             timer = 0f;
             thrustTimer = Random.Range(3f, 6f);
-            StartCoroutine(ChargeAttack());
         }
     }
 
     // Lancer charges towards player, thrusts lance, then returns to original position.
     private IEnumerator ChargeAttack()
     {
-        isAttacking = true;
+        inAction = true;
+        battleLogic.SetInAction(true);
 
         Vector3 direction = (player.position - transform.position).normalized;
         Vector3 attackPos = player.position - direction * distanceToPlayer;
 
         yield return MoveToPosition(attackPos);
-
         yield return new WaitForSeconds(0.3f);
-
         animator.SetTrigger("Thrust");
-
         yield return new WaitForSeconds(0.3f);
-
         yield return new WaitForSeconds(returnDelay);
-
         yield return MoveToPosition(originalPos);
 
-        isAttacking = false;
+        inAction = false;
+        battleLogic.SetInAction(false);
     }
 
     // Lerp movement to selected target position.

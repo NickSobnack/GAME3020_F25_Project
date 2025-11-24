@@ -39,9 +39,11 @@ public class BattleLogic : MonoBehaviour
     [Header("Enemy")]
     [SerializeField] private List<EnemyBase> enemies = new(2); 
     [SerializeField] private GameObject targetPointerPrefab;
-    [SerializeField] public float playerDmg = 9f;
-    private EnemyBase selectedTarget;
+    [SerializeField] public float playerDmg = 2f;
+    public EnemyBase selectedTarget;
     private int selectedIndex = 0;
+
+    public bool inAction { get; private set; }
 
     private void Awake()
     {
@@ -103,7 +105,6 @@ public class BattleLogic : MonoBehaviour
             if (!isBlocking && playerLogic.energy >= attackCost && !isAttacking && selectedTarget != null)
             {
                 playerLogic.energy -= attackCost;
-                isAttacking = true;
                 originalPos = transform.position;
                 StartCoroutine(AttackSequence(selectedTarget));
             }
@@ -117,8 +118,7 @@ public class BattleLogic : MonoBehaviour
             if (!isBlocking && playerLogic.energy >= attackCost && !isAttacking && selectedTarget != null)
             {
                 playerLogic.energy -= attackCost;
-                isAttacking = true;
-                playerAnimator.SetTrigger("Deflect");
+                StartCoroutine(DeflectSequence(selectedTarget));
             }
         }
     }
@@ -138,12 +138,14 @@ public class BattleLogic : MonoBehaviour
         }
     }
 
+    // Ends blocking when block key is released.
     public void EndBlock(InputAction.CallbackContext context)
     {
         if (context.canceled)
             StopBlocking();
     }
 
+    // Stops blocking animation and state.
     private void StopBlocking()
     {
         if (isBlocking)
@@ -171,7 +173,6 @@ public class BattleLogic : MonoBehaviour
 
             selectedIndex = (selectedIndex + 1) % enemies.Count;
             selectedTarget = enemies[selectedIndex];
-
             selectedTarget.SetSelected(true);
         }
     }
@@ -185,6 +186,9 @@ public class BattleLogic : MonoBehaviour
     // Coroutine to handle moving to enemy using lerp, play attack animation and deal damage then return to og position.
     private IEnumerator AttackSequence(EnemyBase target)
     {
+        isAttacking = true;
+        SetInAction(true);
+
         Vector3 direction = (target.transform.position - transform.position).normalized;
         Vector3 attackPos = target.transform.position - direction * distanceToEnemy;
 
@@ -201,10 +205,14 @@ public class BattleLogic : MonoBehaviour
         yield return MoveToPosition(originalPos);
 
         isAttacking = false;
+        SetInAction(false); 
     }
 
     private IEnumerator DeflectSequence(EnemyBase target)
     {
+        isAttacking = true;
+        SetInAction(true);
+
         playerAnimator.SetTrigger("Deflect");
 
         yield return new WaitForSeconds(0.5f);
@@ -212,8 +220,8 @@ public class BattleLogic : MonoBehaviour
         yield return new WaitForSeconds(returnDelay);
 
         isAttacking = false;
+        SetInAction(false);
     }
-
 
     // Lerp movement to selected target position. Works by gradually updating position until close enough.
     private IEnumerator MoveToPosition(Vector3 targetPos)
@@ -246,5 +254,10 @@ public class BattleLogic : MonoBehaviour
         Instantiate(perfectVfx, gameStatusVfxPoint.position, Quaternion.identity);
         AudioManager.Instance.PlayMusic(MusicName.victory, false);
         GameManager.Instance.DelayLoadScene(1, 3f);
+    }
+
+    public void SetInAction(bool busy)
+    {
+        inAction = busy;
     }
 }
