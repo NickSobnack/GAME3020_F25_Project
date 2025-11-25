@@ -7,7 +7,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public GameObject tutorialPanel;
+
     public string currentNodeName;
+    private NodeType currentNodeType = NodeType.SafeZone;
 
     [Header("Player Stats")]
     public float playerHealth = 10f;
@@ -26,15 +28,21 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // Sets and gets the current node by its name.
+    // Sets and gets the current node info.
     public void SetCurrentNode(Node node)
     {
         currentNodeName = node.name;
+        currentNodeType = node.nodeType;
     }
 
     public string GetCurrentNodeName()
     {
         return currentNodeName;
+    }
+
+    public NodeType GetCurrentNodeType()
+    {
+        return currentNodeType;
     }
 
     // Single method to toggle tutorial panel.

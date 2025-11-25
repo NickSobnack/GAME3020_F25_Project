@@ -6,13 +6,33 @@ public class EnemySpawner : MonoBehaviour
     [Header("Spawn Settings")]
     [SerializeField] private Transform[] spawnPoints; 
     [SerializeField] private GameObject[] enemyPrefabs; 
-    [SerializeField] private string[] enemyNames = { "Clara", "Gloria", "Teadon", "Selena", "Auguste", "Simona", "Camelot", "Parsifal"};
-
+    [SerializeField] private GameObject bossPrefab; 
+    [SerializeField] private string[] enemyNames = { "Clara", "Gloria", "Teadon", "Selena", "Auguste", "Simona", "Parsifal"};
+    [SerializeField] private string bossName = "Camelot";
     [SerializeField] private int maxEnemiesToSpawn = 3;
 
     private void Start()
     {
-        SpawnEnemies();
+        NodeType nodeType = GameManager.Instance.GetCurrentNodeType();
+        Debug.Log("Spawner starting, node type = " + nodeType);
+
+        if (nodeType == NodeType.Enemy)
+            SpawnEnemies();
+        else if (nodeType == NodeType.Boss)
+            SpawnBoss();
+    }
+
+
+    public void Spawn(NodeType nodeType)
+    {
+        if (nodeType == NodeType.Enemy)
+        {
+            SpawnEnemies();
+        }
+        else if (nodeType == NodeType.Boss)
+        {
+            SpawnBoss();
+        }
     }
 
     // Spawns a random number of enemies at random spawn points with random names.
@@ -34,4 +54,21 @@ public class EnemySpawner : MonoBehaviour
             }
         }
     }
+
+    // Spawn boss at first spawn point with one static name.
+    private void SpawnBoss()
+    {
+        if (bossPrefab != null && spawnPoints.Length > 0)
+        {
+            GameObject bossInstance = Instantiate(bossPrefab, spawnPoints[0].position, Quaternion.identity);
+
+            EnemyBase enemyBase = bossInstance.GetComponent<EnemyBase>();
+            if (enemyBase != null)
+            {
+                enemyBase.enemyName = bossName;
+                bossInstance.name = bossName;
+            }
+        }
+    }
 }
+
