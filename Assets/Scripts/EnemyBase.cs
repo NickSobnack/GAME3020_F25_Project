@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class EnemyBase : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public abstract class EnemyBase : MonoBehaviour
     public string enemyName;
     protected Animator animator;
     protected BattleLogic battleLogic;
+    protected Slider hpSlider;
 
     public bool inAction { get; protected set; }
 
@@ -24,11 +26,29 @@ public abstract class EnemyBase : MonoBehaviour
         battleLogic = FindObjectOfType<BattleLogic>();
         if (battleLogic != null)
             battleLogic.RegisterEnemy(this);
+
+        hpSlider = GetComponentInChildren<Slider>(true);
+        if (hpSlider == null)
+        {
+            Transform sliderTransform = transform.Find("HPSlider");
+            if (sliderTransform != null)
+                hpSlider = sliderTransform.GetComponent<Slider>();
+        }
+
+        if (hpSlider != null)
+        {
+            hpSlider.maxValue = maxHealth;
+            hpSlider.value = health;
+        }
     }
 
     public virtual void TakeDamage(float damage)
     {
         health -= damage;
+
+        if (hpSlider != null)
+            hpSlider.value = health;
+
         if (health <= 0)
             OnDeath();
         else
@@ -41,6 +61,10 @@ public abstract class EnemyBase : MonoBehaviour
     public virtual void OnDeath()
     {
         PlayDeathAnimation();
+
+        if (hpSlider != null)
+            hpSlider.value = 0;
+
         Destroy(gameObject, 1f);
     }
 
@@ -49,13 +73,4 @@ public abstract class EnemyBase : MonoBehaviour
         if (targetPointer != null)
             targetPointer.SetActive(isSelected);
     }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Projectile"))
-        {
-            Debug.Log("Hit by projectile:" + other.gameObject);
-        }
-    }
-
 }

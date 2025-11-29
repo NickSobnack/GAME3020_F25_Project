@@ -15,7 +15,7 @@ public class LancerLogic : EnemyBase
 
     private Vector3 originalPos;
     private Transform player;
-    private bool isAttacking;
+    private bool isStunned = false;
 
     protected override void Awake()
     {
@@ -28,6 +28,8 @@ public class LancerLogic : EnemyBase
 
     private void Update()
     {
+        if (isStunned) return;
+
         timer += Time.deltaTime;
         if (timer >= thrustTimer)
         {
@@ -77,11 +79,17 @@ public class LancerLogic : EnemyBase
 
     protected override void PlayHurtAnimation()
     {
+        isStunned = true;              
         animator.SetTrigger("Hit");
     }
 
     protected override void PlayDeathAnimation()
     {
         animator.SetTrigger("Death");
+    }
+
+    public void EndStun()
+    {
+        isStunned = false;             
     }
 }

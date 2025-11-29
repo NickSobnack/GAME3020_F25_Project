@@ -52,7 +52,7 @@ public class MapLogic : MonoBehaviour
                     GameManager.Instance.SetCurrentNode(currentNode);
                     GameManager.Instance.ChangeScene(2);
                 }
-                else if (currentNode.nodeType == NodeType.SafeZone && currentNode.hasEnemies == false)
+                else if (currentNode.hasEnemies == false)
                 {
                     Animator monkAnimator = currentNode.GetComponentInChildren<Animator>();
                     if (monkAnimator != null)
