@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class MapLogic : MonoBehaviour
 {
@@ -48,18 +49,17 @@ public class MapLogic : MonoBehaviour
 
                 if (currentNode.hasEnemies == true)
                 {
-                    GameManager.Instance.SetCurrentNode(currentNode); 
-                    GameManager.Instance.ChangeScene(2); 
+                    GameManager.Instance.SetCurrentNode(currentNode);
+                    GameManager.Instance.ChangeScene(2);
                 }
-                else if (currentNode.hasEnemies == false)
+                else if (currentNode.nodeType == NodeType.SafeZone && currentNode.hasEnemies == false)
                 {
-                    AudioManager.Instance.PlaySound(SoundName.cure);
-                    GameObject healEffect = Instantiate(healPrefab, targetPosition + new Vector3(0, -.1f, 0), Quaternion.identity);
-                    Destroy(healEffect, 1f);
-                    
-                    PlayerLogic playerLogic = player.GetComponent<PlayerLogic>();
-                    if (playerLogic != null)
-                            playerLogic.HealHealth(3f); 
+                    Animator monkAnimator = currentNode.GetComponentInChildren<Animator>();
+                    if (monkAnimator != null)
+                    {
+                        monkAnimator.SetTrigger("Heal");
+                    }
+                    StartCoroutine(PlayHealSequence());
                 }
             }
         }
@@ -74,4 +74,21 @@ public class MapLogic : MonoBehaviour
             isMoving = true;
         }
     }
+
+    private IEnumerator PlayHealSequence()
+    {
+        yield return new WaitForSeconds(1f);
+
+        AudioManager.Instance.PlaySound(SoundName.cure);
+
+        GameObject healEffect = Instantiate(healPrefab, targetPosition + new Vector3(0, -.1f, 0), Quaternion.identity);
+        Destroy(healEffect, 1f);
+
+        PlayerLogic playerLogic = player.GetComponent<PlayerLogic>();
+        if (playerLogic != null)
+        {
+            playerLogic.HealHealth(3f);
+        }
+    }
+
 }
