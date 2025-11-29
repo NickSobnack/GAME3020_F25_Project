@@ -50,9 +50,11 @@ MonoBehaviour:
   - {fileID: 0}
   nodeType: 0
   heightOffset: {x: 0, y: 0.5, z: 0}
-  housePrefab: {fileID: 9128234991237689498, guid: 4963e081b95755745ae5c67fa9c3e50c, type: 3}
+  monasteryPrefab: {fileID: 7714728653712124791, guid: 28a102a313cca0745b73ff6abe9d53ee, type: 3}
   towerPrefab: {fileID: 9128234991237689498, guid: ef95d17927189e6489f476eba1d63564, type: 3}
   castlePrefab: {fileID: 9128234991237689498, guid: ff17286fba215de4dae93ad9d65f7804, type: 3}
+  monkPrefab: {fileID: 6354021756339345472, guid: 7857fe3ac231b8c4d8055184c2d9a6fd, type: 3}
+  priestOffset: {x: 0.1, y: 0, z: 0}
   hasEnemies: 0
   isVisited: 0
 --- !u!58 &734337430983008585

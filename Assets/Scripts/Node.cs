@@ -16,7 +16,9 @@ public class Node : MonoBehaviour
     [Header("Visual Component")]
     public NodeType nodeType;
     public Vector3 heightOffset = new Vector3(0, 1f, 0);
-    public GameObject housePrefab, towerPrefab, castlePrefab;
+    public GameObject monasteryPrefab, towerPrefab, castlePrefab;
+    public GameObject monkPrefab;
+    public Vector3 priestOffset = new Vector3(0, 0, 0);
     public bool hasEnemies, isVisited;
 
     // Setup the node visual depending on its type = safe, enemy or boss encounter.
@@ -30,13 +32,14 @@ public class Node : MonoBehaviour
         else if (nodeType == NodeType.SafeZone)
         {
             hasEnemies = false;
+            GameObject priestInstance = Instantiate(monkPrefab, transform.position + priestOffset,Quaternion.identity, transform);
         }
 
         GameObject selectedPrefab = null;
         switch (nodeType)
         {
             case NodeType.SafeZone:
-                selectedPrefab = housePrefab;
+                selectedPrefab = monasteryPrefab;
                 break;
             case NodeType.Enemy:
                 selectedPrefab = towerPrefab;

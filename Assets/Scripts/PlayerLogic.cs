@@ -17,11 +17,11 @@ public class PlayerLogic : MonoBehaviour
     public float perfectBlockWindow = 0.2f;
     public float energyRestore = 2f;
     private BattleLogic battleLogic;
+    private const string hurtAnim = "Hurt";
     private bool playerDead = false;
 
     public float MaxHealth => maxHealth;
     public float CurrHealth => health;
-
     public float MaxEnergy => maxEnergy;
     public float CurrEnergy => energy;
 
@@ -115,6 +115,7 @@ public class PlayerLogic : MonoBehaviour
             else
             {
                 TakeDamage(damageAmount);
+                playerAnimator.SetTrigger(hurtAnim);    
             }
         }
     }
