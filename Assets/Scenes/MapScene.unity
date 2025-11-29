@@ -303,7 +303,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
       propertyPath: heightOffset.y
-      value: 10
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
+      propertyPath: isStartingNode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
+      propertyPath: priestOffset.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2633943108341907936, guid: c8a920a08f9e05140a96a0dc18ad4e00, type: 3}
       propertyPath: 'nextNodes.Array.data[0]'

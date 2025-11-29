@@ -92,7 +92,10 @@ public class PlayerLogic : MonoBehaviour
         else if (other.CompareTag("Enemy"))
         {
             EnemyBase enemy = other.GetComponent<EnemyBase>();
-            if (enemy != null) damageAmount = enemy.damage;
+            if (enemy != null && enemy.inAction)  
+            {
+                damageAmount = enemy.damage;
+            }
         }
 
         if (damageAmount > 0f)
@@ -114,8 +117,7 @@ public class PlayerLogic : MonoBehaviour
             }
             else
             {
-                TakeDamage(damageAmount);
-                playerAnimator.SetTrigger(hurtAnim);    
+                TakeDamage(damageAmount);  
             }
         }
     }
@@ -124,6 +126,7 @@ public class PlayerLogic : MonoBehaviour
     {
         health -= amount;
         health = Mathf.Clamp(health, 0, maxHealth);
+        playerAnimator.SetTrigger(hurtAnim);
     }
 
     public void HealHealth(float amount)

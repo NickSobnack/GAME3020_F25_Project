@@ -19,12 +19,14 @@ public class Node : MonoBehaviour
     public GameObject monasteryPrefab, towerPrefab, castlePrefab;
     public GameObject monkPrefab;
     public Vector3 priestOffset = new Vector3(0, 0, 0);
-    public bool hasEnemies, isVisited;
+    public bool hasEnemies, isVisited, isStartingNode;
 
     // Setup the node visual depending on its type = safe, enemy or boss encounter.
     // Automatically assign nodes with enemies for scene transition based on NodeTyp,
     void Start()
     {
+        if (isStartingNode) return;
+
         if (nodeType == NodeType.Enemy || nodeType == NodeType.Boss)
         {
             hasEnemies = true;
