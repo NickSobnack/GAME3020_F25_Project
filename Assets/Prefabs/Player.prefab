@@ -316,7 +316,7 @@ MonoBehaviour:
   returnDelay: 0.5
   enemies: []
   targetPointerPrefab: {fileID: 507636839208067143, guid: 5bc0c311b2d91c443a2af74e2d83a8cc, type: 3}
-  playerDmg: 9
+  playerDmg: 10
   selectedTarget: {fileID: 0}
 --- !u!114 &6189003284690863436
 MonoBehaviour:

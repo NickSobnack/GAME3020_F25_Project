@@ -7,7 +7,8 @@ public class LancerLogic : EnemyBase
     [SerializeField] private GameObject lancePrefab;
     [SerializeField] private Transform firePoint;
     private float thrustTimer;
-    private float timer; 
+    private float timer;
+    private CapsuleCollider2D collider;
     
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float distanceToPlayer = 2.5f;
@@ -23,6 +24,7 @@ public class LancerLogic : EnemyBase
         thrustTimer = Random.Range(3f, 6f);
         base.damage = 4f;
         player = GameObject.FindWithTag("Player").transform;
+        collider = GetComponent<CapsuleCollider2D>();
         originalPos = transform.position;
     }
 
@@ -54,9 +56,12 @@ public class LancerLogic : EnemyBase
         yield return new WaitForSeconds(0.3f);
         animator.SetTrigger("Thrust");
         yield return new WaitForSeconds(0.3f);
+
         yield return new WaitForSeconds(returnDelay);
+        if (collider != null) collider.enabled = false;
         yield return MoveToPosition(originalPos);
 
+        if (collider != null) collider.enabled = true;
         inAction = false;
         battleLogic.SetInAction(false);
     }
