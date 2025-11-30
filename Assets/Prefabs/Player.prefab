@@ -307,6 +307,7 @@ MonoBehaviour:
   energyRegen: 1
   blockCost: 1
   attackCost: 2
+  attackCooldown: 3
   playerAnimator: {fileID: 4371060702045107253}
   gameStatusVfxPoint: {fileID: 0}
   perfectVfx: {fileID: 3237155395738874188, guid: 9dbc22ba36e625146ae4645a419b161a, type: 3}
@@ -316,6 +317,7 @@ MonoBehaviour:
   enemies: []
   targetPointerPrefab: {fileID: 507636839208067143, guid: 5bc0c311b2d91c443a2af74e2d83a8cc, type: 3}
   playerDmg: 9
+  selectedTarget: {fileID: 0}
 --- !u!114 &6189003284690863436
 MonoBehaviour:
   m_ObjectHideFlags: 0

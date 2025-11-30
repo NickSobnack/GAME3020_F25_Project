@@ -20,6 +20,9 @@ public class BattleLogic : MonoBehaviour
     [SerializeField] private float energyRegen = 1f;
     [SerializeField] private float blockCost = 1f;
     [SerializeField] private float attackCost = 3f;
+    [SerializeField] private float attackCooldown = 3f;
+    private float lastAttackTime;
+
 
     private float currHoldTimer;
     private bool isAttacking, isBlocking, noEnergy;
@@ -102,14 +105,19 @@ public class BattleLogic : MonoBehaviour
     {
         if (context.started)
         {
-            if (!isBlocking && playerLogic.energy >= attackCost && !isAttacking && selectedTarget != null)
+            bool canAttack = Time.time >= lastAttackTime + attackCooldown;
+
+            if (!isBlocking && playerLogic.energy >= attackCost && !isAttacking && selectedTarget != null && canAttack)
             {
+                isAttacking = true; 
+                lastAttackTime = Time.time; 
                 playerLogic.energy -= attackCost;
                 originalPos = transform.position;
                 StartCoroutine(AttackSequence(selectedTarget));
             }
         }
     }
+
 
     public void Deflect(InputAction.CallbackContext context)
     {
@@ -186,7 +194,6 @@ public class BattleLogic : MonoBehaviour
     // Coroutine to handle moving to enemy using lerp, play attack animation and deal damage then return to og position.
     private IEnumerator AttackSequence(EnemyBase target)
     {
-        isAttacking = true;
         SetInAction(true);
 
         Vector3 direction = (target.transform.position - transform.position).normalized;
