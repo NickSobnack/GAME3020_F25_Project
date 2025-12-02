@@ -6,8 +6,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public GameObject tutorialPanel;
-
     public string currentNodeName;
     private NodeType currentNodeType = NodeType.SafeZone;
 
@@ -45,13 +43,6 @@ public class GameManager : MonoBehaviour
         return currentNodeType;
     }
 
-    // Single method to toggle tutorial panel.
-    public void ToggleTutorial(bool isVisible)
-    {
-        if (tutorialPanel != null)
-            tutorialPanel.SetActive(isVisible);
-    }
-
     // Load scene by index.
     public void ChangeScene(int sceneIndex)
     {
@@ -80,9 +71,13 @@ public class GameManager : MonoBehaviour
         playerGold = Mathf.Max(0, playerGold - amount);
     }
 
-    // Quits the game/application.
-    public void QuitGame()
+    //Reset game state, called when exiting or losing game.
+    public void ResetGame()
     {
-        Application.Quit();
+        currentNodeName = string.Empty;
+        currentNodeType = NodeType.SafeZone;
+
+        playerHealth = playerMaxHealth;
+        playerGold = 0;
     }
 }

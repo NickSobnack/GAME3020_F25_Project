@@ -1,19 +1,27 @@
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private bool isPaused = false;
+    [SerializeField] private GameObject tutorialPanel;
+    private bool tutorialVisible = false;
 
-    void Update()
+    public void StartGame(int gameSceneIndex)
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            TogglePause();
+        GameManager.Instance.DelayLoadScene(gameSceneIndex, 0.5f);
     }
 
-    void TogglePause()
+    public void ToggleTutorial()
     {
-        isPaused = !isPaused;
-        Time.timeScale = isPaused ? 0f : 1f;
+        tutorialVisible = !tutorialVisible;
+
+        if (tutorialPanel != null)
+            tutorialPanel.SetActive(tutorialVisible);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+        Debug.Log("Game quit.");
     }
 }
