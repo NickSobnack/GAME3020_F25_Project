@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ca00dbf3edfeccf408359e8774c372fa
+guid: 18584a3c413187a4884fd9d745381ad6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3021450989361617561
-    second: Carved_9Slides_0
+      213: 35714780945166715
+    second: Button_Blue_9Slides_Pressed_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Carved_9Slides_0
+      name: Button_Blue_9Slides_Pressed_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 0
-        width: 191
-        height: 192
+        x: 4
+        y: 7
+        width: 184
+        height: 182
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 99ad62f9aa95ee920800000000000000
-      internalID: 3021450989361617561
+      spriteID: b71b77f6762ee7000800000000000000
+      internalID: 35714780945166715
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Carved_9Slides_0: 3021450989361617561
+      Button_Blue_9Slides_Pressed_0: 35714780945166715
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

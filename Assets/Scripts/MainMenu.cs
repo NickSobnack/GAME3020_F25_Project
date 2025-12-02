@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject tutorialPanel;
-    private bool tutorialVisible = false;
+    private bool isVisible = false;
 
     public void StartGame(int gameSceneIndex)
     {
@@ -13,10 +13,10 @@ public class MainMenu : MonoBehaviour
 
     public void ToggleTutorial()
     {
-        tutorialVisible = !tutorialVisible;
+        isVisible = !isVisible;
 
         if (tutorialPanel != null)
-            tutorialPanel.SetActive(tutorialVisible);
+            tutorialPanel.SetActive(isVisible);
     }
 
     public void QuitGame()

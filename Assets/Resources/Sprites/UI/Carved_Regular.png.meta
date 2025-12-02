@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ca00dbf3edfeccf408359e8774c372fa
+guid: 93ab21dda08d02041bf1b1a4f65b38eb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3021450989361617561
-    second: Carved_9Slides_0
+      213: 7515621534131588247
+    second: Carved_Regular_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Carved_9Slides_0
+      name: Carved_Regular_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 0
-        width: 191
-        height: 192
+        x: 2
+        y: 1
+        width: 59
+        height: 63
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 99ad62f9aa95ee920800000000000000
-      internalID: 3021450989361617561
+      spriteID: 79c803047f9dc4860800000000000000
+      internalID: 7515621534131588247
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Carved_9Slides_0: 3021450989361617561
+      Carved_Regular_0: 7515621534131588247
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

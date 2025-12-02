@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: ca00dbf3edfeccf408359e8774c372fa
+guid: 3d315000302e72342944dfbcfdec8e5b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3021450989361617561
-    second: Carved_9Slides_0
+      213: 8807964406896944260
+    second: Disable_03_0
+  - first:
+      213: 853822296559082547
+    second: Disable_03_1
+  - first:
+      213: 2837024305844744744
+    second: Disable_03_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Carved_9Slides_0
+      name: Disable_03_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 0
-        width: 191
-        height: 192
+        x: 16
+        y: 29
+        width: 7
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 99ad62f9aa95ee920800000000000000
-      internalID: 3021450989361617561
+      spriteID: 484606326fc2c3a70800000000000000
+      internalID: 8807964406896944260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Disable_03_1
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 21
+        width: 16
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33c56bfdad269db00800000000000000
+      internalID: 853822296559082547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Disable_03_2
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 29
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 822760133922f5720800000000000000
+      internalID: 2837024305844744744
       vertices: []
       indices: 
       edges: []
@@ -148,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Carved_9Slides_0: 3021450989361617561
+      Disable_03_0: 8807964406896944260
+      Disable_03_1: 853822296559082547
+      Disable_03_2: 2837024305844744744
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -84,4 +84,13 @@ public class AudioManager : MonoBehaviour
         music.loop = loopMusic;
         music.Play();
     }
+
+    public void ToggleMusic(bool enable)
+    {
+        if (music != null)
+        {
+            music.mute = !enable;
+        }
+    }
+
 }

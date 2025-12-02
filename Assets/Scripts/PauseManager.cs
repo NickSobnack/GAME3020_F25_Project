@@ -38,15 +38,16 @@ public class PauseManager : MonoBehaviour
             TogglePause();
     }
 
-    public void SettingsButton()
-    {
-        Debug.Log("Settings menu opened.");
-    }
-
     public void MainMenuButton(int sceneIndex)
     {
         Time.timeScale = 1f;
         GameManager.Instance.ResetGame();
         GameManager.Instance.ChangeScene(sceneIndex);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+        Debug.Log("Game quit.");
     }
 }
