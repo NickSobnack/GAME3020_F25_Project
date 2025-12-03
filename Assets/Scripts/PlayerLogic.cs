@@ -105,7 +105,7 @@ public class PlayerLogic : MonoBehaviour, IDamage
             }
         }
 
-        else if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
             Debug.Log("Collided with Enemy" + other.gameObject);
             EnemyBase enemy = other.GetComponent<EnemyBase>();

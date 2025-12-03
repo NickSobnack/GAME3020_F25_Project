@@ -26,6 +26,7 @@ public class BossLogic : EnemyBase, IDamage
     private Projectile slashProjectile;
 
     private Collider2D bossCollider;
+    public bool HasShield => currentShield > 0;
 
     protected override void Awake()
     {
@@ -81,7 +82,6 @@ public class BossLogic : EnemyBase, IDamage
     public void RangeAttack()
     {
         animator.SetTrigger("Slash");
-        inAction = false;
     }
 
     // Animation event called at the end of slash attack.
