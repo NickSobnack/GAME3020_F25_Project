@@ -60,7 +60,8 @@ public class EnemySpawner : MonoBehaviour
     {
         if (bossPrefab != null && spawnPoints.Length > 0)
         {
-            GameObject bossInstance = Instantiate(bossPrefab, spawnPoints[0].position, Quaternion.identity);
+            Vector3 offset = new Vector3(0, 0.5f, 0);
+            GameObject bossInstance = Instantiate(bossPrefab, spawnPoints[0].position + offset, Quaternion.identity);
 
             EnemyBase enemyBase = bossInstance.GetComponent<EnemyBase>();
             if (enemyBase != null)
