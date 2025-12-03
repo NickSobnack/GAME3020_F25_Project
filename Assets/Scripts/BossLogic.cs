@@ -117,7 +117,15 @@ public class BossLogic : EnemyBase, IDamage
 
     public override void TakeDamage(float damage)
     {
-        Damage(damage);
+        if (HasShield)
+        {
+            Debug.Log("Boss shield absorbed the attack. No HP damage.");
+            return;
+        }
+
+        // Otherwise, apply normal damage to health
+        base.TakeDamage(damage);
+        hpSlider.value = health;
     }
 
     public void Damage(float damageAmount)

@@ -5351,8 +5351,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   currentNodeName: 
-  playerHealth: 10
-  playerMaxHealth: 15
+  playerHealth: 20
+  playerMaxHealth: 20
   playerGold: 0
 --- !u!114 &2033676507
 MonoBehaviour:

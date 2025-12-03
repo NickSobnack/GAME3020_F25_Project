@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private string bossName = "Camelot";
     [SerializeField] private int maxEnemiesToSpawn = 3;
 
+    [SerializeField] private GameObject bossPopupPanel;
+    [SerializeField] private Button continueButton;
+
     private void Start()
     {
         NodeType nodeType = GameManager.Instance.GetCurrentNodeType();
@@ -21,7 +26,6 @@ public class EnemySpawner : MonoBehaviour
         else if (nodeType == NodeType.Boss)
             SpawnBoss();
     }
-
 
     public void Spawn(NodeType nodeType)
     {
@@ -69,6 +73,23 @@ public class EnemySpawner : MonoBehaviour
                 enemyBase.enemyName = bossName;
                 bossInstance.name = bossName;
             }
+        }
+        ShowBossPopup();
+    }
+
+    private void ShowBossPopup()
+    {
+        if (bossPopupPanel != null)
+        {
+            bossPopupPanel.SetActive(true);
+            Time.timeScale = 0f; 
+
+            continueButton.onClick.RemoveAllListeners();
+            continueButton.onClick.AddListener(() =>
+            {
+                bossPopupPanel.SetActive(false);
+                Time.timeScale = 1f; 
+            });
         }
     }
 }
