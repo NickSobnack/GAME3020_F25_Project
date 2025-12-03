@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour, IDeflect
 {
-    [SerializeField] public float damageAmount = 1f;
+    [SerializeField] public float damageAmount = 3f;
     private IDamage damageable;
     private Collider2D projectileCollider;
     private Rigidbody2D projectileRb;
@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour, IDeflect
         if (damageable != null)
         {
             // If deflected, damage enemies
-            if (isDeflected && collision.CompareTag("Boss"))
+            if (isDeflected && collision.CompareTag("Enemy"))
             {
                 damageable.Damage(damageAmount);
                 Destroy(gameObject);
@@ -48,6 +48,8 @@ public class Projectile : MonoBehaviour, IDeflect
     {
         isDeflected = true;
         IgnoreCollisionWithEnemy(); 
+        Collider2D playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
+        Physics2D.IgnoreCollision(projectileCollider, playerCollider, true);
         projectileRb.linearVelocity = direction * ReturnSpeed;
         projectileSprite.flipX = direction.x < 0;
     }

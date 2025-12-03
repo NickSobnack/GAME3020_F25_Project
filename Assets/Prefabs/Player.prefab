@@ -330,9 +330,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6de6d7fa0c9664bb69d3a7b7e6010a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLogic
-  maxHealth: 100
+  maxHealth: 20
   maxEnergy: 10
-  health: 100
+  health: 20
   energy: 10
   perfectBlockWindow: 0.2
   energyRestore: 3

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class BossLogic : EnemyBase, IDamage
 {
     [Header("Boss Stats")]
-    public int maxShield = 50;
+    public int maxShield = 15;
     public int currentShield;
 
     public float attackInterval = 3f; 
@@ -29,7 +29,8 @@ public class BossLogic : EnemyBase, IDamage
 
     protected override void Awake()
     {
-        base.Awake(); 
+        base.Awake();
+        base.damage = 5f;
         currentShield = maxShield;
         originalPosition = transform.position;
         bossCollider = GetComponent<Collider2D>();
@@ -60,17 +61,12 @@ public class BossLogic : EnemyBase, IDamage
             PerformRandomAttack();
             attackTimer = attackInterval;
         }
-
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            TakeDamage(10f); 
-        }
     }
 
     private void PerformRandomAttack()
     {
-        // CHANGE THIS BACK TO (0,2) LATER
-        int attackChoice = Random.Range(0, 0);
+        int attackChoice = Random.Range(0, 2);
+
         if (attackChoice == 0)
         {
             RangeAttack();
@@ -85,6 +81,7 @@ public class BossLogic : EnemyBase, IDamage
     public void RangeAttack()
     {
         animator.SetTrigger("Slash");
+        inAction = false;
     }
 
     // Animation event called at the end of slash attack.
@@ -94,17 +91,19 @@ public class BossLogic : EnemyBase, IDamage
         slashRb.linearVelocity = slashRb.transform.right * -1 * bulletSpeed;
         slashProjectile = slashRb.gameObject.GetComponent<Projectile>();
         slashProjectile.enemyCollider = bossCollider;
-
     }
 
     private IEnumerator PhysicalAttack()
     {
+        inAction = true;
         yield return StartCoroutine(MoveToPosition(player.position, attackRange));
 
         animator.SetTrigger("Attack");
         yield return new WaitForSeconds(1f);
 
         yield return StartCoroutine(MoveToPosition(originalPosition, 0.1f));
+
+        inAction = false;
     }
 
     private IEnumerator MoveToPosition(Vector3 targetPos, float stopDistance)

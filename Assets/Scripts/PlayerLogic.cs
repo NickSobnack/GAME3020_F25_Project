@@ -88,7 +88,6 @@ public class PlayerLogic : MonoBehaviour, IDamage
             Destroy(other.gameObject);
         }
 
-
         if (other.CompareTag("Projectile"))
         {
             Projectile proj = other.GetComponent<Projectile>();
@@ -100,15 +99,15 @@ public class PlayerLogic : MonoBehaviour, IDamage
                 }
                 else
                 {
-                    Damage(proj.damageAmount); 
+                    damageAmount = proj.damageAmount;
                     Destroy(other.gameObject);
                 }
             }
         }
 
-
         else if (other.CompareTag("Enemy"))
         {
+            Debug.Log("Collided with Enemy" + other.gameObject);
             EnemyBase enemy = other.GetComponent<EnemyBase>();
             if (enemy != null && enemy.inAction)  
             {
