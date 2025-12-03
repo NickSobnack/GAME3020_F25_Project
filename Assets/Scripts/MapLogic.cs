@@ -60,6 +60,15 @@ public class MapLogic : MonoBehaviour
                         monkAnimator.SetTrigger("Heal");
                     }
                     StartCoroutine(PlayHealSequence());
+                    
+                    float healAmount = 3f;
+                    GameManager.Instance.playerHealth = Mathf.Clamp(
+                        GameManager.Instance.playerHealth + healAmount,
+                        0f,
+                        GameManager.Instance.playerMaxHealth
+                    );
+
+                    Debug.Log($"Player healed for {healAmount}. Current HP: {GameManager.Instance.playerHealth}");
                 }
             }
         }
@@ -83,12 +92,6 @@ public class MapLogic : MonoBehaviour
 
         GameObject healEffect = Instantiate(healPrefab, targetPosition + new Vector3(0, -.1f, 0), Quaternion.identity);
         Destroy(healEffect, 1f);
-
-        PlayerLogic playerLogic = player.GetComponent<PlayerLogic>();
-        if (playerLogic != null)
-        {
-            playerLogic.HealHealth(3f);
-        }
     }
 
 }

@@ -11,7 +11,7 @@ public class PlayerLogic : MonoBehaviour, IDamage
     private Animator playerAnimator;
 
     [Header("Player Properties")]
-    public float maxHealth = 20f;
+    public float maxHealth;
     public float maxEnergy = 10f;
     public float health, energy;
     public float perfectBlockWindow = 0.2f;

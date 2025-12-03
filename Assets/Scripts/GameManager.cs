@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
     private NodeType currentNodeType = NodeType.SafeZone;
 
     [Header("Player Stats")]
-    public float playerHealth = 10f;
-    public float playerMaxHealth = 10f;
+    public float playerHealth = 20f;
+    public float playerMaxHealth = 20f;
     public int playerGold = 0;
 
     private void Awake()
