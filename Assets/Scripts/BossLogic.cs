@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class BossLogic : EnemyBase
 {
@@ -16,6 +17,9 @@ public class BossLogic : EnemyBase
     private Transform player;
     private Vector3 originalPosition;
 
+    [SerializeField] private Slider shieldSlider;
+    [SerializeField] private Slider hpSliderOverride;
+
     protected override void Awake()
     {
         base.Awake(); 
@@ -25,6 +29,13 @@ public class BossLogic : EnemyBase
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
             player = playerObj.transform;
+        
+        shieldSlider.maxValue = maxShield;
+        shieldSlider.value = currentShield;
+        
+        hpSlider = hpSliderOverride; 
+        hpSlider.maxValue = maxHealth;
+        hpSlider.value = health;
     }
 
     void Start()
@@ -40,6 +51,11 @@ public class BossLogic : EnemyBase
         {
             PerformRandomAttack();
             attackTimer = attackInterval;
+        }
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            TakeDamage(10f); 
         }
     }
 
@@ -86,18 +102,26 @@ public class BossLogic : EnemyBase
         if (currentShield > 0)
         {
             currentShield -= (int)damage;
+            if (currentShield < 0)
+                currentShield = 0;
+            
+            shieldSlider.value = currentShield;
+
             Debug.Log("Boss shield: " + currentShield);
 
-            if (currentShield <= 0)
+            if (currentShield == 0)
             {
                 Debug.Log("Boss shield is broken.");
             }
+            
+            return;
         }
-        else
-        {
-            base.TakeDamage(damage);
-        }
+
+        base.TakeDamage(damage);
+        hpSlider.value = health;
     }
+
+
 
     protected override void PlayHurtAnimation()
     {
