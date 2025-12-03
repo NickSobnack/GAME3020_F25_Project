@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using static Unity.Collections.AllocatorManager;
 using static UnityEngine.EventSystems.EventTrigger;
 
-public class PlayerLogic : MonoBehaviour
+public class PlayerLogic : MonoBehaviour, IDamage
 {
     // TODO: Add sfx and visual effects for getting hit. 
     // TODO: Attack animations.
@@ -85,9 +85,27 @@ public class PlayerLogic : MonoBehaviour
             ArrowLogic arrow = other.GetComponent<ArrowLogic>();
             if (arrow != null) damageAmount = arrow.damage;
 
-            // Destroy projectile after hit
             Destroy(other.gameObject);
         }
+
+
+        if (other.CompareTag("Projectile"))
+        {
+            Projectile proj = other.GetComponent<Projectile>();
+            if (proj != null)
+            {
+                if (battleLogic.isDeflecting)
+                {
+                    return;
+                }
+                else
+                {
+                    Damage(proj.damageAmount); 
+                    Destroy(other.gameObject);
+                }
+            }
+        }
+
 
         else if (other.CompareTag("Enemy"))
         {
@@ -120,6 +138,10 @@ public class PlayerLogic : MonoBehaviour
                 TakeDamage(damageAmount);  
             }
         }
+    }
+    public void Damage(float damageAmount)
+    {
+        TakeDamage(damageAmount);
     }
 
     public void TakeDamage(float amount)

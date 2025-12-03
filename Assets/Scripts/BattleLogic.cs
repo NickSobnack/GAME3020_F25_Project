@@ -47,6 +47,7 @@ public class BattleLogic : MonoBehaviour
     private int selectedIndex = 0;
 
     public bool inAction { get; private set; }
+    public bool isDeflecting { get; private set; }
 
     private void Awake()
     {
@@ -217,6 +218,7 @@ public class BattleLogic : MonoBehaviour
 
     private IEnumerator DeflectSequence(EnemyBase target)
     {
+        isDeflecting = true;
         isAttacking = true;
         SetInAction(true);
 
@@ -224,6 +226,16 @@ public class BattleLogic : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 2f); 
+        foreach (var hit in hits)
+        {
+            IDeflect deflectable = hit.GetComponent<IDeflect>();
+            if (deflectable != null)
+            {
+                deflectable.Deflect(transform.right);
+            }
+        }
+        isDeflecting = false;
         yield return new WaitForSeconds(returnDelay);
 
         isAttacking = false;

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-public class BossLogic : EnemyBase
+public class BossLogic : EnemyBase, IDamage
 {
     [Header("Boss Stats")]
     public int maxShield = 50;
@@ -13,18 +13,26 @@ public class BossLogic : EnemyBase
 
     public float moveSpeed = 5f;
     public float attackRange = 2f;
+    public float bulletSpeed = 15f;
 
     private Transform player;
     private Vector3 originalPosition;
 
     [SerializeField] private Slider shieldSlider;
     [SerializeField] private Slider hpSliderOverride;
+    [SerializeField] private Rigidbody2D slashPrefab;
+
+    private Rigidbody2D slashRb;
+    private Projectile slashProjectile;
+
+    private Collider2D bossCollider;
 
     protected override void Awake()
     {
         base.Awake(); 
         currentShield = maxShield;
         originalPosition = transform.position;
+        bossCollider = GetComponent<Collider2D>();
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
@@ -61,24 +69,35 @@ public class BossLogic : EnemyBase
 
     private void PerformRandomAttack()
     {
-        int attackChoice = Random.Range(0, 2);
+        // CHANGE THIS BACK TO (0,2) LATER
+        int attackChoice = Random.Range(0, 0);
         if (attackChoice == 0)
         {
-            SlashAttack();
+            RangeAttack();
         }
         else
         {
             if (player != null)
-                StartCoroutine(HeavyAttackRoutine());
+                StartCoroutine(PhysicalAttack());
         }
     }
 
-    public void SlashAttack()
+    public void RangeAttack()
     {
         animator.SetTrigger("Slash");
     }
 
-    private IEnumerator HeavyAttackRoutine()
+    // Animation event called at the end of slash attack.
+    public void SpawnSlash()
+    {
+        slashRb = Instantiate(slashPrefab, transform.position, transform.rotation);
+        slashRb.linearVelocity = slashRb.transform.right * -1 * bulletSpeed;
+        slashProjectile = slashRb.gameObject.GetComponent<Projectile>();
+        slashProjectile.enemyCollider = bossCollider;
+
+    }
+
+    private IEnumerator PhysicalAttack()
     {
         yield return StartCoroutine(MoveToPosition(player.position, attackRange));
 
@@ -99,29 +118,31 @@ public class BossLogic : EnemyBase
 
     public override void TakeDamage(float damage)
     {
+        Damage(damage);
+    }
+
+    public void Damage(float damageAmount)
+    {
         if (currentShield > 0)
         {
-            currentShield -= (int)damage;
-            if (currentShield < 0)
-                currentShield = 0;
-            
-            shieldSlider.value = currentShield;
+            currentShield -= (int)damageAmount;
+            if (currentShield < 0) currentShield = 0;
 
+            shieldSlider.value = currentShield;
             Debug.Log("Boss shield: " + currentShield);
 
             if (currentShield == 0)
             {
                 Debug.Log("Boss shield is broken.");
+                shieldSlider.gameObject.SetActive(false);
+                hpSlider.gameObject.SetActive(true);
             }
-            
             return;
         }
 
-        base.TakeDamage(damage);
+        base.TakeDamage(damageAmount);
         hpSlider.value = health;
     }
-
-
 
     protected override void PlayHurtAnimation()
     {

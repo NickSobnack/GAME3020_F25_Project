@@ -595,7 +595,7 @@ GameObject:
   - component: {fileID: 6539139147799489476}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -697,8 +697,10 @@ MonoBehaviour:
   attackInterval: 3
   moveSpeed: 15
   attackRange: 2
+  bulletSpeed: 15
   shieldSlider: {fileID: 2842289723651348424}
   hpSliderOverride: {fileID: 4788413899125869442}
+  slashPrefab: {fileID: 6627227067242485102, guid: c3456e754267e3744abaa034a20da717, type: 3}
 --- !u!70 &7197437984910803175
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
