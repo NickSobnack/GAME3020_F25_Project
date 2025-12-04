@@ -178,11 +178,12 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Map Movement\nClick on a node to move to it.\nPay attention to node types:
     some lead to battles, others to healing or bosses.\n\nBattle Controls\nPress
-    E to attack.\nPress Q to block incoming hits.\nTime your block correctly to regain
-    some energy.\nPress TAB to switch between different enemies.\n\nEnergy System\nEvery
-    action uses energy.\nEnergy regenerates over time, but if it runs out you\u2019ll
-    be limited until it recovers.\n\nEnemies\nEach enemy behaves differently.\nLearn
-    their patterns and adjust your strategy to win."
+    E to attack & R to deflect hits.\nPress Q to block incoming hits.\nTime your
+    block correctly to regain some energy.\nPress TAB to switch between different
+    enemies.\n\nEnergy System\nEvery action uses energy.\nEnergy regenerates over
+    time, but if it runs out you\u2019ll be limited until it recovers.\n\nEnemies\nEach
+    enemy behaves differently.\nLearn their patterns and adjust your strategy to
+    win."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8da169929dbdaf4cb20a2042cef4c53, type: 2}
   m_sharedMaterial: {fileID: 8729694655219806805, guid: c8da169929dbdaf4cb20a2042cef4c53, type: 2}

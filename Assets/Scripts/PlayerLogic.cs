@@ -90,6 +90,7 @@ public class PlayerLogic : MonoBehaviour, IDamage
 
         if (other.CompareTag("Projectile"))
         {
+            AudioManager.Instance.PlaySound(SoundName.clash);
             Projectile proj = other.GetComponent<Projectile>();
             if (proj != null)
             {
@@ -147,7 +148,17 @@ public class PlayerLogic : MonoBehaviour, IDamage
     {
         health -= amount;
         health = Mathf.Clamp(health, 0, maxHealth);
-        playerAnimator.SetTrigger(hurtAnim);
+        playerAnimator.SetTrigger(hurtAnim); 
+        int roll = Random.Range(0, 2); 
+
+        if (roll == 0)
+        {
+            AudioManager.Instance.PlaySound(SoundName.hit1);
+        }
+        else
+        {
+            AudioManager.Instance.PlaySound(SoundName.hit2);
+        }
     }
 
     public void HealHealth(float amount)

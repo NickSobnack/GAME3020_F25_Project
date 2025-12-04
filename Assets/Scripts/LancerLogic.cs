@@ -58,10 +58,10 @@ public class LancerLogic : EnemyBase
         yield return new WaitForSeconds(0.3f);
 
         yield return new WaitForSeconds(returnDelay);
-        if (collider != null) collider.enabled = false;
+        collider.enabled = false;
         yield return MoveToPosition(originalPos);
 
-        if (collider != null) collider.enabled = true;
+        collider.enabled = true;
         inAction = false;
         battleLogic.SetInAction(false);
     }

@@ -52,7 +52,23 @@ public abstract class EnemyBase : MonoBehaviour
         if (health <= 0)
             OnDeath();
         else
+        {
             PlayHurtAnimation();
+            int roll = Random.Range(0, 3);
+
+            if (roll == 1)
+            {
+                AudioManager.Instance.PlaySound(SoundName.hurt1);
+            }
+            else if (roll == 2)
+            {
+                AudioManager.Instance.PlaySound(SoundName.hurt2);
+            }
+            else
+            {
+                AudioManager.Instance.PlaySound(SoundName.hurt3);
+            }
+        }
     }
 
     protected abstract void PlayHurtAnimation();

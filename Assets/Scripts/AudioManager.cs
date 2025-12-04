@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum MusicName
 {
@@ -15,11 +16,15 @@ public enum SoundName
     spear,
     sword,
     cure,
+    hurt1,
+    hurt2,
+    hurt3,
+    hit1,
+    hit2,
+    impact,
+    clash,
     COUNT
 }
-
-// Audio Singleton that loads sound and music clips and persists throughout all scenes.
-// Can be called from other events to play either sound or music.
 
 public class AudioManager : MonoBehaviour
 {
@@ -42,14 +47,18 @@ public class AudioManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-    }
 
-    private void Start()
-    {
         music = gameObject.AddComponent<AudioSource>();
         sound = gameObject.AddComponent<AudioSource>();
 
         LoadAudio();
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void LoadAudio()
@@ -63,26 +72,46 @@ public class AudioManager : MonoBehaviour
         soundClips[(int)SoundName.bow] = Resources.Load<AudioClip>("Audio/SFX/Bow");
         soundClips[(int)SoundName.cure] = Resources.Load<AudioClip>("Audio/SFX/Cure");
         soundClips[(int)SoundName.spear] = Resources.Load<AudioClip>("Audio/SFX/Spear");
-        soundClips[(int)SoundName.sword] = Resources.Load<AudioClip>("Audio/SFX/Sound");
+        soundClips[(int)SoundName.sword] = Resources.Load<AudioClip>("Audio/SFX/Sword");
+        soundClips[(int)SoundName.hurt1] = Resources.Load<AudioClip>("Audio/SFX/Hurt1");
+        soundClips[(int)SoundName.hurt2] = Resources.Load<AudioClip>("Audio/SFX/Hurt2");
+        soundClips[(int)SoundName.hurt3] = Resources.Load<AudioClip>("Audio/SFX/Hurt3");
+        soundClips[(int)SoundName.hit1] = Resources.Load<AudioClip>("Audio/SFX/Hit1");
+        soundClips[(int)SoundName.hit2] = Resources.Load<AudioClip>("Audio/SFX/Hit2");
+        soundClips[(int)SoundName.impact] = Resources.Load<AudioClip>("Audio/SFX/Impact");
+        soundClips[(int)SoundName.clash] = Resources.Load<AudioClip>("Audio/SFX/Clash");
     }
 
     public void PlaySound(SoundName soundId)
     {
         sound.clip = soundClips[(int)soundId];
         sound.Play();
+        Debug.Log ($"Playing sound: {soundId}");
     }
 
     public void PlayMusic(MusicName musicId, bool loopMusic)
     {
-        if (currentMusic == musicId && music.isPlaying)
+        if (music == null)
         {
+            Debug.LogError("AudioManager: Music AudioSource is missing!");
             return;
         }
 
+        AudioClip clip = musicClips[(int)musicId];
+        if (clip == null)
+        {
+            Debug.LogError($"AudioManager: Missing clip for {musicId}");
+            return;
+        }
+
+        if (currentMusic == musicId && music.isPlaying)
+            return;
+
         currentMusic = musicId;
-        music.clip = musicClips[(int)musicId];
+        music.clip = clip;
         music.loop = loopMusic;
         music.Play();
+        Debug.Log($"Playing music: {musicId}");
     }
 
     public void ToggleMusic(bool enable)
@@ -93,4 +122,19 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        switch (scene.buildIndex)
+        {
+            case 0: // Title Scene
+                PlayMusic(MusicName.title, true);
+                break;
+            case 1: // Overworld Scene
+                PlayMusic(MusicName.overworld, true);
+                break;
+            case 2: // Battle Scene
+                PlayMusic(MusicName.battle, true);
+                break;
+        }
+    }
 }

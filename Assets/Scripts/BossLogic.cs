@@ -120,10 +120,10 @@ public class BossLogic : EnemyBase, IDamage
         if (HasShield)
         {
             Debug.Log("Boss shield absorbed the attack. No HP damage.");
+            AudioManager.Instance.PlaySound(SoundName.impact);
             return;
         }
 
-        // Otherwise, apply normal damage to health
         base.TakeDamage(damage);
         hpSlider.value = health;
     }

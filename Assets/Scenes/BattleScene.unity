@@ -6582,7 +6582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7432766163939621557, guid: e9a74c850402f3649b8fdd4d2106c324, type: 3}
       propertyPath: playerDmg
-      value: 9
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7432766163939621557, guid: e9a74c850402f3649b8fdd4d2106c324, type: 3}
       propertyPath: distanceToEnemy

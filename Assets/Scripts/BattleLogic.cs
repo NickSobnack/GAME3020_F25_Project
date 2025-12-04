@@ -42,7 +42,7 @@ public class BattleLogic : MonoBehaviour
     [Header("Enemy")]
     [SerializeField] private List<EnemyBase> enemies = new(2); 
     [SerializeField] private GameObject targetPointerPrefab;
-    [SerializeField] public float playerDmg = 9f;
+    [SerializeField] public float playerDmg = 3f;
     public EnemyBase selectedTarget;
     private int selectedIndex = 0;
 
@@ -207,6 +207,7 @@ public class BattleLogic : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         target.TakeDamage(playerDmg);
+        Debug.Log($"Attack dealt {playerDmg} damage to {target.name}");
         CheckAllEnemiesDefeated();
 
         yield return new WaitForSeconds(returnDelay);
