@@ -31,12 +31,6 @@ public class GameManager : MonoBehaviour
     {
         currentNodeName = node.name;
         currentNodeType = node.nodeType; 
-        
-        if (node.nodeType == NodeType.Boss && node.nextNodes.Count == 0)
-        {
-            gameWon = true;
-            Debug.Log("You won the game!");
-        }
     }
 
     public string GetCurrentNodeName()
@@ -74,5 +68,4 @@ public class GameManager : MonoBehaviour
         currentNodeType = NodeType.SafeZone;
         playerHealth = playerMaxHealth;    
     }
-
 }
