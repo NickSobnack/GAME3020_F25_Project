@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame(int gameSceneIndex)
     {
+        GameManager.Instance.ResetGame();
         GameManager.Instance.DelayLoadScene(gameSceneIndex, 0.5f);
     }
 

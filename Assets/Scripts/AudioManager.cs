@@ -7,6 +7,7 @@ public enum MusicName
     overworld,
     battle,
     victory,
+    gameover,
     COUNT
 }
 public enum SoundName
@@ -67,6 +68,7 @@ public class AudioManager : MonoBehaviour
         musicClips[(int)MusicName.overworld] = Resources.Load<AudioClip>("Audio/BGM/overworld");
         musicClips[(int)MusicName.battle] = Resources.Load<AudioClip>("Audio/BGM/battle");
         musicClips[(int)MusicName.victory] = Resources.Load<AudioClip>("Audio/BGM/victory");
+        musicClips[(int)MusicName.gameover] = Resources.Load<AudioClip>("Audio/BGM/gameover");
 
         soundClips[(int)SoundName.bash] = Resources.Load<AudioClip>("Audio/SFX/Bash");
         soundClips[(int)SoundName.bow] = Resources.Load<AudioClip>("Audio/SFX/Bow");

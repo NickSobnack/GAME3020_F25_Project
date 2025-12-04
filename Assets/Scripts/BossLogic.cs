@@ -62,6 +62,11 @@ public class BossLogic : EnemyBase, IDamage
             PerformRandomAttack();
             attackTimer = attackInterval;
         }
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            TakeDamage(100f);
+        }
     }
 
     private void PerformRandomAttack()

@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [Header("Player Stats")]
     public float playerHealth = 20f;
     public float playerMaxHealth = 20f;
-    public int playerGold = 0;
+    public bool gameWon = false;
 
     private void Awake()
     {
@@ -30,7 +30,13 @@ public class GameManager : MonoBehaviour
     public void SetCurrentNode(Node node)
     {
         currentNodeName = node.name;
-        currentNodeType = node.nodeType;
+        currentNodeType = node.nodeType; 
+        
+        if (node.nodeType == NodeType.Boss && node.nextNodes.Count == 0)
+        {
+            gameWon = true;
+            Debug.Log("You won the game!");
+        }
     }
 
     public string GetCurrentNodeName()
@@ -61,23 +67,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneIndex);
     }
 
-    public void GetGold(int amount)
-    {
-        playerGold += amount;
-    }
-
-    public void SpendGold(int amount)
-    {
-        playerGold = Mathf.Max(0, playerGold - amount);
-    }
-
     //Reset game state, called when exiting or losing game.
     public void ResetGame()
     {
         currentNodeName = string.Empty;
         currentNodeType = NodeType.SafeZone;
-
-        playerHealth = playerMaxHealth;
-        playerGold = 0;
+        playerHealth = playerMaxHealth;    
     }
+
 }

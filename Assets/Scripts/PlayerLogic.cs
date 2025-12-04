@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static Unity.Collections.AllocatorManager;
@@ -18,7 +19,7 @@ public class PlayerLogic : MonoBehaviour, IDamage
     public float energyRestore = 2f;
     private BattleLogic battleLogic;
     private const string hurtAnim = "Hurt";
-    private bool playerDead = false;
+    public bool playerDead = false;
 
     public float MaxHealth => maxHealth;
     public float CurrHealth => health;
@@ -33,6 +34,7 @@ public class PlayerLogic : MonoBehaviour, IDamage
     public GameObject fadePanel;
     private float displayedHealth;
     private float displayedEnergy;
+    public GameObject pausePanel;
 
     [Header("VFX Properties")]
     public Transform blockVfxPoint, gameOverVfxPoint;
@@ -45,6 +47,7 @@ public class PlayerLogic : MonoBehaviour, IDamage
         battleLogic = GetComponent<BattleLogic>();
         health = GameManager.Instance.playerHealth;
         energy = maxEnergy;
+        playerDead = false;
 
         healthSlider.maxValue = maxHealth;
         healthSlider.value = health;
@@ -52,7 +55,7 @@ public class PlayerLogic : MonoBehaviour, IDamage
 
         energySlider.maxValue = maxEnergy;
         energySlider.value = energy;
-        displayedEnergy = energy;
+        displayedEnergy = energy; 
     }
 
     // Update keeps track of player health and updates health bar UI.
@@ -110,7 +113,7 @@ public class PlayerLogic : MonoBehaviour, IDamage
         {
             Debug.Log("Collided with Enemy" + other.gameObject);
             EnemyBase enemy = other.GetComponent<EnemyBase>();
-            if (enemy != null && enemy.inAction)  
+            if (enemy != null && enemy.inAction)
             {
                 damageAmount = enemy.damage;
             }
@@ -135,7 +138,7 @@ public class PlayerLogic : MonoBehaviour, IDamage
             }
             else
             {
-                TakeDamage(damageAmount);  
+                TakeDamage(damageAmount);
             }
         }
     }
@@ -148,8 +151,8 @@ public class PlayerLogic : MonoBehaviour, IDamage
     {
         health -= amount;
         health = Mathf.Clamp(health, 0, maxHealth);
-        playerAnimator.SetTrigger(hurtAnim); 
-        int roll = Random.Range(0, 2); 
+        playerAnimator.SetTrigger(hurtAnim);
+        int roll = Random.Range(0, 2);
 
         if (roll == 0)
         {
@@ -179,5 +182,27 @@ public class PlayerLogic : MonoBehaviour, IDamage
         playerDead = true;
         fadePanel.SetActive(true);
         Instantiate(gameOverVfx, gameOverVfxPoint.position, Quaternion.identity);
+        AudioManager.Instance.PlayMusic(MusicName.gameover, false); 
+        GameManager.Instance.ResetGame();
+        RetryMenu();
+    }
+
+    public void RetryMenu()
+    {
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(true);
+
+            Transform content = pausePanel.transform.Find("Content");
+            Transform resumeButtonTransform = content.Find("ResumeButton");
+            Transform panelNameTransform = content.Find("PanelName");
+
+            GameObject resumeButton = resumeButtonTransform.gameObject;
+            GameObject panelName = panelNameTransform.gameObject;
+
+            resumeButton.SetActive(false);
+            panelName.SetActive(false);
+        }
     }
 }
+

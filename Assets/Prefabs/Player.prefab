@@ -340,6 +340,7 @@ MonoBehaviour:
   energySlider: {fileID: 0}
   barUpdateSpeed: 5
   fadePanel: {fileID: 0}
+  pausePanel: {fileID: 1749110438950678263, guid: 8efe1bf7dc16bc9468724eba1013414b, type: 3}
   blockVfxPoint: {fileID: 2099438926340342169}
   gameOverVfxPoint: {fileID: 0}
   goodVfx: {fileID: 3863936461663491926, guid: c7b82281ffd10bb4c8f3405b0799368d, type: 3}
