@@ -51,7 +51,8 @@ public class AudioManager : MonoBehaviour
 
         music = gameObject.AddComponent<AudioSource>();
         sound = gameObject.AddComponent<AudioSource>();
-
+        music.volume = 0.2f; 
+        sound.volume = 0.5f; 
         LoadAudio();
 
         SceneManager.sceneLoaded += OnSceneLoaded;
