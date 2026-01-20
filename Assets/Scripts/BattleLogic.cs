@@ -268,9 +268,10 @@ public class BattleLogic : MonoBehaviour
     {
         foreach (var enemy in enemies)
         {
-            if (enemy.health > 0)
+            if (enemy == null || enemy.health > 0)
                 return;
         }
+
         Instantiate(perfectVfx, gameStatusVfxPoint.position, Quaternion.identity);
         AudioManager.Instance.PlayMusic(MusicName.victory, false);
         GameManager.Instance.DelayLoadScene(1, 3f);
@@ -280,4 +281,52 @@ public class BattleLogic : MonoBehaviour
     {
         inAction = busy;
     }
+
+    public void MobileAttack()
+    {
+        bool canAttack = Time.time >= lastAttackTime + attackCooldown;
+
+        if (!isBlocking &&
+            playerLogic.energy >= attackCost &&
+            !isAttacking &&
+            selectedTarget != null &&
+            canAttack)
+        {
+            isAttacking = true;
+            lastAttackTime = Time.time;
+            playerLogic.energy -= attackCost;
+            originalPos = transform.position;
+            StartCoroutine(AttackSequence(selectedTarget));
+        }
+    }
+
+    public void MobileStartBlock()
+    {
+        if (!isBlocking && !noEnergy && playerLogic.energy > 0)
+        {
+            isBlocking = true;
+            currHoldTimer = 0f;
+            currBlockTime = Time.time;
+            playerAnimator.SetBool("isBlocking", true);
+        }
+    }
+
+    public void MobileEndBlock()
+    {
+        StopBlocking();
+    }
+
+    public void SelectEnemy(EnemyBase enemy)
+    {
+        if (enemy == null || enemy.health <= 0)
+            return;
+
+        if (selectedTarget != null)
+            selectedTarget.SetSelected(false);
+
+        selectedTarget = enemy;
+        selectedTarget.SetSelected(true);
+    }
+
+
 }

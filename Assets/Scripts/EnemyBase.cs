@@ -89,4 +89,13 @@ public abstract class EnemyBase : MonoBehaviour
         if (targetPointer != null)
             targetPointer.SetActive(isSelected);
     }
+
+    private void OnMouseDown()
+    {
+        if (battleLogic != null)
+        {
+            battleLogic.SelectEnemy(this);
+        }
+    }
+
 }
