@@ -266,11 +266,7 @@ public class BattleLogic : MonoBehaviour
     // Check if all enemies are defeated, then play perfect vfx and load next scene after delay.
     private void CheckAllEnemiesDefeated()
     {
-        foreach (var enemy in enemies)
-        {
-            if (enemy == null || enemy.health > 0)
-                return;
-        }
+        enemies.RemoveAll(e => e == null || e.health <= 0); if (enemies.Count > 0) return;
 
         Instantiate(perfectVfx, gameStatusVfxPoint.position, Quaternion.identity);
         AudioManager.Instance.PlayMusic(MusicName.victory, false);

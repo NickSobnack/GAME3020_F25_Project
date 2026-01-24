@@ -17,11 +17,6 @@ public enum SoundName
     spear,
     sword,
     cure,
-    hurt1,
-    hurt2,
-    hurt3,
-    hit1,
-    hit2,
     impact,
     clash,
     COUNT
@@ -76,11 +71,6 @@ public class AudioManager : MonoBehaviour
         soundClips[(int)SoundName.cure] = Resources.Load<AudioClip>("Audio/SFX/Cure");
         soundClips[(int)SoundName.spear] = Resources.Load<AudioClip>("Audio/SFX/Spear");
         soundClips[(int)SoundName.sword] = Resources.Load<AudioClip>("Audio/SFX/Sword");
-        soundClips[(int)SoundName.hurt1] = Resources.Load<AudioClip>("Audio/SFX/Hurt1");
-        soundClips[(int)SoundName.hurt2] = Resources.Load<AudioClip>("Audio/SFX/Hurt2");
-        soundClips[(int)SoundName.hurt3] = Resources.Load<AudioClip>("Audio/SFX/Hurt3");
-        soundClips[(int)SoundName.hit1] = Resources.Load<AudioClip>("Audio/SFX/Hit1");
-        soundClips[(int)SoundName.hit2] = Resources.Load<AudioClip>("Audio/SFX/Hit2");
         soundClips[(int)SoundName.impact] = Resources.Load<AudioClip>("Audio/SFX/Impact");
         soundClips[(int)SoundName.clash] = Resources.Load<AudioClip>("Audio/SFX/Clash");
     }

@@ -8,7 +8,11 @@ public class BossLogic : EnemyBase, IDamage
     public int maxShield = 15;
     public int currentShield;
 
-    public float attackInterval = 3f; 
+    private int meleeAttackStreak = 0;
+    private bool lastAttackWasRanged = false;
+
+    [Header("Attack Settings")]
+    public float attackInterval = 3f;
     private float attackTimer;
 
     public float moveSpeed = 5f;
@@ -18,95 +22,118 @@ public class BossLogic : EnemyBase, IDamage
     private Transform player;
     private Vector3 originalPosition;
 
+    [Header("UI")]
     [SerializeField] private Slider shieldSlider;
     [SerializeField] private Slider hpSliderOverride;
+
+    [Header("Prefabs")]
     [SerializeField] private Rigidbody2D slashPrefab;
 
     private Rigidbody2D slashRb;
     private Projectile slashProjectile;
-
     private Collider2D bossCollider;
+
     public bool HasShield => currentShield > 0;
 
     protected override void Awake()
     {
         base.Awake();
         base.damage = 5f;
+
         currentShield = maxShield;
         originalPosition = transform.position;
         bossCollider = GetComponent<Collider2D>();
 
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
-            player = playerObj.transform;
-        
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
+
         shieldSlider.maxValue = maxShield;
         shieldSlider.value = currentShield;
-        
-        hpSlider = hpSliderOverride; 
+
+        hpSlider = hpSliderOverride;
         hpSlider.maxValue = maxHealth;
         hpSlider.value = health;
     }
 
-    void Start()
+    private void Start()
     {
         attackTimer = attackInterval;
-        Debug.Log("Boss spawned with HP: " + health + " and Shield: " + currentShield);
+        Debug.Log($"Boss spawned with HP: {health} and Shield: {currentShield}");
     }
 
-    void Update()
+    private void Update()
     {
         attackTimer -= Time.deltaTime;
+
         if (attackTimer <= 0f)
         {
-            PerformRandomAttack();
+            PerformAttackPattern();
             attackTimer = attackInterval;
         }
-
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            TakeDamage(100f);
-        }
     }
 
-    private void PerformRandomAttack()
+    private void PerformAttackPattern()
     {
-        int attackChoice = Random.Range(0, 2);
+        if (meleeAttackStreak >= 3)
+        {
+            UseRangeSkill();
+            return;
+        }
 
-        if (attackChoice == 0)
+        int roll = Random.Range(0, 2);
+
+        if (lastAttackWasRanged)
         {
-            RangeAttack();
+            UseMeleeSkill();
+            return;
         }
+
+        if (roll == 0)
+            UseMeleeSkill();
         else
-        {
-            if (player != null)
-                StartCoroutine(PhysicalAttack());
-        }
+            UseRangeSkill();
     }
+
+    private void UseMeleeSkill()
+    {
+        if (player != null)
+            StartCoroutine(MeleeAttack());
+
+        meleeAttackStreak++;
+        lastAttackWasRanged = false;
+    }
+
+    private void UseRangeSkill()
+    {
+        RangeAttack();
+        meleeAttackStreak = 0;
+        lastAttackWasRanged = true;
+    }
+
 
     public void RangeAttack()
     {
         animator.SetTrigger("Slash");
     }
 
-    // Animation event called at the end of slash attack.
-    public void SpawnSlash()
+    public void SpawnSlash() // Animation Event
     {
         slashRb = Instantiate(slashPrefab, transform.position, transform.rotation);
         slashRb.linearVelocity = slashRb.transform.right * -1 * bulletSpeed;
-        slashProjectile = slashRb.gameObject.GetComponent<Projectile>();
+
+        slashProjectile = slashRb.GetComponent<Projectile>();
         slashProjectile.enemyCollider = bossCollider;
     }
 
-    private IEnumerator PhysicalAttack()
+    private IEnumerator MeleeAttack()
     {
         inAction = true;
-        yield return StartCoroutine(MoveToPosition(player.position, attackRange));
+
+        yield return MoveToPosition(player.position, attackRange);
 
         animator.SetTrigger("Attack");
         yield return new WaitForSeconds(1f);
 
-        yield return StartCoroutine(MoveToPosition(originalPosition, 0.1f));
+        yield return MoveToPosition(originalPosition, 0.1f);
 
         inAction = false;
     }
@@ -116,7 +143,7 @@ public class BossLogic : EnemyBase, IDamage
         while (Vector3.Distance(transform.position, targetPos) > stopDistance)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-            yield return null; 
+            yield return null;
         }
     }
 
@@ -124,7 +151,7 @@ public class BossLogic : EnemyBase, IDamage
     {
         if (HasShield)
         {
-            Debug.Log("Boss shield absorbed the attack. No HP damage.");
+            Debug.Log("Boss shield absorbed the attack.");
             AudioManager.Instance.PlaySound(SoundName.impact);
             return;
         }
@@ -138,17 +165,18 @@ public class BossLogic : EnemyBase, IDamage
         if (currentShield > 0)
         {
             currentShield -= (int)damageAmount;
-            if (currentShield < 0) currentShield = 0;
+            currentShield = Mathf.Max(0, currentShield);
 
             shieldSlider.value = currentShield;
-            Debug.Log("Boss shield: " + currentShield);
+            Debug.Log($"Boss shield: {currentShield}");
 
             if (currentShield == 0)
             {
-                Debug.Log("Boss shield is broken.");
+                Debug.Log("Boss shield broken.");
                 shieldSlider.gameObject.SetActive(false);
                 hpSlider.gameObject.SetActive(true);
             }
+
             return;
         }
 
@@ -156,10 +184,8 @@ public class BossLogic : EnemyBase, IDamage
         hpSlider.value = health;
     }
 
-    protected override void PlayHurtAnimation()
-    {
-        //animator.SetTrigger("Hurt");
-    }
+    protected override void PlayHurtAnimation() 
+    { }
 
     protected override void PlayDeathAnimation()
     {

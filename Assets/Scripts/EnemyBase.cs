@@ -53,21 +53,7 @@ public abstract class EnemyBase : MonoBehaviour
             OnDeath();
         else
         {
-            PlayHurtAnimation();
-            int roll = Random.Range(0, 3);
-
-            if (roll == 1)
-            {
-                AudioManager.Instance.PlaySound(SoundName.hurt1);
-            }
-            else if (roll == 2)
-            {
-                AudioManager.Instance.PlaySound(SoundName.hurt2);
-            }
-            else
-            {
-                AudioManager.Instance.PlaySound(SoundName.hurt3);
-            }
+            PlayHurtAnimation();           
         }
     }
 
@@ -97,5 +83,4 @@ public abstract class EnemyBase : MonoBehaviour
             battleLogic.SelectEnemy(this);
         }
     }
-
 }
