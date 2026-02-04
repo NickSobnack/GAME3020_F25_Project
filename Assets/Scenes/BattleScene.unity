@@ -173,6 +173,7 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 1722415154068234465, guid: 6d4a5ac91547b624b8b8beaff0fab4d8, type: 3}
   - {fileID: 4380710952050736012, guid: b01a59772672b594c95af8d5cc746aa5, type: 3}
+  - {fileID: 4708584554263916809, guid: f78ff34457546b349884c46b773356fa, type: 3}
   bossPrefab: {fileID: 5720640102303302137, guid: 2e19745baf626754590b286b19bebcf2, type: 3}
   enemyNames:
   - Clara
@@ -4214,7 +4215,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Attack
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6115,7 +6116,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: 'Block
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

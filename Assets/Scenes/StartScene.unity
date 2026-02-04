@@ -176,12 +176,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Map Movement\nClick on a node to move to it.\nPay attention to node types:
+  m_text: "Map Movement\nTap a node to move to it.\nPay attention to node types:
     some lead to battles, others to healing or bosses.\n\nBattle Controls\nPress
-    E to attack & R to deflect hits.\nPress Q to block incoming hits.\nTime your
-    block correctly to regain some energy.\nPress TAB to switch between different
-    enemies.\n\nEnergy System\nEvery action uses energy.\nEnergy regenerates over
-    time, but if it runs out you\u2019ll be limited until it recovers.\n\nEnemies\nEach
+    the attack button to launch an attack.\nPress the block button to protect yourself.\nTime
+    your block correctly to regain some energy.\nTap on an enemy to set it as your
+    current target.\n\nEnergy System\nEvery action uses energy.\nEnergy regenerates
+    over time, but if it runs out you\u2019ll be limited until it recovers.\n\nEnemies\nEach
     enemy behaves differently.\nLearn their patterns and adjust your strategy to
     win."
   m_isRightToLeft: 0
