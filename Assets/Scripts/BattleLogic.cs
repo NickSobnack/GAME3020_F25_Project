@@ -324,5 +324,24 @@ public class BattleLogic : MonoBehaviour
         selectedTarget.SetSelected(true);
     }
 
+    public void HitByThief()
+    {
+        // Perfect Guard (Deflect)
+        if (isBlocking)
+        {
+            Debug.Log("Guard! No gold stolen.");
+            return;
+        }
+
+        // No energy = punished harder
+        if (playerLogic.energy <= 0)
+        {
+            Debug.Log("No energy! Large amount of gold stolen.");
+            return;
+        }
+
+        // Took the hit normally
+        Debug.Log("Hit taken. Normal amount of gold stolen.");
+    }
 
 }

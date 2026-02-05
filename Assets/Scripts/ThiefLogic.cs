@@ -6,9 +6,8 @@ public class ThiefLogic : EnemyBase
     /* 
     Thieves will steal gold from the player.
     Perfect Guard nullifies this.
-    Regular Guard = regular amount.
-    No block = more stolen.
-    
+    Regular Guard mitigates the amount stolen.
+    No energy and block results in more stolen.
     */
 
     [Header("Thief Attack")]
@@ -63,7 +62,8 @@ public class ThiefLogic : EnemyBase
         yield return new WaitForSeconds(0.3f);
 
         animator.SetTrigger("Swipe");
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.3f); 
+        battleLogic.HitByThief();
 
         yield return new WaitForSeconds(returnDelay);
         collider.enabled = false;
