@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public string currentNodeName;
-    private NodeType currentNodeType = NodeType.SafeZone;
+    private NodeType currentNodeType = NodeType.None;
 
     [Header("Player Stats")]
     public float playerHealth = 20f;
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
     public void ResetGame()
     {
         currentNodeName = string.Empty;
-        currentNodeType = NodeType.SafeZone;
+        currentNodeType = NodeType.None;
         playerHealth = playerMaxHealth;    
     }
 }

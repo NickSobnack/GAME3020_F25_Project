@@ -19,8 +19,6 @@ public class MapLogic : MonoBehaviour
     {
         playerAnimator = player.GetComponent<Animator>();
 
-        // Saves the current node name the player is on.
-        // This ensures the player goes back to their proper position on the map after a battle.
         string nodeName = GameManager.Instance.GetCurrentNodeName();
         Node foundNode = GameObject.Find(nodeName)?.GetComponent<Node>();
 
@@ -30,58 +28,72 @@ public class MapLogic : MonoBehaviour
         player.transform.position = currentNode.transform.position;
     }
 
-    // Moves across the map to the selected node.
-    // Once on a node, find its name and sets it as the current node.
-    // If the node is an enemy node, swap to battle scene else NEED TO IMPLEMENT SHOP/HEAL node.
     void Update()
     {
-        if (isMoving)
-        {
-            player.transform.position = Vector3.MoveTowards(player.transform.position, targetPosition, moveSpeed * Time.deltaTime);
-            playerAnimator.SetBool("isWalking", true);
+        if (!isMoving) return;
 
-            if (Vector3.Distance(player.transform.position, targetPosition) < 0.01f)
-            {
-                player.transform.position = targetPosition;
-                isMoving = false;
-                playerAnimator.SetBool("isWalking", false);
-                currentNode.isVisited = true;
+        MovePlayer();
 
-                if (currentNode.hasEnemies == true)
-                {
-                    GameManager.Instance.SetCurrentNode(currentNode);
-                    GameManager.Instance.ChangeScene(2);
-                }
-                else if (currentNode.hasEnemies == false)
-                {
-                    Animator monkAnimator = currentNode.GetComponentInChildren<Animator>();
-                    if (monkAnimator != null)
-                    {
-                        monkAnimator.SetTrigger("Heal");
-                    }
-                    StartCoroutine(PlayHealSequence());
-                    
-                    float healAmount = 3f;
-                    GameManager.Instance.playerHealth = Mathf.Clamp(
-                        GameManager.Instance.playerHealth + healAmount,
-                        0f,
-                        GameManager.Instance.playerMaxHealth
-                    );
-
-                    Debug.Log($"Player healed for {healAmount}. Current HP: {GameManager.Instance.playerHealth}");
-                }
-            }
-        }
+        if (HasReachedTarget())
+            OnNodeArrival();
     }
 
-    public void MoveTo(Node nextNode)
+    private void MovePlayer()
     {
-        if (currentNode.nextNodes.Contains(nextNode) && !nextNode.isVisited)
-        {
-            currentNode = nextNode;
-            targetPosition = nextNode.transform.position;
-            isMoving = true;
-        }
+        player.transform.position = Vector3.MoveTowards(player.transform.position, targetPosition, moveSpeed * Time.deltaTime);
+        playerAnimator.SetBool("isWalking", true);
+    }
+
+    private bool HasReachedTarget()
+    {
+        return Vector3.Distance(player.transform.position, targetPosition) < 0.01f;
+    }
+
+    private void OnNodeArrival()
+    {
+        player.transform.position = targetPosition;
+        isMoving = false;
+        playerAnimator.SetBool("isWalking", false);
+        currentNode.isVisited = true;
+
+        if (currentNode.hasEnemies)
+            EnterBattle();
+        else if (currentNode.IsSafeNode)
+            EnterSafeNode();
+    }
+
+    private void EnterBattle()
+    {
+        GameManager.Instance.SetCurrentNode(currentNode);
+        GameManager.Instance.ChangeScene(2);
+    }
+
+    private void EnterSafeNode()
+    {
+        if (currentNode.nodeType == NodeType.Healer)
+            RecoverHealth();
+        else if (currentNode.nodeType == NodeType.Shop)
+            OpenShop();
+    }
+
+    private void RecoverHealth()
+    {
+        Animator monkAnimator = currentNode.GetComponentInChildren<Animator>();
+        if (monkAnimator != null)
+            monkAnimator.SetTrigger("Heal");
+
+        StartCoroutine(PlayHealSequence());
+
+        float healAmount = 3f;
+        GameManager.Instance.playerHealth = Mathf.Clamp (GameManager.Instance.playerHealth + healAmount, 0f,
+                                                GameManager.Instance.playerMaxHealth);
+
+        Debug.Log($"Player healed for {healAmount}. Current HP: {GameManager.Instance.playerHealth}");
+    }
+
+    private void OpenShop()
+    {
+        Debug.Log("Entered shop.");
     }
 
     private IEnumerator PlayHealSequence()
@@ -94,4 +106,14 @@ public class MapLogic : MonoBehaviour
         Destroy(healEffect, 1f);
     }
 
+
+    public void MoveTo(Node nextNode)
+    {
+        if (currentNode.nextNodes.Contains(nextNode) && !nextNode.isVisited)
+        {
+            currentNode = nextNode;
+            targetPosition = nextNode.transform.position;
+            isMoving = true;
+        }
+    }
 }

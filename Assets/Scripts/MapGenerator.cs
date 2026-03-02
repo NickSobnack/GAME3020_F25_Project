@@ -47,14 +47,14 @@ public class MapGenerator : MonoBehaviour
         }
 
         // STEP 2 — Assign types
-        nodes[0].nodeType = NodeType.SafeZone;
+        //nodes[0].nodeType = NodeType.SafeZone;
         nodes[0].isStartingNode = true;
 
         nodes[totalNodes - 1].nodeType = NodeType.Boss;
 
         for (int i = 1; i < totalNodes - 1; i++)
         {
-            nodes[i].nodeType = (Random.value > 0.3f) ? NodeType.Enemy : NodeType.SafeZone;
+          //  nodes[i].nodeType = (Random.value > 0.3f) ? NodeType.Enemy : NodeType.SafeZone;
         }
 
         // STEP 3 — Create branching connections

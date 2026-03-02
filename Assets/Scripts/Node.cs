@@ -4,7 +4,9 @@ using UnityEngine;
 
 public enum NodeType
 {
-    SafeZone,
+    None,
+    Healer,
+    Shop,
     Enemy,
     Boss
 }
@@ -15,13 +17,14 @@ public class Node : MonoBehaviour
 
     [Header("Visual Component")]
     public NodeType nodeType;
-    public GameObject monasteryPrefab, towerPrefab, castlePrefab, monkPrefab;
-    public Vector3 heightOffset = new Vector3(0, 0, 0);
-    public Vector3 priestOffset = new Vector3(0, 0, 0);
+    public GameObject monasteryPrefab, shopPrefab, towerPrefab, castlePrefab, monkPrefab, shopkeeperPrefab;
+    public Vector3 heightOffset = new Vector3(0, 1, 0);
+    public Vector3 npcOffset = new Vector3(1, 0, 0);
     public bool hasEnemies, isVisited, isStartingNode;
+    public bool IsSafeNode => nodeType == NodeType.Healer || nodeType == NodeType.Shop;
 
     // Setup the node visual depending on its type = safe, enemy or boss encounter.
-    // Automatically assign nodes with enemies for scene transition based on NodeTyp,
+    // Automatically assign nodes with enemies for scene transition based on NodeType.
     void Start()
     {
         if (isStartingNode) return;
@@ -30,17 +33,23 @@ public class Node : MonoBehaviour
         {
             hasEnemies = true;
         }
-        else if (nodeType == NodeType.SafeZone)
+        else if (IsSafeNode)  
         {
             hasEnemies = false;
-            GameObject priestInstance = Instantiate(monkPrefab, transform.position + priestOffset,Quaternion.identity, transform);
+            if (nodeType == NodeType.Healer)
+                Instantiate(monkPrefab, transform.position + npcOffset, Quaternion.identity, transform);
+            else if (nodeType == NodeType.Shop)
+                Instantiate(shopkeeperPrefab, transform.position + npcOffset, Quaternion.identity, transform);
         }
 
         GameObject selectedPrefab = null;
         switch (nodeType)
         {
-            case NodeType.SafeZone:
+            case NodeType.Healer:
                 selectedPrefab = monasteryPrefab;
+                break;
+            case NodeType.Shop:
+                selectedPrefab = shopPrefab;
                 break;
             case NodeType.Enemy:
                 selectedPrefab = towerPrefab;
