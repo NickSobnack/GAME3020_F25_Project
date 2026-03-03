@@ -10,6 +10,7 @@ TagManager:
   - Bullet
   - Projectile
   - Boss
+  - Shop
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - Mid
   - Front
   - EnemyProjectile
-  - 
-  - 
+  - Node
+  - Building
   - 
   - 
   - 

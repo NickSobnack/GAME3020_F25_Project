@@ -30,12 +30,31 @@ public class MapLogic : MonoBehaviour
 
     void Update()
     {
+        OnClickNode();
+
         if (!isMoving) return;
 
         MovePlayer();
 
         if (HasReachedTarget())
             OnNodeArrival();
+    }
+
+    private void OnClickNode()
+    {
+        if (isMoving || !Input.GetMouseButtonDown(0)) return;
+
+        Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
+
+        if (hit.collider == null) return;
+
+        Node node = hit.collider.GetComponent<Node>();
+        if (node == null)
+            node = hit.collider.GetComponentInParent<Node>();
+
+        if (node != null)
+            MoveTo(node);
     }
 
     private void MovePlayer()

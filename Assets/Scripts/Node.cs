@@ -18,8 +18,8 @@ public class Node : MonoBehaviour
     [Header("Visual Component")]
     public NodeType nodeType;
     public GameObject monasteryPrefab, shopPrefab, towerPrefab, castlePrefab, monkPrefab, shopkeeperPrefab;
-    public Vector3 heightOffset = new Vector3(0, 1, 0);
-    public Vector3 npcOffset = new Vector3(1, 0, 0);
+    public Vector3 heightOffset = new Vector3(0, 0, 0);
+    public Vector3 npcOffset = new Vector3(0, 0, 0);
     public bool hasEnemies, isVisited, isStartingNode;
     public bool IsSafeNode => nodeType == NodeType.Healer || nodeType == NodeType.Shop;
 
@@ -38,8 +38,8 @@ public class Node : MonoBehaviour
             hasEnemies = false;
             if (nodeType == NodeType.Healer)
                 Instantiate(monkPrefab, transform.position + npcOffset, Quaternion.identity, transform);
-            else if (nodeType == NodeType.Shop)
-                Instantiate(shopkeeperPrefab, transform.position + npcOffset, Quaternion.identity, transform);
+            //else if (nodeType == NodeType.Shop)
+                //Instantiate(shopkeeperPrefab, transform.position + npcOffset, Quaternion.identity, transform);
         }
 
         GameObject selectedPrefab = null;
@@ -64,13 +64,6 @@ public class Node : MonoBehaviour
             GameObject buildingInstance = Instantiate(selectedPrefab, transform.position, Quaternion.identity, transform);
             buildingInstance.transform.localPosition += heightOffset;
         }
-    }
-
-    // On mouse click, move the player to the selected node via MapLogic.
-    private void OnMouseDown()
-    {
-        var mover = GameObject.FindFirstObjectByType<MapLogic>();
-        mover.MoveTo(this);
     }
 
     // Debug gizmo to visualize node and paths.
