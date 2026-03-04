@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0cd585c1cdb5368458095d69fa35b688
+guid: 665b708f1b6e1624da6d9206dbcc4b65
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -147,177 +147,177 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Pawn_Idle Gold_0
+      name: Pawn_Gold_0
       rect:
         serializedVersion: 2
-        x: 68
-        y: 56
-        width: 63
-        height: 73
+        x: 69
+        y: 57
+        width: 61
+        height: 71
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 34053ba9f4b4970f0800000000000000
-      internalID: -1118780227154915261
+      spriteID: 32da6e1457eb84e41a20824342891919
+      internalID: 1354064523
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Idle Gold_1
+      name: Pawn_Gold_1
       rect:
         serializedVersion: 2
-        x: 262
-        y: 56
-        width: 62
+        x: 263
+        y: 57
+        width: 60
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37911d6bb11ba4743a5dbdf3289e77f1
+      internalID: -915944591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pawn_Gold_2
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 57
+        width: 59
         height: 74
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ef184eecf24780e50800000000000000
-      internalID: 6775793388062278142
+      spriteID: 4bc99f2657d5e7d4387c11597a02f32a
+      internalID: 30851617
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Idle Gold_2
+      name: Pawn_Gold_3
       rect:
         serializedVersion: 2
-        x: 455
-        y: 56
-        width: 61
-        height: 76
+        x: 649
+        y: 57
+        width: 57
+        height: 74
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 2ad53cf23f356fc90800000000000000
-      internalID: -7136424255578481246
+      spriteID: a418b9c9036124345912701a2bf2d91e
+      internalID: 1620659553
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Idle Gold_3
+      name: Pawn_Gold_4
       rect:
         serializedVersion: 2
-        x: 648
-        y: 56
-        width: 59
-        height: 76
+        x: 839
+        y: 57
+        width: 57
+        height: 73
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 41e7ff7659f3381b0800000000000000
-      internalID: -5655606796119736812
+      spriteID: 835c1dace2104d94aa5d0dcb76a73674
+      internalID: 344130723
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Idle Gold_4
+      name: Pawn_Gold_5
       rect:
         serializedVersion: 2
-        x: 838
-        y: 56
-        width: 59
-        height: 75
+        x: 1029
+        y: 57
+        width: 58
+        height: 73
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a976481b839d54390800000000000000
-      internalID: -7834617139221469286
+      spriteID: 5ca34f225e6979e4d9830ac32d26ed13
+      internalID: 2087591
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Idle Gold_5
+      name: Pawn_Gold_6
       rect:
         serializedVersion: 2
-        x: 1028
-        y: 56
+        x: 1220
+        y: 57
         width: 60
-        height: 75
+        height: 74
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 820c7b04cb842e770800000000000000
-      internalID: 8638547008626868264
+      spriteID: 17e29ab313d759d4da9ce629d33d7642
+      internalID: 303792576
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pawn_Idle Gold_6
+      name: Pawn_Gold_7
       rect:
         serializedVersion: 2
-        x: 1219
-        y: 56
+        x: 1411
+        y: 57
         width: 62
-        height: 76
+        height: 73
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: bd3c917e2aef7ee90800000000000000
-      internalID: -6996343520481393701
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Pawn_Idle Gold_7
-      rect:
-        serializedVersion: 2
-        x: 1410
-        y: 56
-        width: 64
-        height: 75
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3aa6980c8c2adf660800000000000000
-      internalID: 7421266744083835555
+      spriteID: 36f8b33e66c47374ea96b2ef5f9a7d9b
+      internalID: -327040750
       vertices: []
       indices: 
       edges: []
@@ -326,7 +326,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 434208e5ea6a00f418b30dba2fd19f29
     internalID: 0
     vertices: []
     indices: 
@@ -334,16 +334,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Pawn_Idle Gold_0: -1118780227154915261
-      Pawn_Idle Gold_1: 6775793388062278142
-      Pawn_Idle Gold_2: -7136424255578481246
-      Pawn_Idle Gold_3: -5655606796119736812
-      Pawn_Idle Gold_4: -7834617139221469286
-      Pawn_Idle Gold_5: 8638547008626868264
-      Pawn_Idle Gold_6: -6996343520481393701
-      Pawn_Idle Gold_7: 7421266744083835555
+      Pawn_Gold_0: 1354064523
+      Pawn_Gold_1: -915944591
+      Pawn_Gold_2: 30851617
+      Pawn_Gold_3: 1620659553
+      Pawn_Gold_4: 344130723
+      Pawn_Gold_5: 2087591
+      Pawn_Gold_6: 303792576
+      Pawn_Gold_7: -327040750
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

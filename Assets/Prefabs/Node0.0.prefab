@@ -54,9 +54,9 @@ MonoBehaviour:
   towerPrefab: {fileID: 9128234991237689498, guid: ef95d17927189e6489f476eba1d63564, type: 3}
   castlePrefab: {fileID: 9128234991237689498, guid: ff17286fba215de4dae93ad9d65f7804, type: 3}
   monkPrefab: {fileID: 6354021756339345472, guid: 7857fe3ac231b8c4d8055184c2d9a6fd, type: 3}
-  shopkeeperPrefab: {fileID: 6217298460345849380, guid: ffcde2a8fd993264d99d11472cade9d8, type: 3}
+  shopkeeperPrefab: {fileID: 1872653653719416759, guid: ffcde2a8fd993264d99d11472cade9d8, type: 3}
   heightOffset: {x: 0, y: 0.8, z: 0}
-  npcOffset: {x: 0, y: 1, z: 0}
+  npcOffset: {x: 1, y: 0, z: 0}
   hasEnemies: 0
   isVisited: 0
   isStartingNode: 0

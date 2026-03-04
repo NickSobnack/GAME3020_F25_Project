@@ -38,8 +38,8 @@ public class Node : MonoBehaviour
             hasEnemies = false;
             if (nodeType == NodeType.Healer)
                 Instantiate(monkPrefab, transform.position + npcOffset, Quaternion.identity, transform);
-            //else if (nodeType == NodeType.Shop)
-                //Instantiate(shopkeeperPrefab, transform.position + npcOffset, Quaternion.identity, transform);
+            else if (nodeType == NodeType.Shop)
+                Instantiate(shopkeeperPrefab, transform.position + npcOffset, Quaternion.identity, transform);
         }
 
         GameObject selectedPrefab = null;
