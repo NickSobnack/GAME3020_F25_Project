@@ -85,17 +85,12 @@ public class AudioManager : MonoBehaviour
     public void PlayMusic(MusicName musicId, bool loopMusic)
     {
         if (music == null)
-        {
-            Debug.LogError("AudioManager: Music AudioSource is missing!");
             return;
-        }
 
         AudioClip clip = musicClips[(int)musicId];
-        if (clip == null)
-        {
-            Debug.LogError($"AudioManager: Missing clip for {musicId}");
+
+        if (clip == null)        
             return;
-        }
 
         if (currentMusic == musicId && music.isPlaying)
             return;
@@ -104,15 +99,37 @@ public class AudioManager : MonoBehaviour
         music.clip = clip;
         music.loop = loopMusic;
         music.Play();
-        Debug.Log($"Playing music: {musicId}");
     }
 
-    public void ToggleMusic(bool enable)
+    public void SetMusicVolume(float value)
     {
-        if (music != null)
-        {
-            music.mute = !enable;
-        }
+        music.volume = value;
+    }
+
+    public void SetSFXVolume(float value)
+    {
+        sound.volume = value;
+    }
+
+    public void MuteAudio(bool enable)
+    {
+        music.mute = enable;
+        sound.mute = enable;
+    }
+
+    public float GetMusicVolume()
+    {
+        return music.volume;
+    }
+
+    public float GetSFXVolume()
+    {
+        return sound.volume;
+    }
+
+    public bool IsMuted()
+    {
+        return music.mute;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

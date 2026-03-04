@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a94d0b984aefbe444bbf1248f47782a7
+guid: acf5ae3861affbe4c8acbdcbb17fd1fc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6741408277770592616
-    second: SmallRedSquareButton_Pressed_0
+      213: -9173437598748476237
+    second: Button_Hover_3Slides_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SmallRedSquareButton_Pressed_0
+      name: Button_Hover_3Slides_0
       rect:
         serializedVersion: 2
-        x: 13
-        y: 14
-        width: 102
-        height: 87
+        x: 6
+        y: 7
+        width: 180
+        height: 57
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 861e4627c1b4e8d50800000000000000
-      internalID: 6741408277770592616
+      spriteID: 3bc726d5b1761b080800000000000000
+      internalID: -9173437598748476237
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SmallRedSquareButton_Pressed_0: 6741408277770592616
+      Button_Hover_3Slides_0: -9173437598748476237
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

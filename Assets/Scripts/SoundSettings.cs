@@ -24,7 +24,7 @@ public class SoundSettings : MonoBehaviour
     private void ToggleMusic()
     {
         isMusicEnabled = !isMusicEnabled;
-        AudioManager.Instance.ToggleMusic(isMusicEnabled);
+        AudioManager.Instance.MuteAudio(isMusicEnabled);
         UpdateIcon();
     }
 
