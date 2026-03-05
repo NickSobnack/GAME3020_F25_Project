@@ -7,8 +7,6 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
     [SerializeField] private Toggle muteToggle;
-    [SerializeField] private Toggle axisToggle;
-    [SerializeField] private Toggle leftToggle;
 
     private void Start()
     {
