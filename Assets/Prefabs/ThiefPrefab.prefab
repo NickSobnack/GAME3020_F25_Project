@@ -278,6 +278,9 @@ MonoBehaviour:
   health: 0
   damage: 3
   targetPointer: {fileID: 1039911391197404215}
+  moneyBagPrefab: {fileID: 4105357688221470797, guid: b792b032daa3e3341ba01d54c6263def, type: 3}
+  minGold: 5
+  maxGold: 15
   enemyName: 
   moveSpeed: 3
   distanceToPlayer: 2

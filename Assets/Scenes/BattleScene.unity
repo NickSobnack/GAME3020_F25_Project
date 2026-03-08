@@ -5848,6 +5848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
   tutorialPanel: {fileID: 0}
+  optionsPanel: {fileID: 0}
 --- !u!1 &1254161565
 GameObject:
   m_ObjectHideFlags: 0

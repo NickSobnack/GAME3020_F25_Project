@@ -13,7 +13,7 @@ public class ThiefLogic : EnemyBase
     [Header("Thief Attack")]
     private float swipeTimer;
     private float timer;
-    private CircleCollider2D collider;
+    private new CircleCollider2D collider;
 
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float distanceToPlayer = 2.5f;

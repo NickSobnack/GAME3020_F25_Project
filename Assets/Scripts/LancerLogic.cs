@@ -8,7 +8,7 @@ public class LancerLogic : EnemyBase
     [SerializeField] private Transform firePoint;
     private float thrustTimer;
     private float timer;
-    private CapsuleCollider2D collider;
+    private new CapsuleCollider2D collider;
     
     [SerializeField] private float moveSpeed = 3f;
     [SerializeField] private float distanceToPlayer = 2.5f;

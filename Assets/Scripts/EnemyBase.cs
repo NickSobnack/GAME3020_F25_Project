@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,12 @@ public abstract class EnemyBase : MonoBehaviour
     public float health;
     public float damage = 3f;
     public GameObject targetPointer;
-   
+
+    [Header("Loot Drop")]
+    public GameObject moneyBagPrefab;
+    [Min(0)] public int minGold = 5;
+    [Min(0)] public int maxGold = 15;
+
     [HideInInspector] 
     public string enemyName;
     protected Animator animator;
@@ -66,7 +72,7 @@ public abstract class EnemyBase : MonoBehaviour
 
         if (hpSlider != null)
             hpSlider.value = 0;
-
+        DropLoot();
         Destroy(gameObject, 1f);
     }
 
@@ -82,5 +88,16 @@ public abstract class EnemyBase : MonoBehaviour
         {
             battleLogic.SelectEnemy(this);
         }
+    }
+
+    protected virtual void DropLoot()
+    {
+        if (moneyBagPrefab == null) return;
+
+        int goldAmount = Random.Range(minGold, maxGold + 1);
+
+        Vector3 spawnPos = transform.position;
+        GameObject bag = Instantiate(moneyBagPrefab, spawnPos, Quaternion.identity);
+        Destroy(bag, 3f);
     }
 }
