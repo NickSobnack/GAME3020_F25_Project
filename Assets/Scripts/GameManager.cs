@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     [Header("Player Stats")]
     public float playerHealth = 20f;
     public float playerMaxHealth = 20f;
+
+    private int currGold = 0;
+    public int CurrGold => currGold;
+
     public bool gameWon = false;
 
     private void Awake()
@@ -59,6 +63,31 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene(sceneIndex);
+    }
+
+    public void AddGold(int amount)
+    {
+        currGold += amount;
+        Debug.Log($"Gold added: +{amount} | Total: {currGold}");
+    }
+
+    public bool SpendGold(int amount)
+    {
+        if (currGold < amount)
+        {
+            Debug.Log($"Not enough gold. Have {currGold}, need {amount}.");
+            return false;
+        }
+        currGold -= amount;
+        Debug.Log($"Gold spent: -{amount} | Total: {currGold}");
+        return true;
+    }
+
+    public void StealGold(int amount)
+    {
+        int stolen = Mathf.Min(amount, currGold);
+        currGold -= stolen;
+        Debug.Log($"Gold stolen: -{stolen} | Total: {currGold}");
     }
 
     //Reset game state, called when exiting or losing game.

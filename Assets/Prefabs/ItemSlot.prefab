@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 3070226705804709733}
   - component: {fileID: 4408169602520352518}
   m_Layer: 5
-  m_Name: ItemSlotPrefab
+  m_Name: ItemSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

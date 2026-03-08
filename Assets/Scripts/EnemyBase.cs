@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -90,6 +89,7 @@ public abstract class EnemyBase : MonoBehaviour
         }
     }
 
+    // Drops a money bag with a random amt of gold which is added to player's when collected.
     protected virtual void DropLoot()
     {
         if (moneyBagPrefab == null) return;
@@ -98,6 +98,8 @@ public abstract class EnemyBase : MonoBehaviour
 
         Vector3 spawnPos = transform.position;
         GameObject bag = Instantiate(moneyBagPrefab, spawnPos, Quaternion.identity);
-        Destroy(bag, 3f);
+
+        MoneyBag moneyBag = bag.GetComponent<MoneyBag>();
+        if (moneyBag != null) moneyBag.goldValue = goldAmount;
     }
 }

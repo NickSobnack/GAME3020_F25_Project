@@ -44,6 +44,7 @@ public class BattleLogic : MonoBehaviour
     [SerializeField] private GameObject targetPointerPrefab;
     [SerializeField] public float playerDmg = 3f;
     public EnemyBase selectedTarget;
+    public int goldStolen = 3;
     private int selectedIndex = 0;
 
     public bool inAction { get; private set; }
@@ -337,11 +338,13 @@ public class BattleLogic : MonoBehaviour
         if (playerLogic.energy <= 0)
         {
             Debug.Log("No energy! Large amount of gold stolen.");
+            GameManager.Instance.StealGold(goldStolen*2);
             return;
         }
 
         // Took the hit normally
         Debug.Log("Hit taken. Normal amount of gold stolen.");
+        GameManager.Instance.StealGold(goldStolen);
     }
 
 }
