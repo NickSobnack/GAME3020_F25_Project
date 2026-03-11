@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
@@ -10,6 +9,8 @@ public class OptionsMenu : MonoBehaviour
 
     private void Start()
     {
+        if (AudioManager.Instance == null) return;
+
         musicSlider.value = AudioManager.Instance.GetMusicVolume();
         sfxSlider.value = AudioManager.Instance.GetSFXVolume();
         muteToggle.isOn = AudioManager.Instance.IsMuted();

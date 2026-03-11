@@ -3,39 +3,53 @@ using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
-    [Header("Pause Menu Panel")]
-    [SerializeField] private GameObject pausePanel;
+    // Updated to manage all panels and pause the game when any menu panels are open.
+
+    [Header("Panels")]
+    [SerializeField] private GameObject optionsPanel;
+    [SerializeField] private GameObject tutorialPanel;
+    [SerializeField] private GameObject settingsPanel;
 
     private bool isPaused = false;
 
-    private void Start()
+    private void PauseGame()
     {
-        if (pausePanel != null)
-            pausePanel.SetActive(false);
+        bool anyPanelOpen = isPaused
+            || tutorialPanel.activeSelf
+            || settingsPanel.activeSelf;
+
+        Time.timeScale = anyPanelOpen ? 0f : 1f;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            TogglePause();
-        }
-    }
-
-    public void TogglePause()
+    public void ToggleOptions()
     {
         isPaused = !isPaused;
+        optionsPanel?.SetActive(isPaused);
 
-        if (pausePanel != null)
-            pausePanel.SetActive(isPaused);
+        if (!isPaused)
+        {
+            tutorialPanel?.SetActive(false);
+            settingsPanel?.SetActive(false);
+        }
+        PauseGame();
+    }
 
-        Time.timeScale = isPaused ? 0f : 1f;
+    public void ToggleTutorial()
+    {
+        tutorialPanel.SetActive(!tutorialPanel.activeSelf);
+        PauseGame();
+    }
+
+    public void ToggleSettings()
+    {
+        settingsPanel.SetActive(!settingsPanel.activeSelf);
+        PauseGame();
     }
 
     public void ResumeButton()
     {
         if (isPaused)
-            TogglePause();
+            ToggleOptions();
     }
 
     public void MainMenuButton(int sceneIndex)

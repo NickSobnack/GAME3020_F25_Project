@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
+    // Works with signal emitter/receiver on timelines to trigger shake at specific moments.
     [SerializeField] private float shakeAmount = 0.02f;
     [SerializeField] private float shakeDuration = 0.5f;
 
     private Vector3 originalPos;
     private float shakeTimer = 0f;
-
+    
     private void Awake()
     {
         originalPos = transform.localPosition;
@@ -28,7 +29,6 @@ public class CameraShake : MonoBehaviour
 
     public void TriggerShake()
     {
-        Debug.Log("TriggerShake called");
         shakeTimer = shakeDuration;
     }
 }
