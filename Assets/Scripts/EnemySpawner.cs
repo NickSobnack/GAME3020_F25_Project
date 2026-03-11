@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
@@ -13,8 +14,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private string bossName = "Camelot";
     [SerializeField] private int maxEnemiesToSpawn = 3;
 
+    [SerializeField] private PlayableDirector bossTimeline;
     [SerializeField] private GameObject bossPopupPanel;
     [SerializeField] private Button continueButton;
+    private GameObject bossInstance;
 
     private void Start()
     {
@@ -62,10 +65,12 @@ public class EnemySpawner : MonoBehaviour
     // Spawn boss at first spawn point with one static name.
     private void SpawnBoss()
     {
+        PlayBossCutscene();
+
         if (bossPrefab != null && spawnPoints.Length > 0)
         {
             Vector3 offset = new Vector3(1, 0.5f, 0);
-            GameObject bossInstance = Instantiate(bossPrefab, spawnPoints[0].position + offset, Quaternion.identity);
+            bossInstance = Instantiate(bossPrefab, spawnPoints[0].position + offset, Quaternion.identity);
 
             EnemyBase enemyBase = bossInstance.GetComponent<EnemyBase>();
             if (enemyBase != null)
@@ -73,7 +78,29 @@ public class EnemySpawner : MonoBehaviour
                 enemyBase.enemyName = bossName;
                 bossInstance.name = bossName;
             }
+
+            bossInstance.gameObject.SetActive(false);
         }
+    }
+
+    private void PlayBossCutscene()
+    {
+        GameManager.Instance.SetPlayerInput(false);
+
+        Time.timeScale = 0f; 
+
+        bossTimeline.gameObject.SetActive(true);
+
+        bossTimeline.timeUpdateMode = DirectorUpdateMode.UnscaledGameTime;
+
+        bossTimeline.Play();
+        bossTimeline.stopped += OnBossTimelineFinished;
+    }
+
+    private void OnBossTimelineFinished(PlayableDirector director)
+    {
+        bossTimeline.stopped -= OnBossTimelineFinished;
+        bossTimeline.gameObject.SetActive(false); 
         ShowBossPopup();
     }
 
@@ -82,13 +109,14 @@ public class EnemySpawner : MonoBehaviour
         if (bossPopupPanel != null)
         {
             bossPopupPanel.SetActive(true);
-            Time.timeScale = 0f; 
 
             continueButton.onClick.RemoveAllListeners();
             continueButton.onClick.AddListener(() =>
             {
                 bossPopupPanel.SetActive(false);
+                bossInstance.gameObject.SetActive(true);
                 Time.timeScale = 1f; 
+                GameManager.Instance.SetPlayerInput(true);
             });
         }
     }

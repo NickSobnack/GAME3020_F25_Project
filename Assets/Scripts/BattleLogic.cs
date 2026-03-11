@@ -23,7 +23,6 @@ public class BattleLogic : MonoBehaviour
     [SerializeField] private float attackCooldown = 3f;
     private float lastAttackTime;
 
-
     private float currHoldTimer;
     private bool isAttacking, isBlocking, noEnergy;
 
@@ -64,6 +63,9 @@ public class BattleLogic : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.Instance.AllowPlayerInput())
+            return;
+
         float currEnergy = playerLogic.energy;
         float maxEnergy = playerLogic.maxEnergy;
 

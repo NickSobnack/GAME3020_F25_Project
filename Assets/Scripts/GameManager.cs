@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [Header("Player Stats")]
     public float playerHealth = 20f;
     public float playerMaxHealth = 20f;
-
+    private bool playerInputAllowed = true;
     private int currGold = 0;
     public int CurrGold => currGold;
 
@@ -28,6 +28,16 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    public bool AllowPlayerInput()
+    {
+        return playerInputAllowed;
+    }
+
+    public void SetPlayerInput(bool value)
+    {
+        playerInputAllowed = value;
     }
 
     // Sets and gets the current node info.
