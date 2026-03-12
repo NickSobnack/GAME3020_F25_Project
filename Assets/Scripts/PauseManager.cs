@@ -4,10 +4,9 @@ using UnityEngine.SceneManagement;
 public class PauseManager : MonoBehaviour
 {
     // Updated to manage all panels and pause the game when any menu panels are open.
-
     [Header("Panels")]
     [SerializeField] private GameObject optionsPanel;
-    [SerializeField] private GameObject tutorialPanel;
+    //[SerializeField] private GameObject tutorialPanel;
     [SerializeField] private GameObject settingsPanel;
 
     private bool isPaused = false;
@@ -15,7 +14,7 @@ public class PauseManager : MonoBehaviour
     private void PauseGame()
     {
         bool anyPanelOpen = isPaused
-            || tutorialPanel.activeSelf
+            //|| tutorialPanel.activeSelf
             || settingsPanel.activeSelf;
 
         Time.timeScale = anyPanelOpen ? 0f : 1f;
@@ -28,7 +27,7 @@ public class PauseManager : MonoBehaviour
 
         if (!isPaused)
         {
-            tutorialPanel?.SetActive(false);
+            //tutorialPanel?.SetActive(false);
             settingsPanel?.SetActive(false);
         }
         PauseGame();
@@ -36,7 +35,7 @@ public class PauseManager : MonoBehaviour
 
     public void ToggleTutorial()
     {
-        tutorialPanel.SetActive(!tutorialPanel.activeSelf);
+        //tutorialPanel.SetActive(!tutorialPanel.activeSelf);
         PauseGame();
     }
 
@@ -44,12 +43,6 @@ public class PauseManager : MonoBehaviour
     {
         settingsPanel.SetActive(!settingsPanel.activeSelf);
         PauseGame();
-    }
-
-    public void ResumeButton()
-    {
-        if (isPaused)
-            ToggleOptions();
     }
 
     public void MainMenuButton(int sceneIndex)
