@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
     {
         currGold += amount;
         Debug.Log($"Gold added: +{amount} | Total: {currGold}");
+        RefreshGoldUI();
     }
 
     public bool SpendGold(int amount)
@@ -90,6 +91,7 @@ public class GameManager : MonoBehaviour
         }
         currGold -= amount;
         Debug.Log($"Gold spent: -{amount} | Total: {currGold}");
+        RefreshGoldUI();
         return true;
     }
 
@@ -98,6 +100,7 @@ public class GameManager : MonoBehaviour
         int stolen = Mathf.Min(amount, currGold);
         currGold -= stolen;
         Debug.Log($"Gold stolen: -{stolen} | Total: {currGold}");
+        RefreshGoldUI();
     }
 
     //Reset game state, called when exiting or losing game.
@@ -106,5 +109,11 @@ public class GameManager : MonoBehaviour
         currentNodeName = string.Empty;
         currentNodeType = NodeType.None;
         playerHealth = playerMaxHealth;    
+    }
+
+    private void RefreshGoldUI()
+    {
+        if (UIDisplay.Instance != null)
+            UIDisplay.Instance.UpdateGoldDisplay();
     }
 }
