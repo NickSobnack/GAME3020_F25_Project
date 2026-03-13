@@ -7,11 +7,8 @@ public class UIDisplay : MonoBehaviour
 {
     public static UIDisplay Instance { get; private set; }
 
-    [Header("Gold UI")]
     [SerializeField] private TextMeshProUGUI goldText;
     [SerializeField] private Image goldIcon;
-
-    [Header("Settings")]
     [SerializeField] private int[] hiddenSceneIndexes = { 0 }; 
 
     private void Awake()
