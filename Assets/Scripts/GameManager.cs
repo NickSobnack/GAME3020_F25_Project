@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public float playerHealth = 20f;
     public float playerMaxHealth = 20f;
     private bool playerInputAllowed = true;
-    private int currGold = 0;
+    private int currGold = 700;
     public int CurrGold => currGold;
 
     public bool gameWon = false;

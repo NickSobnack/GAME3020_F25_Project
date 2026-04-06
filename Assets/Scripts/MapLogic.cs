@@ -11,6 +11,8 @@ public class MapLogic : MonoBehaviour
     [Header("Player Settings")]
     public GameObject player;
     private Animator playerAnimator;
+    public GameObject shopPanel;
+    public ShopLogic shopLogic;
 
     private bool isMoving = false;
     private Vector3 targetPosition;
@@ -18,6 +20,7 @@ public class MapLogic : MonoBehaviour
     void Start()
     {
         playerAnimator = player.GetComponent<Animator>();
+        shopLogic = shopPanel.GetComponent<ShopLogic>();
 
         string nodeName = GameManager.Instance.GetCurrentNodeName();
         Node foundNode = GameObject.Find(nodeName)?.GetComponent<Node>();
@@ -42,7 +45,7 @@ public class MapLogic : MonoBehaviour
 
     private void OnClickNode()
     {
-        if (isMoving || !Input.GetMouseButtonDown(0)) return;
+        if (isMoving || shopPanel.activeSelf || !Input.GetMouseButtonDown(0)) return;
 
         Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
@@ -112,7 +115,9 @@ public class MapLogic : MonoBehaviour
 
     private void OpenShop()
     {
-        Debug.Log("Entered shop.");
+        BackgroundBlurManager.Instance.RegisterPanelOpened();
+        shopPanel.SetActive(true);
+        shopLogic.ResetShop();
     }
 
     private IEnumerator PlayHealSequence()
