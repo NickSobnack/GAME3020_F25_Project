@@ -61,9 +61,10 @@ public class ShopLogic : MonoBehaviour
 
             var slot = itemSlots[i];
 
-            slot.ItemName.text = $"{item.itemName} - {item.cost}g";
+            slot.ItemName.text = $"{item.itemName}";
+            slot.ItemName.color = item.rarityColor;   
             slot.ItemIcon.sprite = item.icon;
-            slot.ItemBorder.color = item.rarityColor;
+            slot.ItemBorder.gameObject.SetActive(false);
         }
     }
 
@@ -91,9 +92,12 @@ public class ShopLogic : MonoBehaviour
         cancelButton.interactable = true;
 
         for (int i = 0; i < itemSlots.Length; i++)
-            itemSlots[i].ItemName.color = Color.black;
+        {
+            itemSlots[i].ItemBorder.gameObject.SetActive(false);
+            itemSlots[i].ItemName.color = chosenItems[i].rarityColor;
+        }
 
-        itemSlots[index].ItemName.color = Color.green;
+        itemSlots[index].ItemBorder.gameObject.SetActive(true);
     }
 
     public void ConfirmPurchase()
