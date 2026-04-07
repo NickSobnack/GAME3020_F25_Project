@@ -10,12 +10,11 @@ public class ShopLogic : MonoBehaviour
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button cancelButton;
 
+    // Common items = 70% = 5g, Uncommon items = 20% = 10g, Rare items = 10% = 20g
     private string[] commonItems = new string[]
     { "Apple", "Pear", "Lettuce",};
-
     private string[] uncommonItems = new string[]
     {"Meat", "Cheese", "Milk"};
-
     private string[] rareItems = new string[]
     {"Cookie", "Mako", "Pizza"};
 
@@ -33,16 +32,16 @@ public class ShopLogic : MonoBehaviour
         confirmButton.interactable = false;
         cancelButton.interactable = false;
 
-        RefreshGoldDisplay();
-        RandomizeItems();
+        RefreshGoldUI();
+        RandomizeShopItems();
     }
 
-    void RefreshGoldDisplay()
+    void RefreshGoldUI()
     {
         goldText.text = $"Gold: {GameManager.Instance.CurrGold}";
     }
 
-    void RandomizeItems()
+    void RandomizeShopItems()
     {
         for (int i = 0; i < 3; i++)
         {
@@ -51,6 +50,7 @@ public class ShopLogic : MonoBehaviour
         }
     }
 
+    // Randomly picks items at the start of each shop visit and populates the UI.
     void PickRandomItem(int slot)
     {
         int roll = Random.Range(0, 100);
@@ -97,7 +97,7 @@ public class ShopLogic : MonoBehaviour
 
         if (GameManager.Instance.SpendGold(cost))
         {
-            RefreshGoldDisplay();
+            RefreshGoldUI();
             CloseShop();
         }
         else
@@ -133,18 +133,14 @@ public class ShopLogic : MonoBehaviour
     public void ResetShop()
     {
         selectedIndex = -1;
-
         confirmButton.interactable = false;
         cancelButton.interactable = false;
 
         for (int i = 0; i < itemTexts.Length; i++)
             itemTexts[i].color = Color.black;
 
-        RandomizeItems();
-
-        RefreshGoldDisplay();
-
-        Debug.Log("Shop reset.");
+        RandomizeShopItems();
+        RefreshGoldUI();
     }
 
 }
