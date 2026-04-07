@@ -7,10 +7,9 @@ public class ShopLogic : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] private Button confirmButton;
-    [SerializeField] private Button cancelButton;    
-    [SerializeField] private TMP_Text[] itemTexts;
-    [SerializeField] private Image[] itemIcons;
-    [SerializeField] private Image[] itemBorders;
+    [SerializeField] private Button cancelButton;
+
+    private ShopItemSlot[] itemSlots;
 
     [SerializeField] private List<ItemData> commonItems;
     [SerializeField] private List<ItemData> uncommonItems;
@@ -28,6 +27,16 @@ public class ShopLogic : MonoBehaviour
 
     void OnEnable()
     {
+        if (itemSlots == null || itemSlots.Length == 0)
+            itemSlots = GetComponentsInChildren<ShopItemSlot>(true);
+
+        for (int i = 0; i < itemSlots.Length; i++)
+        {
+            int idx = i;
+            itemSlots[i].ItemButton.onClick.RemoveAllListeners();
+            itemSlots[i].ItemButton.onClick.AddListener(() => SelectItem(idx));
+        }
+
         shopkeeperAnim.Play("ShopkeeperShop");
     }
 
@@ -50,9 +59,11 @@ public class ShopLogic : MonoBehaviour
             ItemData item = PickRandomItem();
             chosenItems.Add(item);
 
-            itemTexts[i].text = $"{item.itemName} - {item.cost}g";
-            itemIcons[i].sprite = item.icon;
-            itemBorders[i].color = item.rarityColor;
+            var slot = itemSlots[i];
+
+            slot.ItemName.text = $"{item.itemName} - {item.cost}g";
+            slot.ItemIcon.sprite = item.icon;
+            slot.ItemBorder.color = item.rarityColor;
         }
     }
 
@@ -79,10 +90,10 @@ public class ShopLogic : MonoBehaviour
         confirmButton.interactable = true;
         cancelButton.interactable = true;
 
-        for (int i = 0; i < itemTexts.Length; i++)
-            itemTexts[i].color = Color.black;
+        for (int i = 0; i < itemSlots.Length; i++)
+            itemSlots[i].ItemName.color = Color.black;
 
-        itemTexts[index].color = Color.green;
+        itemSlots[index].ItemName.color = Color.green;
     }
 
     public void ConfirmPurchase()
@@ -137,8 +148,8 @@ public class ShopLogic : MonoBehaviour
     {
         selectedIndex = -1;
 
-        for (int i = 0; i < itemTexts.Length; i++)
-            itemTexts[i].color = Color.black;
+        for (int i = 0; i < itemSlots.Length; i++)
+            itemSlots[i].ItemName.color = Color.black;
 
         confirmButton.interactable = false;
         cancelButton.interactable = false;
@@ -154,8 +165,8 @@ public class ShopLogic : MonoBehaviour
     {
         selectedIndex = -1;
 
-        for (int i = 0; i < itemTexts.Length; i++)
-            itemTexts[i].color = Color.black;
+        for (int i = 0; i < itemSlots.Length; i++)
+            itemSlots[i].ItemName.color = Color.black;
 
         confirmButton.interactable = false;
         cancelButton.interactable = false;
