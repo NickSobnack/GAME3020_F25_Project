@@ -1,78 +1,76 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class ShopLogic : MonoBehaviour
 {
     [Header("UI References")]
-    [SerializeField] private TMP_Text goldText;
-    [SerializeField] private TMP_Text[] itemTexts;
     [SerializeField] private Button confirmButton;
-    [SerializeField] private Button cancelButton;
+    [SerializeField] private Button cancelButton;    
+    [SerializeField] private TMP_Text[] itemTexts;
+    [SerializeField] private Image[] itemIcons;
+    [SerializeField] private Image[] itemBorders;
 
-    // Common items = 70% = 5g, Uncommon items = 20% = 10g, Rare items = 10% = 20g
-    private string[] commonItems = new string[]
-    { "Apple", "Pear", "Lettuce",};
-    private string[] uncommonItems = new string[]
-    {"Meat", "Cheese", "Milk"};
-    private string[] rareItems = new string[]
-    {"Cookie", "Mako", "Pizza"};
+    [SerializeField] private List<ItemData> commonItems;
+    [SerializeField] private List<ItemData> uncommonItems;
+    [SerializeField] private List<ItemData> rareItems;
 
-    private int commonCost = 5;
-    private int uncommonCost = 10;
-    private int rareCost = 20;
+    private List<ItemData> chosenItems = new();
 
-    private string[] chosenItems = new string[3];
-    private int[] chosenCosts = new int[3];
-
+    private Animator shopkeeperAnim;
     private int selectedIndex = -1;
+
+    void Awake()
+    {
+        shopkeeperAnim = GetComponentInChildren<Animator>();
+    }
+
+    void OnEnable()
+    {
+        shopkeeperAnim.Play("ShopkeeperShop");
+    }
 
     void Start()
     {
         confirmButton.interactable = false;
         cancelButton.interactable = false;
 
-        RefreshGoldUI();
         RandomizeShopItems();
     }
 
-    void RefreshGoldUI()
-    {
-        goldText.text = $"Gold: {GameManager.Instance.CurrGold}";
-    }
-
-    void RandomizeShopItems()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            PickRandomItem(i);
-            itemTexts[i].text = $"{chosenItems[i]} - {chosenCosts[i]}g";
-        }
-    }
 
     // Randomly picks items at the start of each shop visit and populates the UI.
-    void PickRandomItem(int slot)
+    void RandomizeShopItems()
+    {
+        chosenItems.Clear();
+
+        for (int i = 0; i < 3; i++)
+        {
+            ItemData item = PickRandomItem();
+            chosenItems.Add(item);
+
+            itemTexts[i].text = $"{item.itemName} - {item.cost}g";
+            itemIcons[i].sprite = item.icon;
+            itemBorders[i].color = item.rarityColor;
+        }
+    }
+
+    ItemData PickRandomItem()
     {
         int roll = Random.Range(0, 100);
+        List<ItemData> pool;
 
-        if (roll < 70)
-        {
-            int index = Random.Range(0, commonItems.Length);
-            chosenItems[slot] = commonItems[index];
-            chosenCosts[slot] = commonCost;
-        }
-        else if (roll < 90)
-        {
-            int index = Random.Range(0, uncommonItems.Length);
-            chosenItems[slot] = uncommonItems[index];
-            chosenCosts[slot] = uncommonCost;
-        }
-        else
-        {
-            int index = Random.Range(0, rareItems.Length);
-            chosenItems[slot] = rareItems[index];
-            chosenCosts[slot] = rareCost;
-        }
+        if (roll < 70) pool = commonItems;
+        else if (roll < 90) pool = uncommonItems;
+        else pool = rareItems;
+
+        ItemData item = pool[Random.Range(0, pool.Count)];
+
+        if (item.isOneTimePurchase && GameManager.Instance.HasPurchased(item.id))
+            return PickRandomItem();
+
+        return item;
     }
 
     public void SelectItem(int index)
@@ -92,12 +90,15 @@ public class ShopLogic : MonoBehaviour
         if (selectedIndex == -1)
             return;
 
-        string name = chosenItems[selectedIndex];
-        int cost = chosenCosts[selectedIndex];
+        ItemData item = chosenItems[selectedIndex];
 
-        if (GameManager.Instance.SpendGold(cost))
+        if (GameManager.Instance.SpendGold(item.cost))
         {
-            RefreshGoldUI();
+            ApplyItemEffect(item);
+
+            if (item.isOneTimePurchase)
+                GameManager.Instance.MarkPurchased(item.id);
+
             CloseShop();
         }
         else
@@ -107,11 +108,30 @@ public class ShopLogic : MonoBehaviour
 
         ResetSelection();
     }
-
-    public void CancelSelection()
+ 
+    void ApplyItemEffect(ItemData item)
     {
-        ResetSelection();
+        switch (item.effectType)
+        {
+            case ItemEffect.GoldBoost:
+                Debug.Log("Increase Gold for next fight.");
+                break;
+
+            case ItemEffect.StatBoost:
+                Debug.Log("Increase Attack for next fight.");
+                break;
+
+            case ItemEffect.SpawnBoost:
+                Debug.Log("Less enemy will appear for next fight.");
+                break;
+
+            default:
+                Debug.Log("No effect.");
+                break;
+        }
     }
+
+    public void CancelSelection() => ResetSelection();
 
     private void ResetSelection()
     {
@@ -133,14 +153,13 @@ public class ShopLogic : MonoBehaviour
     public void ResetShop()
     {
         selectedIndex = -1;
-        confirmButton.interactable = false;
-        cancelButton.interactable = false;
 
         for (int i = 0; i < itemTexts.Length; i++)
             itemTexts[i].color = Color.black;
 
-        RandomizeShopItems();
-        RefreshGoldUI();
-    }
+        confirmButton.interactable = false;
+        cancelButton.interactable = false;
 
+        RandomizeShopItems();
+    }
 }

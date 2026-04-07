@@ -1,6 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,10 +14,14 @@ public class GameManager : MonoBehaviour
     public float playerHealth = 20f;
     public float playerMaxHealth = 20f;
     private bool playerInputAllowed = true;
-    private int currGold = 700;
-    public int CurrGold => currGold;
-
     public bool gameWon = false;
+
+    [Header("Gold & Shop")]
+    private int currGold = 700;
+    public int CurrGold => currGold; 
+    private HashSet<string> purchasedItems = new();
+    public int goldBonusNextFight = 0; 
+    public bool HasPurchased(string id) => purchasedItems.Contains(id);
 
     private void Awake()
     {
@@ -78,28 +83,28 @@ public class GameManager : MonoBehaviour
     public void AddGold(int amount)
     {
         currGold += amount;
-        Debug.Log($"Gold added: +{amount} | Total: {currGold}");
         RefreshGoldUI();
     }
 
     public bool SpendGold(int amount)
     {
-        if (currGold < amount)
-        {
-            Debug.Log($"Not enough gold. Have {currGold}, need {amount}.");
-            return false;
-        }
+        if (currGold < amount) return false;
+
         currGold -= amount;
-        Debug.Log($"Gold spent: -{amount} | Total: {currGold}");
         RefreshGoldUI();
         return true;
+    }
+
+    // Marks an item as purchased to prevent one time items from being bought again and to track item bought.
+    public void MarkPurchased(string id)
+    {
+        purchasedItems.Add(id);
     }
 
     public void StealGold(int amount)
     {
         int stolen = Mathf.Min(amount, currGold);
         currGold -= stolen;
-        Debug.Log($"Gold stolen: -{stolen} | Total: {currGold}");
         RefreshGoldUI();
     }
 
@@ -108,7 +113,9 @@ public class GameManager : MonoBehaviour
     {
         currentNodeName = string.Empty;
         currentNodeType = NodeType.None;
-        playerHealth = playerMaxHealth;    
+        playerHealth = playerMaxHealth;
+        purchasedItems.Clear();
+        goldBonusNextFight = 0;
     }
 
     private void RefreshGoldUI()
