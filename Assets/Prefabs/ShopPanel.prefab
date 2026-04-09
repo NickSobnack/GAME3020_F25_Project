@@ -1411,6 +1411,10 @@ PrefabInstance:
       value: ShopkeeperPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 1872653653719416759, guid: ffcde2a8fd993264d99d11472cade9d8, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1872653653719416759, guid: ffcde2a8fd993264d99d11472cade9d8, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -1432,7 +1436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3669404065004874153, guid: ffcde2a8fd993264d99d11472cade9d8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -150
+      value: -178.2
       objectReference: {fileID: 0}
     - target: {fileID: 3669404065004874153, guid: ffcde2a8fd993264d99d11472cade9d8, type: 3}
       propertyPath: m_LocalPosition.z
