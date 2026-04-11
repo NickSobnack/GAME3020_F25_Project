@@ -7,7 +7,8 @@ public class MoneyBag : MonoBehaviour
 
     private void OnMouseDown()
     {
+        AudioManager.Instance.PlaySound(SoundName.coin);
         GameManager.Instance.AddGold(goldValue);
-        Destroy(gameObject);
+        Destroy(gameObject, .5f);
     }
 }

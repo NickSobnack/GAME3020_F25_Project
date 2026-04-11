@@ -86,7 +86,14 @@ public class PlayerLogic : MonoBehaviour, IDamage
         if (other.CompareTag("Bullet"))
         {
             ArrowLogic arrow = other.GetComponent<ArrowLogic>();
-            if (arrow != null) damageAmount = arrow.damage;
+            if (arrow != null)
+                damageAmount = arrow.damage;
+            else
+            {
+                SpellLogic spell = other.GetComponent<SpellLogic>();
+                if (spell != null)
+                    damageAmount = spell.damage;
+            }
 
             Destroy(other.gameObject);
         }

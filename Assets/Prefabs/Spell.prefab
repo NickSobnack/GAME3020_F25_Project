@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4438272333565706527}
   - component: {fileID: 1110545461989229774}
   - component: {fileID: 4221566588884259334}
-  - component: {fileID: 6498309640192287119}
   - component: {fileID: 4185891810219358602}
   - component: {fileID: 9156530291363031256}
+  - component: {fileID: 2850244548876955946}
   m_Layer: 0
   m_Name: Spell
   m_TagString: Bullet
@@ -122,21 +122,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &6498309640192287119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2319822952671054503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98fc2c82ec3d5bc429700382438d14ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ArrowLogic
-  speed: 10
-  arcHeight: 0.5
-  damage: 2
 --- !u!70 &4185891810219358602
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -196,3 +181,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2850244548876955946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2319822952671054503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6610ba8ca1a481d458e09069d6a03f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  speed: 3
+  growthAmount: 0.5
+  timeBetweenGrowths: 0.3
+  totalGrowthStages: 3
+  damage: 5

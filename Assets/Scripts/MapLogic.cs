@@ -117,6 +117,8 @@ public class MapLogic : MonoBehaviour
     {
         BackgroundBlurManager.Instance.RegisterPanelOpened();
         shopPanel.SetActive(true);
+        AudioManager.Instance.PlaySound(SoundName.doorOpen);
+        AudioManager.Instance.PlayMusic(MusicName.shop, true);
         shopLogic.ResetShop();
     }
 

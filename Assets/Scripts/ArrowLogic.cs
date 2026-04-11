@@ -3,7 +3,7 @@ using UnityEngine;
 public class ArrowLogic : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
-    [SerializeField] private float arcHeight = 0.5f;    // Adjusts the height of the arc.
+    [SerializeField] private float arcHeight = 0.5f;   
     public float damage = 2f;
     private Rigidbody2D rb;
 

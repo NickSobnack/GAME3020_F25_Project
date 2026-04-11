@@ -163,6 +163,7 @@ public class ShopLogic : MonoBehaviour
     {
         BackgroundBlurManager.Instance.RegisterPanelClosed();
         gameObject.SetActive(false);
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.PreviousMusic, true);
     }
 
     public void ResetShop()

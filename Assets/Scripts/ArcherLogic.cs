@@ -46,6 +46,19 @@ public class ArcherLogic : EnemyBase
         Destroy(arrowObj, 3f);
     }
 
+    public void FireSpell()
+    {
+        GameObject arrowObj = Instantiate(arrowPrefab, firePoint.position, firePoint.rotation);
+        SpellLogic arrow = arrowObj.GetComponent<SpellLogic>();
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Vector2 playerPos = player.transform.position;
+
+        arrow.Launch(playerPos);
+
+        Destroy(arrowObj, 3f);
+    }
+
     private IEnumerator ShootRoutine()
     {
         inAction = true;

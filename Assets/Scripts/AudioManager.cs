@@ -8,6 +8,7 @@ public enum MusicName
     battle,
     victory,
     gameover,
+    shop,
     COUNT
 }
 public enum SoundName
@@ -19,6 +20,9 @@ public enum SoundName
     cure,
     impact,
     clash,
+    coin,
+    doorOpen,
+    spell,
     COUNT
 }
 
@@ -30,6 +34,7 @@ public class AudioManager : MonoBehaviour
     AudioSource music;
     AudioSource sound;
     private MusicName currentMusic;
+    public MusicName PreviousMusic { get; private set; }
 
     public static AudioManager Instance { get; private set; }
 
@@ -65,6 +70,7 @@ public class AudioManager : MonoBehaviour
         musicClips[(int)MusicName.battle] = Resources.Load<AudioClip>("Audio/BGM/battle");
         musicClips[(int)MusicName.victory] = Resources.Load<AudioClip>("Audio/BGM/victory");
         musicClips[(int)MusicName.gameover] = Resources.Load<AudioClip>("Audio/BGM/gameover");
+        musicClips[(int)MusicName.shop] = Resources.Load<AudioClip>("Audio/BGM/BuySomething!");
 
         soundClips[(int)SoundName.bash] = Resources.Load<AudioClip>("Audio/SFX/Bash");
         soundClips[(int)SoundName.bow] = Resources.Load<AudioClip>("Audio/SFX/Bow");
@@ -73,6 +79,9 @@ public class AudioManager : MonoBehaviour
         soundClips[(int)SoundName.sword] = Resources.Load<AudioClip>("Audio/SFX/Sword");
         soundClips[(int)SoundName.impact] = Resources.Load<AudioClip>("Audio/SFX/Impact");
         soundClips[(int)SoundName.clash] = Resources.Load<AudioClip>("Audio/SFX/Clash");
+        soundClips[(int)SoundName.coin] = Resources.Load<AudioClip>("Audio/SFX/Coin");
+        soundClips[(int)SoundName.doorOpen] = Resources.Load<AudioClip>("Audio/SFX/DoorOpen");
+        soundClips[(int)SoundName.spell] = Resources.Load<AudioClip>("Audio/SFX/Spell");
     }
 
     public void PlaySound(SoundName soundId)
@@ -88,12 +97,10 @@ public class AudioManager : MonoBehaviour
             return;
 
         AudioClip clip = musicClips[(int)musicId];
-
-        if (clip == null)        
+        if (clip == null)
             return;
 
-        if (currentMusic == musicId && music.isPlaying)
-            return;
+        PreviousMusic = currentMusic;
 
         currentMusic = musicId;
         music.clip = clip;
