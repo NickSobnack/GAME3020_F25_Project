@@ -21,6 +21,7 @@ public class Node : MonoBehaviour
     public Vector3 heightOffset = new Vector3(0, 0, 0);
     public Vector3 npcOffset = new Vector3(0, 0, 0);
     public bool hasEnemies, isVisited, isStartingNode;
+    public bool isFinalNode = false;
     public bool IsSafeNode => nodeType == NodeType.Healer || nodeType == NodeType.Shop;
 
     // Setup the node visual depending on its type = safe, enemy or boss encounter.

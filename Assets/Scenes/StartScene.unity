@@ -5357,7 +5357,7 @@ GameObject:
   - component: {fileID: 2033676506}
   - component: {fileID: 2033676507}
   m_Layer: 0
-  m_Name: GameController
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5390,11 +5390,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3162ab9a3d24a5e4cb1aaa33ef362d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  currentNodeName: 
+  currNodeName: 
   playerHealth: 20
   playerMaxHealth: 20
   gameWon: 0
   goldBonusNextFight: 0
+  allMaps:
+  - {fileID: 11400000, guid: ad33b0917e79c0a4187e94aa9d34e046, type: 2}
+  - {fileID: 11400000, guid: bd7211a016085854aa39fca95bb08bfe, type: 2}
+  currMapIndex: 0
 --- !u!114 &2033676507
 MonoBehaviour:
   m_ObjectHideFlags: 0

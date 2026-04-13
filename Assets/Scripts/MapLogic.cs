@@ -86,8 +86,7 @@ public class MapLogic : MonoBehaviour
 
     private void EnterBattle()
     {
-        GameManager.Instance.SetCurrentNode(currentNode);
-        GameManager.Instance.ChangeScene(2);
+        GameManager.Instance.EnterBattle(currentNode);
     }
 
     private void EnterSafeNode()

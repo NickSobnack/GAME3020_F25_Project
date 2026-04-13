@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67aadd433889cac4fae4bd2e8ca3a420, type: 3}
+  m_Name: FieldMap
+  m_EditorClassIdentifier: Assembly-CSharp::MapData
+  mapSceneIndex: 1
+  battleSceneIndex: 3
+  enemyPrefabs:
+  - {fileID: 1722415154068234465, guid: 6d4a5ac91547b624b8b8beaff0fab4d8, type: 3}
+  - {fileID: 4380710952050736012, guid: b01a59772672b594c95af8d5cc746aa5, type: 3}
+  bossPrefab: {fileID: 5720640102303302137, guid: 2e19745baf626754590b286b19bebcf2, type: 3}
+  enemyNames:
+  - Lancelot
+  - Gloria
+  bossName: Camelot

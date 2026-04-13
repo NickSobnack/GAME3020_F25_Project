@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 public enum MusicName
 {
     title,
-    overworld,
+    field,
+    swamp,
     battle,
     victory,
     gameover,
@@ -66,7 +67,8 @@ public class AudioManager : MonoBehaviour
     private void LoadAudio()
     {
         musicClips[(int)MusicName.title] = Resources.Load<AudioClip>("Audio/BGM/title");
-        musicClips[(int)MusicName.overworld] = Resources.Load<AudioClip>("Audio/BGM/overworld");
+        musicClips[(int)MusicName.field] = Resources.Load<AudioClip>("Audio/BGM/overworldField");
+        musicClips[(int)MusicName.swamp] = Resources.Load<AudioClip>("Audio/BGM/overworldSwamp");
         musicClips[(int)MusicName.battle] = Resources.Load<AudioClip>("Audio/BGM/battle");
         musicClips[(int)MusicName.victory] = Resources.Load<AudioClip>("Audio/BGM/victory");
         musicClips[(int)MusicName.gameover] = Resources.Load<AudioClip>("Audio/BGM/gameover");
@@ -146,10 +148,13 @@ public class AudioManager : MonoBehaviour
             case 0: // Title Scene
                 PlayMusic(MusicName.title, true);
                 break;
-            case 1: // Overworld Scene
-                PlayMusic(MusicName.overworld, true);
+            case 1: // Field Map Scene
+                PlayMusic(MusicName.field, true);
                 break;
-            case 2: // Battle Scene
+            case 2: // Swamp Map Scene
+                PlayMusic(MusicName.swamp, true);
+                break;
+            case 3: // Battle Scene
                 PlayMusic(MusicName.battle, true);
                 break;
         }

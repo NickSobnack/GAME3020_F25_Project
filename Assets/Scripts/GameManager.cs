@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public string currentNodeName;
-    private NodeType currentNodeType = NodeType.None;
+    public string currNodeName;
+    private NodeType currNodeType = NodeType.None;
 
     [Header("Player Stats")]
     public float playerHealth = 20f;
@@ -22,6 +22,22 @@ public class GameManager : MonoBehaviour
     private HashSet<string> purchasedItems = new();
     public int goldBonusNextFight = 0; 
     public bool HasPurchased(string id) => purchasedItems.Contains(id);
+
+    [Header("Map")]
+    public MapData[] allMaps;   
+    public int currMapIndex = 0;
+    public int CurrMapIndex => currMapIndex;
+    public MapData CurrentMap => allMaps[currMapIndex];
+    public bool HasNextMap => currMapIndex + 1 < allMaps.Length;
+
+    [ContextMenu("CHEAT - Jump to Map 2")]
+    private void CheatJumpToMap2()
+    {
+        currMapIndex = 1;
+        currNodeName = string.Empty;
+        ChangeScene(CurrentMap.mapSceneIndex);
+    }
+
 
     private void Awake()
     {
@@ -48,18 +64,18 @@ public class GameManager : MonoBehaviour
     // Sets and gets the current node info.
     public void SetCurrentNode(Node node)
     {
-        currentNodeName = node.name;
-        currentNodeType = node.nodeType; 
+        currNodeName = node.name;
+        currNodeType = node.nodeType; 
     }
 
     public string GetCurrentNodeName()
     {
-        return currentNodeName;
+        return currNodeName;
     }
 
     public NodeType GetCurrentNodeType()
     {
-        return currentNodeType;
+        return currNodeType;
     }
 
     // Load scene by index.
@@ -111,16 +127,38 @@ public class GameManager : MonoBehaviour
     //Reset game state, called when exiting or losing game.
     public void ResetGame()
     {
-        currentNodeName = string.Empty;
-        currentNodeType = NodeType.None;
+        currNodeName = string.Empty;
+        currNodeType = NodeType.None;
         playerHealth = playerMaxHealth;
         purchasedItems.Clear();
         goldBonusNextFight = 0;
+        currMapIndex = 0;      
     }
 
     private void RefreshGoldUI()
     {
         if (UIDisplay.Instance != null)
             UIDisplay.Instance.UpdateGoldDisplay();
+    }
+
+    public void AdvanceToNextMap()
+    {
+        if (!HasNextMap)
+        {
+            gameWon = true;
+            Debug.Log("Game won!");
+            return;
+        }
+
+        currMapIndex++;
+        currNodeName = string.Empty; 
+        ChangeScene(CurrentMap.mapSceneIndex);
+    }
+
+    // For later when battle scene changes based on map.
+    public void EnterBattle(Node node)
+    {
+        SetCurrentNode(node);
+        ChangeScene(CurrentMap.battleSceneIndex);
     }
 }
