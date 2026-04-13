@@ -7,8 +7,8 @@ public class PauseManager : MonoBehaviour
     [Header("Panels")]
     [SerializeField] private GameObject optionsPanel;
     [SerializeField] private GameObject settingsPanel;
-
-    private bool isPaused = false;
+    [SerializeField] private GameObject shopPanel;
+    private bool isPaused, shopWasOpen = false;
 
     private void PauseGame()
     {
@@ -18,30 +18,66 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = anyPanelOpen ? 0f : 1f;
     }
 
+    // Opens option panel and keeps shop panel closed, restores shop panel if it was flagged as open before.
     public void ToggleOptions()
     {
         isPaused = !isPaused;
         optionsPanel?.SetActive(isPaused);
 
         if (isPaused)
+        {
             BackgroundBlurManager.Instance.RegisterPanelOpened();
-        else
-            BackgroundBlurManager.Instance.RegisterPanelClosed();
+            optionsPanel.transform.SetAsLastSibling();
 
-        if (!isPaused)
+            if (shopPanel != null && shopPanel.activeSelf)
+            {
+                shopWasOpen = true;
+                shopPanel.SetActive(false);
+            }
+        }
+        else
+        {
+            BackgroundBlurManager.Instance.RegisterPanelClosed();
             settingsPanel?.SetActive(false);
 
+            if (shopWasOpen)
+            {
+                shopPanel.SetActive(true);
+                shopWasOpen = false;
+            }
+        }
+        PauseGame();
+    }
+
+    // Similarly, opens settings panel and keeps shop panel closed, restores shop panel if it was flagged as open before.
+    public void ToggleSettings()
+    {
+        bool opening = !settingsPanel.activeSelf;
+        settingsPanel.SetActive(opening);
+
+        if (opening)
+        {
+            settingsPanel.transform.SetAsLastSibling();
+
+            if (shopPanel != null && shopPanel.activeSelf)
+            {
+                shopWasOpen = true;
+                shopPanel.SetActive(false);
+            }
+        }
+        else
+        {
+            if (shopWasOpen && !isPaused)
+            {
+                shopPanel.SetActive(true);
+                shopWasOpen = false;
+            }
+        }
         PauseGame();
     }
 
     public void ToggleTutorial()
     {
-        PauseGame();
-    }
-
-    public void ToggleSettings()
-    {
-        settingsPanel.SetActive(!settingsPanel.activeSelf);
         PauseGame();
     }
 
