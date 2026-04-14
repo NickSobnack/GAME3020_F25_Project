@@ -11,13 +11,13 @@ public class Pointer : MonoBehaviour
 
     private void Start()
     {
-        startPos = transform.position;
+        startPos = new Vector3(0f, 1.2f, 0f);
     }
 
     // Bobs the pointer up and down to indicate current player target.
     void Update()
     {
         float bob = Mathf.Sin(Time.time * pulse * Mathf.PI * 2f) * heightOffset;
-        transform.position = startPos + new Vector3(0f, bob, 0f);
+        transform.localPosition = startPos + new Vector3(0f, bob, 0f);
     }
 }

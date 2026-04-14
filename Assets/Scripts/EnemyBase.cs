@@ -83,6 +83,7 @@ public abstract class EnemyBase : MonoBehaviour
 
     private void OnMouseDown()
     {
+        Debug.Log("Enemy tapped: " + enemyName);
         if (battleLogic != null)
         {
             battleLogic.SelectEnemy(this);
