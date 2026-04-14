@@ -41,7 +41,7 @@ public class SpellLogic : MonoBehaviour
             growthTimer = 0f;
             growthsDone++;
 
-            // Apply growth
+            // Apply growth to spell sprite.
             transform.localScale += new Vector3(growthAmount, growthAmount, 0f);
             AudioManager.Instance.PlaySound(SoundName.spell);
         }
@@ -52,5 +52,4 @@ public class SpellLogic : MonoBehaviour
         direction = (targetPosition - (Vector2)transform.position).normalized;
         rb.linearVelocity = direction * speed;
     }
-
 }

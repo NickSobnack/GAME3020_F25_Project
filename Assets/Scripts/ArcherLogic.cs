@@ -13,7 +13,7 @@ public class ArcherLogic : EnemyBase
     protected override void Awake()
     {
         base.Awake();
-        shootTimer = Random.Range(2f, 4f);
+        shootTimer = Random.Range(2f, 3f);
     }
 
     private void Update()

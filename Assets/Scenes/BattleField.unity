@@ -170,18 +170,6 @@ MonoBehaviour:
   - {fileID: 1524530005}
   - {fileID: 647320568}
   - {fileID: 2137482912}
-  enemyPrefabs:
-  - {fileID: 6940619115061838430, guid: 69aea735cc08c7944a8bf3c65c5ef5ea, type: 3}
-  bossPrefab: {fileID: 5720640102303302137, guid: 2e19745baf626754590b286b19bebcf2, type: 3}
-  enemyNames:
-  - Clara
-  - Gloria
-  - Teadon
-  - Selena
-  - Auguste
-  - Simona
-  - Parsifal
-  bossName: Camelot
   maxEnemiesToSpawn: 2
   bossTimeline: {fileID: 1396531624}
   bossPopupPanel: {fileID: 800770568}
@@ -444,6 +432,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1238899782}
     m_Modifications:
+    - target: {fileID: 500097580263346205, guid: 8efe1bf7dc16bc9468724eba1013414b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 500097580263346205, guid: 8efe1bf7dc16bc9468724eba1013414b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 492227228}
+    - target: {fileID: 500097580263346205, guid: 8efe1bf7dc16bc9468724eba1013414b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleOptions
+      objectReference: {fileID: 0}
     - target: {fileID: 1749110438950678263, guid: 8efe1bf7dc16bc9468724eba1013414b, type: 3}
       propertyPath: m_Name
       value: OptionsPanel
@@ -946,6 +946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PauseManager
   optionsPanel: {fileID: 393027006}
   settingsPanel: {fileID: 1345978505}
+  shopPanel: {fileID: 0}
 --- !u!4 &492227229
 Transform:
   m_ObjectHideFlags: 0
