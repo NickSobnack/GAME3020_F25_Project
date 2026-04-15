@@ -131,7 +131,6 @@ public class MapLogic : MonoBehaviour
         Destroy(healEffect, 1f);
     }
 
-
     public void MoveTo(Node nextNode)
     {
         if (currentNode.nextNodes.Contains(nextNode) && !nextNode.isVisited)

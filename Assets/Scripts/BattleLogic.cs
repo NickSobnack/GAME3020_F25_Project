@@ -26,6 +26,8 @@ public class BattleLogic : MonoBehaviour
     private float currHoldTimer;
     private bool isAttacking, isBlocking, noEnergy;
 
+    [SerializeField] private GameObject deflectButton;
+
     [Header("Animation")]
     public Animator playerAnimator;
     public Transform gameStatusVfxPoint;
@@ -59,6 +61,11 @@ public class BattleLogic : MonoBehaviour
     void Start()
     {
         selectedIndex = 0;
+
+        NodeType type = GameManager.Instance.GetCurrentNodeType();
+
+        if (deflectButton != null)
+            deflectButton.SetActive(type == NodeType.Boss);
     }
 
     private void Update()
@@ -121,7 +128,6 @@ public class BattleLogic : MonoBehaviour
             }
         }
     }
-
 
     public void Deflect(InputAction.CallbackContext context)
     {
@@ -327,6 +333,15 @@ public class BattleLogic : MonoBehaviour
     public void MobileEndBlock()
     {
         StopBlocking();
+    }
+
+    public void MobileDeflect()
+    {
+        if (!isBlocking && playerLogic.energy >= attackCost && !isAttacking && selectedTarget != null)
+        {
+            playerLogic.energy -= attackCost;
+            StartCoroutine(DeflectSequence(selectedTarget));
+        }
     }
 
     public void SelectEnemy(EnemyBase enemy)
