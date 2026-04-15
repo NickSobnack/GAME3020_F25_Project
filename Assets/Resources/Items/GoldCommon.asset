@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GoldCommon
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   id: B0
-  itemName: Marigold
+  itemName: T1 Pouch
   description: 10 gold
   cost: 100
   effectValue: 0

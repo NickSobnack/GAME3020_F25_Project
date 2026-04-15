@@ -60,7 +60,7 @@ public class ShopLogic : MonoBehaviour
             chosenItems.Add(item);
 
             var slot = itemSlots[i];
-
+            slot.SetItem(item);
             slot.ItemName.text = $"{item.itemName}";
             slot.ItemName.color = item.rarityColor;   
             slot.ItemIcon.sprite = item.icon;
@@ -94,7 +94,6 @@ public class ShopLogic : MonoBehaviour
         for (int i = 0; i < itemSlots.Length; i++)
         {
             itemSlots[i].ItemBorder.gameObject.SetActive(false);
-            itemSlots[i].ItemName.color = chosenItems[i].rarityColor;
         }
 
         itemSlots[index].ItemBorder.gameObject.SetActive(true);
@@ -153,8 +152,9 @@ public class ShopLogic : MonoBehaviour
         selectedIndex = -1;
 
         for (int i = 0; i < itemSlots.Length; i++)
-            itemSlots[i].ItemName.color = Color.black;
-
+        {
+            itemSlots[i].ItemBorder.gameObject.SetActive(false);
+        }
         confirmButton.interactable = false;
         cancelButton.interactable = false;
     }
@@ -169,9 +169,6 @@ public class ShopLogic : MonoBehaviour
     public void ResetShop()
     {
         selectedIndex = -1;
-
-        for (int i = 0; i < itemSlots.Length; i++)
-            itemSlots[i].ItemName.color = Color.black;
 
         confirmButton.interactable = false;
         cancelButton.interactable = false;

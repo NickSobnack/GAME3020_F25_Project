@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GoldRare
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   id: B2
-  itemName: Lily of the Valley
+  itemName: T3 Pouch
   description: 40 gold
   cost: 400
   effectValue: 0

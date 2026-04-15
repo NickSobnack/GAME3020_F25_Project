@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BuffRare
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   id: A2
-  itemName: Pizza
+  itemName: T3 Sword
   description: 30 attack
   cost: 400
   effectValue: 0

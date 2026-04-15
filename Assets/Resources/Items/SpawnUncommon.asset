@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpawnUncommon
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   id: C1
-  itemName: Shark
+  itemName: T2 Meat
   description: 20 shark
   cost: 200
   effectValue: 0

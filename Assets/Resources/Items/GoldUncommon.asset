@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GoldUncommon
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   id: B1
-  itemName: Tulip
+  itemName: T2 Pouch
   description: 20 gold
   cost: 200
   effectValue: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BuffCommon
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   id: A0
-  itemName: Apple
+  itemName: T1 Sword
   description: 10 attack
   cost: 100
   effectValue: 0
