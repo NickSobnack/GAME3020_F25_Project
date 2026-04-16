@@ -122,25 +122,15 @@ public class ShopLogic : MonoBehaviour
 
         ResetSelection();
     }
- 
+
     void ApplyItemEffect(ItemData item)
     {
         switch (item.effectType)
         {
             case ItemEffect.GoldBoost:
-                Debug.Log("Increase Gold for next fight.");
-                break;
-
             case ItemEffect.StatBoost:
-                Debug.Log("Increase Attack for next fight.");
-                break;
-
             case ItemEffect.SpawnBoost:
-                Debug.Log("Less enemy will appear for next fight.");
-                break;
-
-            default:
-                Debug.Log("No effect.");
+                GameManager.Instance.AddBuff(item.effectType, item.effectValue, item.duration);
                 break;
         }
     }

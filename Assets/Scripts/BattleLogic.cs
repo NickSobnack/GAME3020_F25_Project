@@ -215,8 +215,9 @@ public class BattleLogic : MonoBehaviour
         AudioManager.Instance.PlaySound(SoundName.sword);
         yield return new WaitForSeconds(0.5f);
 
-        target.TakeDamage(playerDmg);
-        Debug.Log($"Attack dealt {playerDmg} damage to {target.name}");
+        float totalDmg = playerDmg * GameManager.Instance.GetBuffValue(ItemEffect.AttackBoost);
+        target.TakeDamage(totalDmg);
+
         CheckAllEnemiesDefeated();
 
         yield return new WaitForSeconds(returnDelay);
@@ -277,6 +278,8 @@ public class BattleLogic : MonoBehaviour
     {
         enemies.RemoveAll(e => e == null || e.health <= 0);
         if (enemies.Count > 0) return;
+
+        GameManager.Instance.TickBuffs();
 
         Instantiate(perfectVfx, gameStatusVfxPoint.position, Quaternion.identity);
         AudioManager.Instance.PlayMusic(MusicName.victory, false);
@@ -360,19 +363,15 @@ public class BattleLogic : MonoBehaviour
     {
         if (isBlocking)
         {
-            Debug.Log("Guard! No gold stolen.");
             return;
         }
 
         if (playerLogic.energy <= 0)
         {
-            Debug.Log("No energy! Large amount of gold stolen.");
             GameManager.Instance.StealGold(goldStolen*2);
             return;
         }
 
-        Debug.Log("Hit taken. Normal amount of gold stolen.");
         GameManager.Instance.StealGold(goldStolen);
     }
-
 }

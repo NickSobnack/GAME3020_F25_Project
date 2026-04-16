@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public enum ItemRarity { Common, Uncommon, Rare } // Spawn chance in shop: Common 70%, Uncommon 25%, Rare 5%.
-public enum ItemEffect { None, StatBoost, GoldBoost, SpawnBoost }
+public enum ItemEffect { None, AttackBoost, DefenceBoost, GoldBoost, SpawnBoost }
 
 [CreateAssetMenu(fileName = "ShopItem", menuName = "Game/ItemData")]
 public class ItemData : ScriptableObject 
@@ -11,6 +11,7 @@ public class ItemData : ScriptableObject
     public string description;
     public int cost;
     public float effectValue;
+    public int duration; 
     public bool isOneTimePurchase;
     public Sprite icon;
     public Color rarityColor;

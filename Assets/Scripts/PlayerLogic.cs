@@ -156,7 +156,9 @@ public class PlayerLogic : MonoBehaviour, IDamage
 
     public void TakeDamage(float amount)
     {
-        health -= amount;
+        float reduction = GameManager.Instance.GetBuffValue(ItemEffect.DefenceBoost);
+        float finalDamage = Mathf.Max(0, amount / reduction);
+        health -= finalDamage;
         health = Mathf.Clamp(health, 0, maxHealth);
         playerAnimator.SetTrigger(hurtAnim);
     }

@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+[System.Serializable]
+public struct ActiveBuff
+{
+    public ItemEffect type;
+    public float value;
+    public int fightsRemaining;
+}
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -15,6 +24,7 @@ public class GameManager : MonoBehaviour
     public float playerMaxHealth = 20f;
     private bool playerInputAllowed = true;
     public bool gameWon = false;
+    private List<ActiveBuff> activeBuffs = new();
 
     [Header("Gold & Shop")]
     private int currGold = 700;
@@ -37,7 +47,6 @@ public class GameManager : MonoBehaviour
         currNodeName = string.Empty;
         ChangeScene(CurrentMap.mapSceneIndex);
     }
-
 
     private void Awake()
     {
@@ -160,5 +169,29 @@ public class GameManager : MonoBehaviour
     {
         SetCurrentNode(node);
         ChangeScene(CurrentMap.battleSceneIndex);
+    }
+
+    public float GetBuffValue(ItemEffect type)
+    {
+        float total = 0f;
+        foreach (var buff in activeBuffs)
+            if (buff.type == type) total += buff.value;
+        return total;
+    }
+
+    public void AddBuff(ItemEffect type, float value, int fights)
+    {
+        activeBuffs.Add(new ActiveBuff { type = type, value = value, fightsRemaining = fights });
+    }
+
+    public void TickBuffs()
+    {
+        for (int i = activeBuffs.Count - 1; i >= 0; i--)
+        {
+            var b = activeBuffs[i];
+            b.fightsRemaining--;
+            if (b.fightsRemaining <= 0) activeBuffs.RemoveAt(i);
+            else activeBuffs[i] = b;
+        }
     }
 }

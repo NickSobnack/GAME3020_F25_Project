@@ -13,7 +13,10 @@ public class MoneyBag : MonoBehaviour
         collected = true;
 
         AudioManager.Instance.PlaySound(SoundName.coin);
-        GameManager.Instance.AddGold(goldValue);
+
+        int bonus = (int)GameManager.Instance.GetBuffValue(ItemEffect.GoldBoost);
+        GameManager.Instance.AddGold(goldValue * bonus);
+
         Destroy(gameObject, .5f);
     }
 }

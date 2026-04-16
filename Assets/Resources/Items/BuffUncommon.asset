@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: BuffUncommon
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   id: A1
-  itemName: T2 Sword
-  description: 20 attack
-  cost: 200
-  effectValue: 0
+  itemName: Scimitar
+  description: Doubles attack power for the next 2 encounters.
+  cost: 400
+  effectValue: 2
+  duration: 2
   isOneTimePurchase: 1
   icon: {fileID: 21300000, guid: fc44dd1ccece09f42befcfccca5c3c64, type: 3}
   rarityColor: {r: 0.9716981, g: 0.966376, b: 0.05958529, a: 1}
-  effectType: 1
+  effectType: 0
   rarityType: 1

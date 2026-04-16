@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7485996ff5fa8b04480a6e594bb818cd, type: 3}
-  m_Name: SpawnUncommon
+  m_Name: ArmorRare
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  id: C1
-  itemName: T2 Meat
-  description: 20 shark
-  cost: 200
-  effectValue: 0
+  id: C2
+  itemName: Prime Rib
+  description: Doubles defense for the next 3 encounters.
+  cost: 400
+  effectValue: 2
+  duration: 3
   isOneTimePurchase: 1
   icon: {fileID: 21300000, guid: 80d237ac9d3c86f45acf912bd11e0f37, type: 3}
-  rarityColor: {r: 0.9716981, g: 0.966376, b: 0.05958529, a: 1}
-  effectType: 3
-  rarityType: 1
+  rarityColor: {r: 0.77880013, g: 0.3537736, b: 1, a: 1}
+  effectType: 0
+  rarityType: 2

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: GoldRare
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   id: B2
-  itemName: T3 Pouch
-  description: 40 gold
-  cost: 400
-  effectValue: 0
+  itemName: Treasure
+  description: Doubles gold rewards for the next 3 encounters.
+  cost: 600
+  effectValue: 2
+  duration: 3
   isOneTimePurchase: 1
   icon: {fileID: 21300000, guid: f35b457ea8825cf48a4b7bcbc0c9bb4a, type: 3}
   rarityColor: {r: 0.77880013, g: 0.3537736, b: 1, a: 1}
