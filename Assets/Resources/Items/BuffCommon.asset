@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   id: A0
   itemName: Broadsword
-  description: Doubles attack power for the next encounter.
+  description: Increases attack power for the next encounter.
   cost: 100
   effectValue: 2
   duration: 1
   isOneTimePurchase: 1
   icon: {fileID: 21300000, guid: fc44dd1ccece09f42befcfccca5c3c64, type: 3}
   rarityColor: {r: 1, g: 1, b: 1, a: 1}
-  effectType: 0
+  effectType: 1
   rarityType: 0

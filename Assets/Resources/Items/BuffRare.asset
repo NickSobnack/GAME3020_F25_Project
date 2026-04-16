@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   id: A2
   itemName: Durandal
-  description: Doubles attack power the next 3 encounters.
+  description: Increases attack power the next 3 encounters.
   cost: 1000
   effectValue: 2
   duration: 3
   isOneTimePurchase: 1
   icon: {fileID: 21300000, guid: fc44dd1ccece09f42befcfccca5c3c64, type: 3}
   rarityColor: {r: 0.77880013, g: 0.3537736, b: 1, a: 1}
-  effectType: 0
+  effectType: 1
   rarityType: 2

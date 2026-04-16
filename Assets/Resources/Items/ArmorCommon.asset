@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   id: C0
   itemName: Cutlet
-  description: Doubles defense for the next encounter.
+  description: Reduces damage taken for the next encounter.
   cost: 100
-  effectValue: 2
+  effectValue: 1
   duration: 1
   isOneTimePurchase: 1
   icon: {fileID: 21300000, guid: 80d237ac9d3c86f45acf912bd11e0f37, type: 3}
   rarityColor: {r: 1, g: 1, b: 1, a: 1}
-  effectType: 0
+  effectType: 2
   rarityType: 0

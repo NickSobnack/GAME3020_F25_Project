@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   id: B1
   itemName: Satchel
-  description: Doubles gold rewards in the next 2 encounters.
+  description: Increases gold rewards in the next 2 encounters.
   cost: 200
-  effectValue: 2
+  effectValue: 65
   duration: 2
   isOneTimePurchase: 1
   icon: {fileID: 21300000, guid: f35b457ea8825cf48a4b7bcbc0c9bb4a, type: 3}
   rarityColor: {r: 0.9716981, g: 0.966376, b: 0.05958529, a: 1}
-  effectType: 2
+  effectType: 3
   rarityType: 1

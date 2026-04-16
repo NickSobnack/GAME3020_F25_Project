@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   id: B0
   itemName: Purse
-  description: Doubles gold earned for the next encounter.
+  description: Increases gold earned for the next encounter.
   cost: 50
-  effectValue: 2
+  effectValue: 50
   duration: 1
   isOneTimePurchase: 1
   icon: {fileID: 21300000, guid: f35b457ea8825cf48a4b7bcbc0c9bb4a, type: 3}
   rarityColor: {r: 1, g: 1, b: 1, a: 1}
-  effectType: 2
+  effectType: 3
   rarityType: 0

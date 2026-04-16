@@ -215,7 +215,7 @@ public class BattleLogic : MonoBehaviour
         AudioManager.Instance.PlaySound(SoundName.sword);
         yield return new WaitForSeconds(0.5f);
 
-        float totalDmg = playerDmg * GameManager.Instance.GetBuffValue(ItemEffect.AttackBoost);
+        float totalDmg = playerDmg + GameManager.Instance.GetBuffValue(ItemEffect.AttackBoost);
         target.TakeDamage(totalDmg);
 
         CheckAllEnemiesDefeated();

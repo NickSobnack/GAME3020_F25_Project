@@ -128,7 +128,8 @@ public class ShopLogic : MonoBehaviour
         switch (item.effectType)
         {
             case ItemEffect.GoldBoost:
-            case ItemEffect.StatBoost:
+            case ItemEffect.AttackBoost:
+            case ItemEffect.DefenceBoost:
             case ItemEffect.SpawnBoost:
                 GameManager.Instance.AddBuff(item.effectType, item.effectValue, item.duration);
                 break;

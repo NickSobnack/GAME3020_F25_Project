@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   id: C1
   itemName: Steak
-  description: Doubles defense for the next 2 encounters.
+  description: Slightly reduces damage taken for the next 2 encounters.
   cost: 200
   effectValue: 2
   duration: 2
   isOneTimePurchase: 1
   icon: {fileID: 21300000, guid: 80d237ac9d3c86f45acf912bd11e0f37, type: 3}
   rarityColor: {r: 0.9716981, g: 0.966376, b: 0.05958529, a: 1}
-  effectType: 0
+  effectType: 2
   rarityType: 1

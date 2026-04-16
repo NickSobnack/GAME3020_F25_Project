@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 
 [System.Serializable]
+// Struct to track buffs type, value and duration.
 public struct ActiveBuff
 {
     public ItemEffect type;

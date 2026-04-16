@@ -15,7 +15,8 @@ public class MoneyBag : MonoBehaviour
         AudioManager.Instance.PlaySound(SoundName.coin);
 
         int bonus = (int)GameManager.Instance.GetBuffValue(ItemEffect.GoldBoost);
-        GameManager.Instance.AddGold(goldValue * bonus);
+        GameManager.Instance.AddGold(goldValue + bonus);
+        Debug.Log($"Collected {goldValue} gold with a bonus of {bonus} gold!");
 
         Destroy(gameObject, .5f);
     }
