@@ -23,7 +23,6 @@ public class GoblinLogic : EnemyBase
         originalPos = transform.position;
     }
 
-
     private void Update()
     {
         if (isStunned) return;
