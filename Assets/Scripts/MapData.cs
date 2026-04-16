@@ -4,6 +4,7 @@ using UnityEngine;
 public class MapData : ScriptableObject
 {
     // Index for assigned map and battle scenes.
+    public string mapName;
     public int mapSceneIndex;       
     public int battleSceneIndex;  
 

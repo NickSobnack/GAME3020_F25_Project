@@ -1,18 +1,24 @@
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
 public class EnemySpawner : MonoBehaviour
-    {
-
+{
     [Header("Spawn Settings")]
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private int maxEnemiesToSpawn = 3;
-    [SerializeField] private PlayableDirector bossTimeline;
     [SerializeField] private GameObject bossPopupPanel;
     [SerializeField] private GameObject gameplayUI;
     [SerializeField] private Button continueButton;
+
+    [SerializeField] private PlayableDirector fieldBossTimeline;
+    [SerializeField] private PlayableDirector swampBossTimeline;
+
+    [SerializeField] private GameObject camelotDescription, torrentDescription;
+
+    private PlayableDirector activeTimeline;
 
     private GameObject bossInstance;
     private MapData mapData;
@@ -68,19 +74,37 @@ public class EnemySpawner : MonoBehaviour
     private void PlayBossCutscene()
     {
         GameManager.Instance.SetPlayerInput(false);
-        Time.timeScale = 0f; 
+        Time.timeScale = 0f;
+
         if (gameplayUI != null)
             gameplayUI.SetActive(false);
-        bossTimeline.gameObject.SetActive(true);
-        bossTimeline.timeUpdateMode = DirectorUpdateMode.UnscaledGameTime;
-        bossTimeline.Play();
-        bossTimeline.stopped += OnBossTimelineFinished;
+
+        string mapName = mapData.mapName;
+
+        if (mapName == "FieldMap")
+        {
+            activeTimeline = fieldBossTimeline;
+        }
+        else if (mapName == "SwampMap")
+        {
+            activeTimeline = swampBossTimeline;
+        }
+        else
+        {
+            activeTimeline = fieldBossTimeline;
+        }
+
+        activeTimeline.gameObject.SetActive(true);
+        activeTimeline.timeUpdateMode = DirectorUpdateMode.UnscaledGameTime;
+        activeTimeline.Play();
+        activeTimeline.stopped += OnBossTimelineFinished;
     }
+
 
     private void OnBossTimelineFinished(PlayableDirector director)
     {
-        bossTimeline.stopped -= OnBossTimelineFinished;
-        bossTimeline.gameObject.SetActive(false); 
+        activeTimeline.stopped -= OnBossTimelineFinished;
+        activeTimeline.gameObject.SetActive(false);
         ShowBossPopup();
     }
 
@@ -88,14 +112,30 @@ public class EnemySpawner : MonoBehaviour
     {
         if (bossPopupPanel != null)
         {
-            bossPopupPanel.SetActive(true);
+            bossPopupPanel.SetActive(true); 
+            
+            camelotDescription.SetActive(false);
+            torrentDescription.SetActive(false);
+
+            string mapName = mapData.mapName;
+
+            if (mapName == "FieldMap")
+            {
+                camelotDescription.SetActive(true);
+            }
+            else if (mapName == "SwampMap")
+            {
+                torrentDescription.SetActive(true);
+            }
 
             continueButton.onClick.RemoveAllListeners();
             continueButton.onClick.AddListener(() =>
             {
                 bossPopupPanel.SetActive(false);
+
                 if (gameplayUI != null)
                     gameplayUI.SetActive(true);
+
                 bossInstance.gameObject.SetActive(true);
                 Time.timeScale = 1f; 
                 GameManager.Instance.SetPlayerInput(true);

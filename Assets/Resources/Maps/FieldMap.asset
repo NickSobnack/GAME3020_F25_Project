@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67aadd433889cac4fae4bd2e8ca3a420, type: 3}
   m_Name: FieldMap
   m_EditorClassIdentifier: Assembly-CSharp::MapData
+  mapName: FieldMap
   mapSceneIndex: 1
   battleSceneIndex: 3
   enemyPrefabs:
